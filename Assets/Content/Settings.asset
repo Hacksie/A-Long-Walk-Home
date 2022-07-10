@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be349674ee367314981dd2863a4f4ddb, type: 3}
+  m_Name: Settings
+  m_EditorClassIdentifier: 
+  walkSpeed: 2.5
+  rotateSpeed: 180
+  orbitSpeed: 180
+  clawRange: 0.7
+  maxLevels: 25
+  skipIntro: 1
+  worldSize: {x: 500, y: 500}
+  safeArea: {x: 35, y: 35}
+  maxHeat: 100
+  maxCoolant: 100
+  maxArmour: 100
+  startingArmour: 100
+  startingHeat: 0
+  startingCoolant: 0
+  ambientHeatLoss: 1
+  startingLeftArm: 2
+  startingRightArm: 1
+  startingLeftShoulder: 0
+  startingRightShoulder: 0
+  startingNose: 8
+  startingPrimary: 1
+  startingSecondary: 4
+  dialogLines:
+  - {fileID: 11400000, guid: 7cb5f80067346de4abd1f48ae591f738, type: 2}
+  startPosition: {x: 24, y: 0, z: 26}

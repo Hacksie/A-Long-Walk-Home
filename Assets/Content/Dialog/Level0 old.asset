@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a9d6b578762d5409f743240bd5d755, type: 3}
+  m_Name: Level0 old
+  m_EditorClassIdentifier: 
+  lines:
+  - <i>Deep breath. You're alive. Deep behind enemy lines. But alive.</i>
+  - 'X: Base, can you hear me?'
+  - 'Base: Come in *. Ca* **u h*** me? **e *** ok?'
+  - 'X: That depends on your definition of ok.'
+  - 'Base: W* *ost yo** tr***port drone **er ****** canyo*. Radio re***tion is p***.'
+  - 'X: You don''t say. Can you get me out of here?'
+  - 'Base: *** sorry *. *** too dan******. *** plotting a p*th to frien*** ****s.'
+  - You'll **** ** fight your *** out.
+  - 'X: With what, this agro mech? It''s not even combat configured. '
+  - 'Base: **********************************'
+  - <i>Great. It's a long walk home. Let's get dying over with.</i>
