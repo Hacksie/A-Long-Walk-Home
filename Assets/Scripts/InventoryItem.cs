@@ -8,8 +8,8 @@ namespace HackedDesign
     [CreateAssetMenu(fileName = "InvItem", menuName = "State/InvItem")]
     public class InventoryItem : ScriptableObject
     {
-        [SerializeField] public MechPosition mechPosition;
-        [SerializeField] public WeaponType type;
+        [SerializeField] public List<MechPosition> allowedMechPositions;
+        [SerializeField] public WeaponType weaponType;
         [SerializeField] public AmmoType ammoType;
         [SerializeField] public float baseFireRate = 0;
         [SerializeField] public float baseDamage = 10;

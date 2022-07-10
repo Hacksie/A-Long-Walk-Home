@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace HackedDesign
@@ -5,47 +6,45 @@ namespace HackedDesign
     public class Weapon : MonoBehaviour
     {
         [SerializeField] public GameObject parent;
-        [SerializeField] public WeaponType type;
         [SerializeField] public Transform firePoint;
-        [SerializeField] public int ammo = 0;
-        [SerializeField] public int maxAmmo = 0;
-        [SerializeField] public AmmoType ammoType;
-        [SerializeField] public float fireRate = 0;
-        [SerializeField] public float damage = 10;
-        [SerializeField] public float heat = 10;
-        //[SerializeField] public Sprite sprite;
         [SerializeField] public bool isPlayer = false;
-        [SerializeField] public WeaponSettings settings;
         [SerializeField] public InventoryItem item;
+        [SerializeField] public List<WeaponModel> models;
 
         private float nextFireTime = 0;
 
+        void Awake()
+        {
+            isPlayer = parent.CompareTag("Player");
+        }
+
+        public void UpdateModel()
+        {
+            // FIXME: Check that the inv item can go here
+            for (int i = 0; i < models.Count; i++)
+            {
+                models[i].gameObject.SetActive(item != null && models[i].weaponType == item.weaponType);
+            }
+        }
+
         public bool Fire()
         {
-            if (Time.time >= nextFireTime)
+            if (item != null)
             {
-                nextFireTime = Time.time + fireRate;
-                // if (ammoType == AmmoType.Claw)
-                // {
-                //     if (isPlayer)
-                //     {
-                //         ClawAttack();
-                //     }
-                // }
-                // else
-                // {
-                //     FireAmmo();
-                // }
-
-                FireAmmo();
-
-                if (isPlayer)
+                if (Time.time >= nextFireTime)
                 {
-                    Game.Instance.IncreaseHeat(heat);
+                    nextFireTime = Time.time + item.baseFireRate;
+
+                    FireAmmo();
+
+                    if (isPlayer)
+                    {
+                        Game.Instance.IncreaseHeat(item.baseHeat);
+                    }
+                    Game.Instance.CameraShake.Shake(item.shake, 0.1f);
+                    PlaySFX();
+                    return true;
                 }
-                Game.Instance.CameraShake.Shake(settings.shake, 0.1f);
-                PlaySFX();
-                return true;
             }
 
             return false;
@@ -62,30 +61,7 @@ namespace HackedDesign
 
         private void FireAmmo()
         {
-            Game.Instance.Pool.FireBullet(ammoType, parent, firePoint.position, firePoint.forward, damage);
+            Game.Instance.Pool.FireBullet(item.ammoType, parent, firePoint.position, firePoint.forward, item.baseDamage);
         }
-
-        private void ClawAttack()
-        {
-
-            var colliders = Physics.OverlapSphere(firePoint.position, Game.Instance.Settings.clawRange);
-            foreach (Collider c in colliders)
-            {
-                // if (c.gameObject.CompareTag("Enemy"))
-                // {
-                //     var e = c.GetComponentInParent<Enemy>();
-                //     if (e != null)
-                //     {
-                //         e.Damage(this.damage);
-                //     }
-                //     else
-                //     {
-                //         Debug.LogError("untagged enemy error");
-                //     }
-                // }
-
-            }
-        }
-
     }
 }

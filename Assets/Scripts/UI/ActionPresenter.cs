@@ -26,7 +26,7 @@ namespace HackedDesign.UI
 
         }
 
-        private void UpdateWeaponFrames(WeaponsController weapons)
+        private void UpdateWeaponFrames(MechController weapons)
         {
             for (int i = 0; i < frames.Count; i++)
             {
@@ -34,12 +34,12 @@ namespace HackedDesign.UI
             }
         }
 
-        private void UpdateWeaponIcons(WeaponsController weapons)
+        private void UpdateWeaponIcons(MechController weapons)
         {
             for (int i = 0; i < icons.Count; i++)
             {
                 var weapon = weapons.GetWeapon((WeaponPosition)i);
-                icons[i].sprite = weapon != null ? weapon.settings.sprite : noWeaponIcon;
+                icons[i].sprite = weapon != null && weapon.item != null ? weapon.item.sprite : noWeaponIcon;
             }
         }
     }

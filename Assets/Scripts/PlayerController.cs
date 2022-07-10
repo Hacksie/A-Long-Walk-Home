@@ -12,13 +12,13 @@ namespace HackedDesign
         [SerializeField] private Rigidbody? rb;
         [SerializeField] private PlayerInput? playerInput;
         [SerializeField] private Animator? animator;
-        [SerializeField] private WeaponsController? weapons;
+        [SerializeField] private MechController? weapons;
 
         [Header("Settings")]
         [SerializeField] private Settings? settings;
         [SerializeField] private LayerMask aimMask;
 
-        public WeaponsController? Weapons { get => weapons; set => weapons = value; }
+        public MechController? Weapons { get => weapons; set => weapons = value; }
 
         private InputAction? startAction;
         private InputAction? selectAction;
@@ -36,7 +36,7 @@ namespace HackedDesign
             playerInput = playerInput ?? GetComponent<PlayerInput>();
             rb = rb ?? GetComponent<Rigidbody>();
             animator = animator ?? GetComponent<Animator>();
-            weapons = weapons ?? GetComponent<WeaponsController>();
+            weapons = weapons ?? GetComponent<MechController>();
 
             startAction = playerInput.actions["Start"];
             selectAction = playerInput.actions["Select"];
@@ -71,11 +71,11 @@ namespace HackedDesign
             this.transform.position = settings.startPosition;
             weapons.selectedPrimaryWeapon = settings.startingPrimary;
             weapons.selectedSecondaryWeapon = settings.startingSecondary;
-            weapons.leftArmWeapon = settings.startingLeftArm;
-            weapons.rightArmWeapon = settings.startingRightArm;
-            weapons.leftShoulderWeapon = settings.startingLeftShoulder;
-            weapons.rightShoulderWeapon = settings.startingRightShoulder;
-            weapons.noseWeapon = settings.startingNose;
+            // weapons.leftArmWeapon = settings.startingLeftArm;
+            // weapons.rightArmWeapon = settings.startingRightArm;
+            // weapons.leftShoulderWeapon = settings.startingLeftShoulder;
+            // weapons.rightShoulderWeapon = settings.startingRightShoulder;
+            // weapons.noseWeapon = settings.startingNose;
             weapons.linkArms = false;
             weapons.linkShoulders = false;
             weapons.UpdateWeapons();

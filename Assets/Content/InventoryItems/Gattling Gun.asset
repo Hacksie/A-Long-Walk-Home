@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df5667b83adca3f4baebc6f397d3cc02, type: 3}
-  m_Name: Claw
+  m_Name: Gattling Gun
   m_EditorClassIdentifier: 
-  allowedMechPositions: 00000000
-  weaponType: 1
-  ammoType: 0
-  baseFireRate: 0
+  allowedMechPositions: 00000000010000000200000003000000
+  weaponType: 3
+  ammoType: 3
+  baseFireRate: 0.5
   baseDamage: 10
   baseHeat: 10
-  shake: 0.1
-  sprite: {fileID: 21300000, guid: 47aa00be2a37ffc40848c6f23672dfc5, type: 3}
-  canRemove: 0
+  shake: 0.5
+  sprite: {fileID: 21300000, guid: b18513eb728ff6444804915a002ac0ac, type: 3}
+  canRemove: 1

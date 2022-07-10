@@ -43,6 +43,15 @@ namespace HackedDesign
         Shield,
         Motor,
         Coolant,
-        Radar
+        Radar,
+        InvSlot0,
+        InvSlot1,
+        InvSlot2,
+        InvSlot3,
+        InvSlot4,
+        InvSlot5,
+        InvSlot6,
+        InvSlot7,
+
     }
 }

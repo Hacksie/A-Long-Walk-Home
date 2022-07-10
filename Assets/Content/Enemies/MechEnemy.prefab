@@ -120,9 +120,10 @@ MonoBehaviour:
   fireRate: 0.5
   damage: 10
   heat: 2
-  sprite: {fileID: 21300000, guid: 022ec3b9a21ae0143b78d01a5abbc4d3, type: 3}
   isPlayer: 1
   settings: {fileID: 0}
+  item: {fileID: 0}
+  models: []
 --- !u!1 &368004229861079737
 GameObject:
   m_ObjectHideFlags: 0
@@ -2843,9 +2844,10 @@ MonoBehaviour:
   fireRate: 0.6
   damage: 50
   heat: 10
-  sprite: {fileID: 0}
   isPlayer: 1
   settings: {fileID: 0}
+  item: {fileID: 0}
+  models: []
 --- !u!1 &617007866933949085
 GameObject:
   m_ObjectHideFlags: 0
@@ -6076,9 +6078,10 @@ MonoBehaviour:
   fireRate: 0
   damage: 10
   heat: 10
-  sprite: {fileID: 0}
   isPlayer: 1
   settings: {fileID: 0}
+  item: {fileID: 0}
+  models: []
 --- !u!1 &2136478144779843172
 GameObject:
   m_ObjectHideFlags: 0
@@ -28806,9 +28809,10 @@ MonoBehaviour:
   fireRate: 0.5
   damage: 10
   heat: 2
-  sprite: {fileID: 21300000, guid: 022ec3b9a21ae0143b78d01a5abbc4d3, type: 3}
   isPlayer: 1
   settings: {fileID: 0}
+  item: {fileID: 0}
+  models: []
 --- !u!1 &4855950881162041114
 GameObject:
   m_ObjectHideFlags: 0
@@ -28894,9 +28898,10 @@ MonoBehaviour:
   fireRate: 0
   damage: 10
   heat: 10
-  sprite: {fileID: 0}
   isPlayer: 1
   settings: {fileID: 0}
+  item: {fileID: 0}
+  models: []
 --- !u!1 &4883733130118694087
 GameObject:
   m_ObjectHideFlags: 0
@@ -28990,7 +28995,6 @@ GameObject:
   m_Component:
   - component: {fileID: 209989687645584440}
   - component: {fileID: -3713370225878283169}
-  - component: {fileID: 9057519112818353322}
   - component: {fileID: 2532654714703272363}
   - component: {fileID: 859958803316733466}
   - component: {fileID: 4386842077549126038}
@@ -29035,46 +29039,6 @@ MonoBehaviour:
   alertRadius: 20
   minLevel: 0
   agent: {fileID: 8389931543732729848}
---- !u!114 &9057519112818353322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4887413039515091441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b677b4196d179943bae48089af1929c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nose: []
-  rightArm:
-  - {fileID: 2383837739732286731}
-  leftArm:
-  - {fileID: 317505674345574242}
-  - {fileID: 7281782643244772292}
-  - {fileID: 563685155635127448}
-  - {fileID: 3455297904973673704}
-  rightShoulder:
-  - {fileID: 5882371230501291450}
-  - {fileID: 2035335850449783337}
-  leftShoulder:
-  - {fileID: 3245903446297001948}
-  - {fileID: 1574872657946793235}
-  selectedPrimaryWeapon: 1
-  selectedSecondaryWeapon: 1
-  noseWeapon: 0
-  leftArmWeapon: 2
-  rightArmWeapon: 1
-  leftShoulderWeapon: 2
-  rightShoulderWeapon: 2
-  linkArms: 0
-  linkShoulders: 0
-  noseWeaponTemp: 0
-  leftArmWeaponTemp: 0
-  rightArmWeaponTemp: 0
-  leftShoulderWeaponTemp: 0
-  rightShoulderWeaponTemp: 0
 --- !u!54 &2532654714703272363
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -33311,9 +33275,10 @@ MonoBehaviour:
   fireRate: 0.5
   damage: 10
   heat: 2
-  sprite: {fileID: 21300000, guid: 022ec3b9a21ae0143b78d01a5abbc4d3, type: 3}
   isPlayer: 1
   settings: {fileID: 0}
+  item: {fileID: 0}
+  models: []
 --- !u!1 &5811774571083218067
 GameObject:
   m_ObjectHideFlags: 0
@@ -35265,9 +35230,10 @@ MonoBehaviour:
   fireRate: 0.3
   damage: 10
   heat: 0
-  sprite: {fileID: 21300000, guid: f39a7f00a39075a4580b93bb54bae28f, type: 3}
   isPlayer: 1
   settings: {fileID: 0}
+  item: {fileID: 0}
+  models: []
 --- !u!1 &6615848306208360396
 GameObject:
   m_ObjectHideFlags: 0
@@ -38218,9 +38184,10 @@ MonoBehaviour:
   fireRate: 0.2
   damage: 7
   heat: 2
-  sprite: {fileID: 21300000, guid: c3ae2a5d811d8704498dbf58cc9ba11e, type: 3}
   isPlayer: 1
   settings: {fileID: 0}
+  item: {fileID: 0}
+  models: []
 --- !u!1 &7335048828793307370
 GameObject:
   m_ObjectHideFlags: 0
@@ -45125,9 +45092,10 @@ MonoBehaviour:
   fireRate: 0
   damage: 10
   heat: 10
-  sprite: {fileID: 0}
   isPlayer: 1
   settings: {fileID: 0}
+  item: {fileID: 0}
+  models: []
 --- !u!1 &8845203051532707765
 GameObject:
   m_ObjectHideFlags: 0
