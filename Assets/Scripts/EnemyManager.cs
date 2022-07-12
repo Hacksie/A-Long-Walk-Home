@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace HackedDesign
@@ -9,17 +10,19 @@ namespace HackedDesign
         [Header("Referenced Game Objects")]
         [SerializeField] private Transform enemyParent;
         [Header("Settings")]
-        [SerializeField] private int xScale = 500;
-        [SerializeField] private int zScale = 500;
-        [SerializeField] private int safeX = 33;
-        [SerializeField] private int safeZ = 33;
+        //[SerializeField] private int xScale = 500;
+        //[SerializeField] private int zScale = 500;
+        // [SerializeField] private int safeX = 33;
+        // [SerializeField] private int safeZ = 33;
         [SerializeField] private int minClusterSize = 2;
         [SerializeField] private int maxClusterSize = 6;
         [SerializeField] private float clusterRadius = 30;
+        [SerializeField] private float deadzone = 10.0f;
 
 
         [Header("Prefabs")]
         [SerializeField] private List<Enemy> enemyPrefabs;
+        [SerializeField] private List<DeadEnemy> deadEnemyPrefabs;
 
         private List<Enemy> enemyPool = new List<Enemy>();
 
@@ -32,52 +35,82 @@ namespace HackedDesign
             enemyPool.Clear();
         }
 
-        public void SpawnEnemies(int enemyCount)
+        public void SpawnEnemies(int enemyCount, Settings settings)
         {
             ClearEnemies();
             int i = 0;
+            int j = 0;
+            int infiniteLoop = 0;
+            int clusterSize = 0;
+            Vector3 clusterPos = Vector3.zero;
             while (i < enemyCount)
             {
-
-                var clusterSize = Random.Range(minClusterSize, maxClusterSize);
-                var x = Random.Range(0, xScale - 5) + 5;
-                var z = Random.Range(0, zScale - 5) + 5;
-                Debug.Log("Spawning enemy cluster of " + clusterSize, this);
-
-                var clusterPos = new Vector3(x, 0, z);
-
-                if (!IsSafeLocationToCluster(clusterPos)) // FIXME: This could be an infinite loop
+                infiniteLoop++;
+                if (infiniteLoop > 1000)
                 {
-                    Debug.Log("Not safe to cluster here", this);
+                    Debug.LogWarning("Breaking out of an infinite loop", this);
+                    break;
+                }
+
+                if (j == 0)
+                {
+                    var x = Random.Range(0, settings.worldSize.x - deadzone) + deadzone;
+                    var z = Random.Range(0, settings.worldSize.y - deadzone) + deadzone;
+                    clusterSize = Random.Range(minClusterSize, maxClusterSize);
+                    Debug.Log("Spawning enemy cluster of " + clusterSize, this);
+
+                    clusterPos = new Vector3(x, 0, z);
+
+                    if (!IsSafeLocationToCluster(clusterPos, settings)) // FIXME: This could be an infinite loop
+                    {
+                        Debug.Log("Not safe to cluster here", this);
+                        continue;
+                    }
+                }
+
+                j++;
+
+                if (j >= clusterSize)
+                {
+                    j = 0;
+                }
+
+
+                var offset = Random.insideUnitCircle * clusterRadius;
+                var spawnPos = new Vector3(clusterPos.x, 0, clusterPos.z) + new Vector3(offset.x, 0, offset.y);
+
+                if (!IsSafeLocationToSpawn(spawnPos, settings)) // FIXME: This could be an infinite loop
+                {
+                    Debug.Log(spawnPos, this);
+                    Debug.LogWarning("Unsafe position to spawn", this);
                     continue;
                 }
 
+                var idx = Random.Range(0, enemyPrefabs.Count);
 
-                for (int j = 0; j < clusterSize; j++)
+
+                var rotation = Quaternion.Euler(0, Random.Range(0, 359), 0);
+                var go = Instantiate(enemyPrefabs[idx].gameObject, spawnPos, rotation, enemyParent);
+
+                if (go.TryGetComponent<Enemy>(out var e))
                 {
-                    var offset = Random.insideUnitCircle * clusterRadius;
-                    var spawnPos = new Vector3(clusterPos.x, 0, clusterPos.z) + new Vector3(offset.x, 0, offset.y);
-
-                    if (!IsSafeLocationToSpawn(spawnPos)) // FIXME: This could be an infinite loop
-                    {
-                        Debug.LogWarning("Unsafe position to spawn", this);
-                        continue;
-                    }
-
-                    var idx = Random.Range(0, enemyPrefabs.Count);
-
-
-                    var rotation = Quaternion.Euler(0, Random.Range(0, 359), 0);
-                    var go = Instantiate(enemyPrefabs[idx].gameObject, spawnPos, rotation, enemyParent);
-
-                    if (go.TryGetComponent<Enemy>(out var e))
-                    {
-                        enemyPool.Add(e);
-                    }
-                    i++;
+                    enemyPool.Add(e);
                 }
+                i++;
+
+                infiniteLoop = 0;
             }
         }
+
+        public void SpawnDestroyedEnemy(Enemy enemy)
+        {
+            var prefab = deadEnemyPrefabs.FirstOrDefault(p => p.EnemyType == enemy.EnemyType);
+
+            if (prefab != null)
+            {
+                var e = Instantiate(prefab, enemy.transform.position, Quaternion.identity, enemyParent);
+            }            
+        }        
 
         public void UpdateBehaviour()
         {
@@ -90,24 +123,24 @@ namespace HackedDesign
             }
         }
 
-        private bool IsSafeLocationToCluster(Vector3 position)
+        private bool IsSafeLocationToCluster(Vector3 position, Settings settings)
         {
-            if (position.x <= safeX && position.z <= safeZ) // FIXME: This could be an infinite loop
+            if (position.x <= settings.safeArea.x && position.z <= settings.safeArea.y) // FIXME: This could be an infinite loop
             {
                 return false;
             }
             return true;
         }
 
-        private bool IsSafeLocationToSpawn(Vector3 position)
+        private bool IsSafeLocationToSpawn(Vector3 position, Settings settings)
         {
-            if (position.x <= safeX && position.z <= safeZ) // FIXME: This could be an infinite loop
+            if (position.x <= settings.safeArea.x && position.z <= settings.safeArea.y) // FIXME: This could be an infinite loop
             {
                 return false;
             }
 
             // Don't spawn off the map
-            if (position.x >= xScale || position.z >= zScale)
+            if (position.x < deadzone || position.z < deadzone || position.x >= (settings.worldSize.x - deadzone) || position.z >= (settings.worldSize.y - deadzone))
             {
                 return false;
             }

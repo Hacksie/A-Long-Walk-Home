@@ -2,33 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace HackedDesign
 {
-    [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
+    
     public class Enemy : MonoBehaviour
     {
         [SerializeField] private float radius = 1.0f;
-        [SerializeField] private float alertRadius = 50.0f;
         [SerializeField] private int minLevel = 0;
-        [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
+        [SerializeField] private Transform explosionPoint;
+        [SerializeField] private EnemyType enemyType;
+        
+        [SerializeField] private UnityEvent behaviour;
 
-        void Awake()
-        {
-            agent = agent ?? GetComponent<UnityEngine.AI.NavMeshAgent>();
-        }
+        public EnemyType EnemyType { get => enemyType; set => enemyType = value; }
 
         public void UpdateBehaviour()
         {
-            var playerPosition = Game.Instance.Player.transform.position;
-            var sqrDistanceToPlayer = (playerPosition - this.transform.position).sqrMagnitude;
-
-            if(sqrDistanceToPlayer < (alertRadius * alertRadius))
-            {
-                Debug.Log("Enemy is attacking player", this);
-                agent.SetDestination(playerPosition);
-            }
-
+            behaviour.Invoke();
         }
 
         public void Damage(float amount)
@@ -40,14 +32,25 @@ namespace HackedDesign
                 Debug.Log("Enemy destroyed");
                 Explode();
             // }
-        }        
+        }
 
 
-        private void Explode()
+        public void Explode()
         {
-            //Game.Instance.Enemies.SpawnDestroyedEnemy(this);
-            Game.Instance.Pool.SpawnExplosion(this.transform.position);
+            Game.Instance.Enemies.SpawnDestroyedEnemy(this);
+            Game.Instance.Pool.SpawnExplosion(explosionPoint.position);
             gameObject.SetActive(false);
         }        
+    }
+
+    public enum EnemyType
+    {
+        Drone,
+        Plane,
+        Helicopter,
+        Tank,
+        Artillery,
+        OrbitalDrop,
+        Mech
     }
 }

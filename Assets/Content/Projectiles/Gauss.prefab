@@ -50,7 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoType: 1
   speed: 20
-  baseTimeout: 2
+  baseTimeout: 1
+  addForce: 1
+  explode: 1
 --- !u!54 &1449756959558690286
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -124,14 +126,14 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.85098046, b: 0.48627454, a: 1}
+  m_Color: {r: 0.4862745, g: 1, b: 0.92941177, a: 1}
   m_Intensity: 0.7
   m_Range: 2
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 0
     m_Resolution: 128
     m_CustomResolution: -1
     m_Strength: 1

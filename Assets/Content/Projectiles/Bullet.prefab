@@ -51,7 +51,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoType: 3
   speed: 50
-  baseTimeout: 1.5
+  baseTimeout: 1
+  addForce: 1
+  explode: 1
 --- !u!54 &1449756959558690286
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -132,7 +134,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 0
     m_Resolution: 128
     m_CustomResolution: -1
     m_Strength: 1

@@ -50,7 +50,7 @@ namespace HackedDesign
 
         public void Start()
         {
-            
+            Game.Instance.SetPause();
         }
 
         public void Select()
@@ -65,7 +65,7 @@ namespace HackedDesign
 
         private void UpdateOverHeat()
         {
-            if (Game.Instance.Data.heat >= Game.Instance.Settings.maxHeat)
+            if (Game.Instance.Data.heat >= Game.Instance.Data.heatMax)
             {
                 Game.Instance.DamageArmour(Game.Instance.Data.heatDamage * Time.deltaTime);
                 //AudioManager.Instance.PlayWarning();

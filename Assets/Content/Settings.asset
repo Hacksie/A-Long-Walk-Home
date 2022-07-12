@@ -18,8 +18,8 @@ MonoBehaviour:
   clawRange: 0.7
   maxLevels: 25
   skipIntro: 1
-  worldSize: {x: 500, y: 500}
-  safeArea: {x: 35, y: 35}
+  worldSize: {x: 300, y: 300}
+  safeArea: {x: 33, y: 33}
   maxHeat: 100
   maxCoolant: 100
   maxArmour: 100

@@ -18,16 +18,20 @@ namespace HackedDesign
         public bool skipIntro = true;
         public Vector2 worldSize = new Vector2(400, 400);
         public Vector2 safeArea = new Vector2(35, 35);
+        public float deadzone = 20.0f;
+        public int obstacleCount = 300;
+        public int enemyCount = 100;
+        public int coolantCount = 20;
 
-        public float maxHeat = 100.0f;
-        public float maxCoolant = 100.0f;
-        public float maxArmour = 100.0f;
 
         [Header("Starting values")]
         public float startingArmour = 100.0f;
         public float startingHeat = 0.0f;
         public float startingCoolant = 0.0f;
         public float ambientHeatLoss = 1.0f;
+        public float startingArmourMax = 100.0f;
+        public float startingHeatMax = 100.0f;
+        public float startingCoolantMax = 100.0f;
 
         public WeaponType startingLeftArm = WeaponType.Cannon;
         public WeaponType startingRightArm = WeaponType.Claw;

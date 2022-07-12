@@ -12,6 +12,10 @@ namespace HackedDesign
         public float heat = 0.0f;
         public float coolant = 100.0f;
 
+        public float armourMax = 100.0f;
+        public float heatMax = 100.0f;
+        public float coolantMax = 100.0f;
+
         public float ambientHeatLoss = 1.0f;
         public float heatDamage = 3.0f;
         public float coolantDump = 25.0f;
@@ -21,6 +25,8 @@ namespace HackedDesign
 
         public int scrap = 0;
 
+        public InventoryItem hoverItem;
+
         public InventoryItem[] inventory = new InventoryItem[6];
 
         public void Reset(Settings settings)
@@ -28,6 +34,9 @@ namespace HackedDesign
             armour = settings.startingArmour;
             heat = settings.startingHeat;
             coolant = settings.startingCoolant;
+            armourMax = settings.startingArmourMax;
+            heatMax = settings.startingHeatMax;
+            coolantMax = settings.startingCoolantMax;
             ambientHeatLoss = settings.ambientHeatLoss;
             heatDamage = 3.0f;
             coolantDump = 25.0f;

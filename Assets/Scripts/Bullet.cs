@@ -41,35 +41,35 @@ namespace HackedDesign
             }
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            // if (!other.isTrigger && other.gameObject != this.firer)
-            // {
-            //     if (other != null && other.CompareTag("Enemy"))
-            //     {
-            //         var e = other.GetComponentInParent<Enemy>();
-            //         if (e != null)
-            //         {
-            //             e.Damage(this.damage);
-            //         }
-            //         else
-            //         {
-            //             Debug.LogError("untagged enemy error");
-            //         }
+        // private void OnTriggerEnter(Collider other)
+        // {
+        //     // if (!other.isTrigger && other.gameObject != this.firer)
+        //     // {
+        //     //     if (other != null && other.CompareTag("Enemy"))
+        //     //     {
+        //     //         var e = other.GetComponentInParent<Enemy>();
+        //     //         if (e != null)
+        //     //         {
+        //     //             e.Damage(this.damage);
+        //     //         }
+        //     //         else
+        //     //         {
+        //     //             Debug.LogError("untagged enemy error");
+        //     //         }
 
-            //     }
-            //     if (other != null && this.firer != null && other.CompareTag("Player") && !this.firer.CompareTag("Player"))
-            //     {
-            //         GameManager.Instance.DamageArmour(damage);
-            //     }
-            //     if (other.gameObject != null && this.firer.gameObject != null && other.CompareTag("Base") && !this.firer.CompareTag("Player"))
-            //     {
-            //         GameManager.Instance.DamageBase(damage);
-            //     }
+        //     //     }
+        //     //     if (other != null && this.firer != null && other.CompareTag("Player") && !this.firer.CompareTag("Player"))
+        //     //     {
+        //     //         GameManager.Instance.DamageArmour(damage);
+        //     //     }
+        //     //     if (other.gameObject != null && this.firer.gameObject != null && other.CompareTag("Base") && !this.firer.CompareTag("Player"))
+        //     //     {
+        //     //         GameManager.Instance.DamageBase(damage);
+        //     //     }
 
-            //     Explode(this.transform.position);
-            // }
-        }
+        //     //     Explode(this.transform.position);
+        //     // }
+        // }
 
         private void OnCollisionEnter(Collision other)
         {
@@ -88,7 +88,7 @@ namespace HackedDesign
                 }
                 if (other.collider.CompareTag("Player") && !this.firer.CompareTag("Player"))
                 {
-                    //GameManager.Instance.DamageArmour(damage);
+                    Game.Instance.DamageArmour(damage);
                 }
                 Explode(this.transform.position);
             }

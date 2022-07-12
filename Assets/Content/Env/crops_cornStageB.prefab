@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6079507020780382230}
   - component: {fileID: 7201648303930648499}
   - component: {fileID: 4905989753532601209}
-  - component: {fileID: 6375700427119878490}
+  - component: {fileID: 5355429235018560274}
   m_Layer: 0
   m_Name: crops_cornStageB
   m_TagString: Untagged
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6375700427119878490
-MeshCollider:
+--- !u!65 &5355429235018560274
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,7 +94,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 114364356452151440, guid: 38db4b1b485abab4d91720e72166807e, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.075, y: 0.99999994, z: 0.075}
+  m_Center: {x: 0, y: 0.49999997, z: 0}

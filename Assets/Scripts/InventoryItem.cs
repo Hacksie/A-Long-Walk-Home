@@ -17,5 +17,6 @@ namespace HackedDesign
         [SerializeField] public float shake = 0.5f;
         [SerializeField] public Sprite sprite;
         [SerializeField] public bool canRemove = true;
+        [SerializeField] public AudioClip sfx;
     }
 }

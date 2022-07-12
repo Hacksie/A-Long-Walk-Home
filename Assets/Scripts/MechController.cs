@@ -12,42 +12,25 @@ namespace HackedDesign
         [SerializeField] private Weapon leftArm;
         [SerializeField] private Weapon rightShoulder;
         [SerializeField] private Weapon leftShoulder;
+        [SerializeField] private InventoryItem legs;
+        [SerializeField] private InventoryItem body;
+        [SerializeField] private InventoryItem radar;
         [SerializeField] private List<InventoryItem> inventory = new List<InventoryItem>(8);
 
         [SerializeField] public WeaponPosition selectedPrimaryWeapon = 0;
         [SerializeField] public WeaponPosition selectedSecondaryWeapon = 0;
-        //[SerializeField] public WeaponPosition currentWeapon;
-
-        // [SerializeField] public WeaponType noseWeapon;
-        // [SerializeField] public WeaponType leftArmWeapon;
-        // [SerializeField] public WeaponType rightArmWeapon;
-        // [SerializeField] public WeaponType leftShoulderWeapon;
-        // [SerializeField] public WeaponType rightShoulderWeapon;
 
         [SerializeField] public bool linkArms = false;
         [SerializeField] public bool linkShoulders = false;
 
-        // [SerializeField] public WeaponType noseWeaponTemp;
-        // [SerializeField] public WeaponType leftArmWeaponTemp;
-        // [SerializeField] public WeaponType rightArmWeaponTemp;
-        // [SerializeField] public WeaponType leftShoulderWeaponTemp;
-        // [SerializeField] public WeaponType rightShoulderWeaponTemp;
-
         public void Start()
         {
-            UpdateWeapons();
+            UpdateModels();
         }
 
-        public bool FirePrimaryWeapon()
-        {
-            return GetWeapon(selectedPrimaryWeapon).Fire();
-            //return currentWeapon ? currentWeapon.type != WeaponType.None && currentWeapon.Fire() : false;
-        }
+        public bool FirePrimaryWeapon() => GetWeapon(selectedPrimaryWeapon).Fire();
 
-        public bool FireSecondaryWeapon()
-        {
-            return GetWeapon(selectedSecondaryWeapon).Fire();
-        }
+        public bool FireSecondaryWeapon() => GetWeapon(selectedSecondaryWeapon).Fire();
 
         public void FireAllWeapons()
         {
@@ -117,7 +100,7 @@ namespace HackedDesign
 
         public InventoryItem GetItem(MechPosition position)
         {
-            switch(position)
+            switch (position)
             {
                 case MechPosition.RightArm:
                     return rightArm.item;
@@ -129,6 +112,28 @@ namespace HackedDesign
                     return leftShoulder.item;
                 case MechPosition.Nose:
                     return nose.item;
+                case MechPosition.Legs:
+                    return legs;
+                case MechPosition.Body:
+                    return body;
+                case MechPosition.Radar:
+                    return radar;
+                case MechPosition.InvSlot0:
+                    return inventory[0];
+                case MechPosition.InvSlot1:
+                    return inventory[1];
+                case MechPosition.InvSlot2:
+                    return inventory[2];
+                case MechPosition.InvSlot3:
+                    return inventory[3];
+                case MechPosition.InvSlot4:
+                    return inventory[4];
+                case MechPosition.InvSlot5:
+                    return inventory[5];
+                case MechPosition.InvSlot6:
+                    return inventory[6];
+                case MechPosition.InvSlot7:
+                    return inventory[7];
                 default:
                     return null;
             }
@@ -136,7 +141,7 @@ namespace HackedDesign
 
         public void SetItem(MechPosition position, InventoryItem item)
         {
-            switch(position)
+            switch (position)
             {
                 case MechPosition.RightArm:
                     rightArm.item = item;
@@ -165,75 +170,80 @@ namespace HackedDesign
                 case MechPosition.InvSlot3:
                     inventory[3] = item;
                     break;
+                case MechPosition.InvSlot4:
+                    inventory[4] = item;
+                    break;
+                case MechPosition.InvSlot5:
+                    inventory[5] = item;
+                    break;
+                case MechPosition.InvSlot6:
+                    inventory[6] = item;
+                    break;
+                case MechPosition.InvSlot7:
+                    inventory[7] = item;
+                    break;
+
                 default:
                     nose.item = item;
                     break;
             }
-        }        
-
-        public void SwapItemPositions(MechPosition pos1, MechPosition pos2)
-        {
-            // FIXME: Probably have to clone these
-            var item1 = GetItem(pos1);
-            var item2 = GetItem(pos2);
-            SetItem(pos2, item1);
-            SetItem(pos1, item2);
         }
 
-        // public void UpgradeWeapon(WeaponType newWeapon)
-        // {
-        //     switch (selectedPrimaryWeapon)
-        //     {
-        //         case WeaponPosition.LeftArm:
-        //             leftArmWeapon = newWeapon;
-        //             break;
-        //         case WeaponPosition.RightShoulder:
-        //             rightShoulderWeapon = newWeapon;
-        //             break;
-        //         case WeaponPosition.LeftShoulder:
-        //             leftShoulderWeapon = newWeapon;
-        //             break;
-        //     }
-        // }
-
-        // public void ClearTempWeapons()
-        // {
-        //     leftShoulderWeaponTemp = WeaponType.None;
-        //     rightShoulderWeaponTemp = WeaponType.None;
-        //     leftArmWeaponTemp = WeaponType.None;
-        //     noseWeaponTemp = WeaponType.None;
-        //     rightArmWeaponTemp = WeaponType.None;
-        //     UpdateWeapons();
-        // }
-
-        // public void SetTempWeapon(WeaponType type)
-        // {
-        //     switch (selectedPrimaryWeapon)
-        //     {
-        //         case WeaponPosition.LeftShoulder:
-        //             leftShoulderWeaponTemp = type;
-        //             break;
-        //         case WeaponPosition.RightShoulder:
-        //             rightShoulderWeaponTemp = type;
-        //             break;
-        //         case WeaponPosition.LeftArm:
-        //             leftArmWeaponTemp = type;
-        //             break;
-        //         case WeaponPosition.Nose:
-        //             noseWeaponTemp = type;
-        //             break;
-        //     }
-
-        //     UpdateWeapons();
-        // }
-
-        public void UpdateWeapons()
+        public bool SwapItemPositions(MechPosition pos1, MechPosition pos2)
         {
-            nose.UpdateModel();
-            rightArm.UpdateModel();
-            leftArm.UpdateModel();
-            rightShoulder.UpdateModel();
-            leftShoulder.UpdateModel();
+            var item1 = GetItem(pos1);
+            var item2 = GetItem(pos2);
+
+            if(item1 != null && !item1.canRemove)
+            {
+                Debug.Log("Can't remove item1");
+                return false;
+            }
+
+            if(item2 != null && !item2.canRemove)
+            {
+                Debug.Log("Can't remove item2");
+                return false;
+            }
+
+            if (item1 != null && !(item1.allowedMechPositions.Contains(pos2) || isInventoryPosition(pos2)))
+            {
+                Debug.Log("Can't swap item1 here");
+                return false;
+            }
+
+            if (item2 != null && !(item2.allowedMechPositions.Contains(pos1) || isInventoryPosition(pos1)))
+            {
+                Debug.Log("Can't swap item2 here");
+                return false;
+            }            
+
+            SetItem(pos2, item1);
+            SetItem(pos1, item2);
+
+            return true;
+        }
+
+        private bool isInventoryPosition(MechPosition pos)
+        {
+            return (pos == MechPosition.InvSlot0
+                    || pos == MechPosition.InvSlot1
+                    || pos == MechPosition.InvSlot2
+                    || pos == MechPosition.InvSlot3 
+                    || pos == MechPosition.InvSlot4
+                    || pos == MechPosition.InvSlot5
+                    || pos == MechPosition.InvSlot6
+                    || pos == MechPosition.InvSlot7);
+
+        }
+
+        public void UpdateModels()
+        {
+            nose?.UpdateModel();
+            rightArm?.UpdateModel();
+            leftArm?.UpdateModel();
+            rightShoulder?.UpdateModel();
+            leftShoulder?.UpdateModel();
         }
     }
 }

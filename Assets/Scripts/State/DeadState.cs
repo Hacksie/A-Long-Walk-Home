@@ -4,8 +4,10 @@ namespace HackedDesign
 {
     public class DeadState : IState
     {
-        public DeadState()
+        private UI.AbstractPresenter deadPresenter;
+        public DeadState(UI.AbstractPresenter deadPresenter)
         {
+            this.deadPresenter = deadPresenter;
         }
 
         public bool Playing => false;
@@ -13,11 +15,14 @@ namespace HackedDesign
         public void Begin()
         {
             Debug.Log("Dead");
+            Game.Instance.Player.Die();
+            this.deadPresenter.Show();
+            this.deadPresenter.Repaint();
         }
 
         public void End()
         {
-            
+            this.deadPresenter.Hide();
         }
 
         public void FixedUpdate()
@@ -27,7 +32,7 @@ namespace HackedDesign
 
         public void Start()
         {
-            
+            Game.Instance.SetMenu();
         }
 
         public void Select()

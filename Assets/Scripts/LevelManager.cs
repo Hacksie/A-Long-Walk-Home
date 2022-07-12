@@ -12,11 +12,9 @@ namespace HackedDesign
         //[SerializeField] private Transform terrainBoundary
         [SerializeField] private Transform obstacleParent;
         [SerializeField] private List<GameObject> ObstaclePrefabs;
-        [SerializeField] private int obstacleCount = 100;
-        //[SerializeField] private int xScale = 500;
-        //[SerializeField] private int zScale = 500;
-        [SerializeField] private int safeX = 33;
-        [SerializeField] private int safeZ = 33;
+        [SerializeField] private CoolantPool coolantPoolPrefab;
+        //[SerializeField] private int safeX = 33;
+        //[SerializeField] private int safeZ = 33;
         
 
         [SerializeField] private Unity.AI.Navigation.NavMeshSurface surface;
@@ -30,12 +28,24 @@ namespace HackedDesign
         {
             UpdateTerrain(settings);
             SpawnObstacles(settings);
+            SpawnCoolant(settings);
         }
 
         private void UpdateTerrain(Settings settings)
         {
             //terrain.
         }
+
+        private void SpawnCoolant(Settings settings)
+        {
+            for(int i=0;i<settings.coolantCount;i++)
+            {
+                var x = Random.Range(settings.deadzone, settings.worldSize.x - settings.deadzone);
+                var z = Random.Range(settings.deadzone, settings.worldSize.y - settings.deadzone);
+                var spawnPos = new Vector3(x,0,z);                
+                var go = Instantiate(coolantPoolPrefab, spawnPos, Quaternion.identity, obstacleParent);
+            }
+        }        
 
         private void SpawnObstacles(Settings settings)
         {
@@ -44,16 +54,23 @@ namespace HackedDesign
             UnityEngine.AI.NavMeshPath navpath = new NavMeshPath();
 
             int i = 0;
+            int infiniteLoop = 0;
             List<GameObject> lastObjects = new List<GameObject>();
 
             bool canPath = true;
 
-            while (i < (settings.worldSize.x + settings.worldSize.y))
+            while (i < settings.obstacleCount)
             {
-                var x = Random.Range(0, settings.worldSize.x);
-                var z = Random.Range(0, settings.worldSize.x);
+                infiniteLoop++;
+                if(infiniteLoop > 1000)
+                {
+                    Debug.LogWarning("Infinite loop, breaking");
+                    return;
+                }
+                var x = Random.Range(settings.deadzone, settings.worldSize.x - settings.deadzone);
+                var z = Random.Range(settings.deadzone, settings.worldSize.y - settings.deadzone);
                 var spawnPos = new Vector3(x,0,z);
-                if(!IsSafeLocationToSpawn(spawnPos, settings.worldSize))
+                if(!IsSafeLocationToSpawn(spawnPos, settings))
                 {
                     continue;
                 }
@@ -109,15 +126,15 @@ namespace HackedDesign
             path.SetPositions(navpath.corners);
         }
 
-        private bool IsSafeLocationToSpawn(Vector3 position, Vector2 worldSize)
+        private bool IsSafeLocationToSpawn(Vector3 position, Settings settings)
         {
-            if (position.x <= safeX && position.z <= safeZ) // FIXME: This could be an infinite loop
+            if (position.x <= settings.safeArea.x && position.z <= settings.safeArea.y) // FIXME: This could be an infinite loop
             {
                 return false;
             }
 
             // Don't spawn off the map
-            if(position.x >= worldSize.x || position.z >= worldSize.y)
+            if(position.x >= settings.worldSize.x || position.z >= settings.worldSize.y)
             {
                 return false;
             }

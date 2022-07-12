@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4015636650162118758}
   - component: {fileID: 6108700477288387}
   - component: {fileID: 2878157079106558729}
-  - component: {fileID: 15648824719059354}
   m_Layer: 0
   m_Name: crops_leafsStageA
   m_TagString: Untagged
@@ -84,17 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &15648824719059354
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4391494441677077212}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2698354145249690697, guid: 576b81616e8c1f8478594afb356543cb, type: 3}

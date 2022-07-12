@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace HackedDesign
 {
     public class LoadingState : IState
@@ -47,8 +49,11 @@ namespace HackedDesign
                 return;
             }
             this.loadingPresenter.Repaint();
+            Debug.Log("Loading Level");
             Game.Instance.Level.SpawnLevel(Game.Instance.Settings);
-            Game.Instance.Enemies.SpawnEnemies(100 + (Game.Instance.Data.currentLevel * 10));
+            Debug.Log("Loading Enemies");
+            Game.Instance.Enemies.SpawnEnemies(100 + (Game.Instance.Data.currentLevel * 10), Game.Instance.Settings);
+            Debug.Log("Level loaded");
             if(Game.Instance.Settings.skipIntro)
             {
                 Game.Instance.SetPlaying();

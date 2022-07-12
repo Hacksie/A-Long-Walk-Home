@@ -57,7 +57,7 @@ namespace HackedDesign
 
             explosion.transform.position = position;
             explosion.Play();
-        }        
+        }
 
         public void SpawnMiniExplosion(Vector3 position)
         {
@@ -86,7 +86,14 @@ namespace HackedDesign
 
             if (bullet == null)
             {
-                var go = Instantiate(ChoosePrefab(ammoType), start, Quaternion.identity, parent);
+                var prefab = ChoosePrefab(ammoType);
+                if (prefab == null)
+                {
+                    Debug.LogError("bullet prefab is null", this);
+                    return;
+                }
+
+                var go = Instantiate(prefab, start, Quaternion.identity, parent);
                 if (!go.TryGetComponent<Bullet>(out bullet))
                 {
                     Debug.LogError("No bullet component", this);
@@ -114,7 +121,7 @@ namespace HackedDesign
         private GameObject ChoosePrefab(AmmoType ammoType)
         {
             var b = bulletPrefabs.FirstOrDefault(b => b.ammoType == ammoType);
-            if(b != null)
+            if (b != null)
             {
                 return b.gameObject;
             }

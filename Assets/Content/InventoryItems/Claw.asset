@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5667b83adca3f4baebc6f397d3cc02, type: 3}
   m_Name: Claw
   m_EditorClassIdentifier: 
-  allowedMechPositions: 00000000
+  allowedMechPositions: 0000000001000000
   weaponType: 1
   ammoType: 0
   baseFireRate: 0

@@ -30,6 +30,9 @@ namespace HackedDesign
         [SerializeField] private UI.DialogPresenter dialogPanel = null;
         [SerializeField] private UI.MenuPresenter menuPanel = null;
         [SerializeField] private UI.InventoryPresenter invPanel = null;
+        [SerializeField] private UI.InvHoverPresenter invHoverPanel = null;
+        [SerializeField] private UI.DeadPresenter deadPanel = null;
+        [SerializeField] private UI.PausePresenter pausePanel = null;
 
 
         private IState state = new EmptyState();
@@ -75,7 +78,8 @@ namespace HackedDesign
         public void SetLoadout() => State = new LoadoutState(mainCamera, loadoutCamera, invPanel);
         public void SetIntro() => State = new IntroState(dialogPanel);
         public void SetMenu() => State = new MenuState(mainCamera, menuCamera, menuPanel);
-        public void SetDead() => State = new DeadState();
+        public void SetDead() => State = new DeadState(deadPanel);
+        public void SetPause() => State = new PauseState(pausePanel);
 
         public void Quit()
         {
@@ -84,20 +88,33 @@ namespace HackedDesign
 
         public void DamageArmour(float amount)
         {
-            Data.armour = Mathf.Clamp(Data.armour - amount, 0, Settings.maxArmour);
-            CameraShake.Shake(0.5f, 0.2f);
+            Data.armour = Mathf.Clamp(Data.armour - amount, 0, Data.armourMax);
+            CameraShake.Shake(0.5f, 0.2f); //FIXME: Setting
 
             if (Data.armour <= 0)
             {
                 Pool.SpawnExplosion(Player.transform.position);
                 SetDead();
             }
-        }        
+        }
 
         public void IncreaseHeat(float amount)
         {
-            Data.heat = Mathf.Max(0, Data.heat + amount);
+            Data.heat = Mathf.Max(Data.heat + amount, 0);
         }
+
+        public void IncreaseCoolant(float amount)
+        {
+            Data.coolant = Mathf.Clamp(Data.coolant + amount, 0,  Data.coolantMax);
+        }    
+
+        public void CoolantDump()
+        {
+            var amount = Data.coolant;
+
+            IncreaseHeat(-1 * Data.coolant);
+            Data.coolant = 0;
+        }    
 
 
 
@@ -129,6 +146,9 @@ namespace HackedDesign
             dialogPanel.Hide();
             menuPanel.Hide();
             invPanel.Hide();
+            invHoverPanel.Hide();
+            deadPanel.Hide();
+            pausePanel.Hide();
         }
     }
 }

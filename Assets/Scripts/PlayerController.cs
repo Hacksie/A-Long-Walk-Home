@@ -24,6 +24,8 @@ namespace HackedDesign
         private InputAction? selectAction;
         private InputAction? moveAction;
         private InputAction? mousePosAction;
+        private InputAction? primaryFire;
+        private InputAction? secondaryFire;
         private InputAction? primaryAction;
         private InputAction? secondaryAction;
         private InputAction? changePrimaryAction;
@@ -42,17 +44,22 @@ namespace HackedDesign
             selectAction = playerInput.actions["Select"];
             moveAction = playerInput.actions["Move"];
             mousePosAction = playerInput.actions["Mouse Position"];
-            primaryAction = playerInput.actions["Primary Fire"];
-            secondaryAction = playerInput.actions["Secondary Fire"];
+            primaryFire = playerInput.actions["Primary Fire"];
+            secondaryFire = playerInput.actions["Secondary Fire"];
+            primaryAction = playerInput.actions["Primary Action"];
+            secondaryAction = playerInput.actions["Secondary Action"];
+
             changePrimaryAction = playerInput.actions["Change Primary Weapon"];
             changeSecondaryAction = playerInput.actions["Change Secondary Weapon"];
 
-            primaryAction.performed += OnPrimary;
-            secondaryAction.performed += OnSecondary;
+            primaryFire.performed += OnPrimaryFire;
+            secondaryFire.performed += OnSecondaryFire;
             startAction.performed += OnStart;
             selectAction.performed += OnSelect;
-            changePrimaryAction.performed += OnChangePrimary;
-            changeSecondaryAction.performed += OnChangeSecondary;
+            changePrimaryAction.performed += OnChangePrimaryWeapon;
+            changeSecondaryAction.performed += OnChangeSecondaryWeapon;
+            primaryAction.performed += OnPrimaryAction;
+            secondaryAction.performed += OnSecondaryAction;
 
         }
 
@@ -78,7 +85,12 @@ namespace HackedDesign
             // weapons.noseWeapon = settings.startingNose;
             weapons.linkArms = false;
             weapons.linkShoulders = false;
-            weapons.UpdateWeapons();
+            weapons.UpdateModels();
+        }
+
+        public void Die()
+        {
+            moveAction?.Reset();
         }
 
         public void NewLevel()
@@ -124,17 +136,15 @@ namespace HackedDesign
 
         public void OnStart(InputAction.CallbackContext context)
         {
-            //Debug.Log("On start");
             Game.Instance.State.Start();
         }
 
         public void OnSelect(InputAction.CallbackContext context)
         {
-            //Debug.Log("On start");
             Game.Instance.State.Select();
         }
 
-        private void OnPrimary(InputAction.CallbackContext context)
+        private void OnPrimaryFire(InputAction.CallbackContext context)
         {
             if (Game.Instance.State.Playing)
             {
@@ -149,7 +159,7 @@ namespace HackedDesign
             }
         }
 
-        private void OnSecondary(InputAction.CallbackContext context)
+        private void OnSecondaryFire(InputAction.CallbackContext context)
         {
             if (Game.Instance.State.Playing)
             {
@@ -164,7 +174,17 @@ namespace HackedDesign
             }
         }
 
-        private void OnChangePrimary(InputAction.CallbackContext context)
+        private void OnPrimaryAction(InputAction.CallbackContext context)
+        {
+
+        }
+
+        private void OnSecondaryAction(InputAction.CallbackContext context)
+        {
+            Game.Instance.CoolantDump();
+        }
+
+        private void OnChangePrimaryWeapon(InputAction.CallbackContext context)
         {
             var dir = context.ReadValue<float>();
 
@@ -179,7 +199,7 @@ namespace HackedDesign
             }
         }
 
-        private void OnChangeSecondary(InputAction.CallbackContext context)
+        private void OnChangeSecondaryWeapon(InputAction.CallbackContext context)
         {
             var dir = context.ReadValue<float>();
 
