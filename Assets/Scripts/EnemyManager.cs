@@ -108,7 +108,9 @@ namespace HackedDesign
 
             if (prefab != null)
             {
-                var e = Instantiate(prefab, enemy.transform.position, Quaternion.identity, enemyParent);
+                var rotation = Quaternion.Euler(0, Random.Range(0, 359), 0);
+                
+                var e = Instantiate(prefab, enemy.transform.position, rotation, enemyParent);
             }            
         }        
 
