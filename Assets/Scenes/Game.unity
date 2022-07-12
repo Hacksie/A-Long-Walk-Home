@@ -2260,9 +2260,12 @@ MonoBehaviour:
   - {fileID: 8296345778051940470, guid: 5be28d398663aab4284b3802be51dc28, type: 3}
   - {fileID: 8296345778051940470, guid: 1d7cb7bb725f3f44e80018d903d3f609, type: 3}
   - {fileID: 8296345778051940470, guid: 9aaf198d933c13045a411a78ea12600a, type: 3}
+  - {fileID: 8296345778051940470, guid: 093e6bdfcb927414f8d347a98a2b1192, type: 3}
   deadEnemyPrefabs:
   - {fileID: 1539620497152536015, guid: 6d3cbeec1d20d904eaacc60f2777da66, type: 3}
   - {fileID: 5549611833398138030, guid: cd7ae93f28757424c8e127ce304cf042, type: 3}
+  - {fileID: 3857386234087881444, guid: d03eaf86adcea0f47b400ee2923ff15f, type: 3}
+  - {fileID: 8462300425317742353, guid: 3ce956c086c54144187ed8282c119be8, type: 3}
 --- !u!1 &111490650
 GameObject:
   m_ObjectHideFlags: 0
