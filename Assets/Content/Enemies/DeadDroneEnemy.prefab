@@ -2890,7 +2890,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8296345778051940465}
   - component: {fileID: 1539620497152536015}
-  - component: {fileID: 9188048350543740948}
+  - component: {fileID: 7448189882310903670}
   m_Layer: 0
   m_Name: DeadDroneEnemy
   m_TagString: Enemy
@@ -2933,8 +2933,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   loot: []
---- !u!135 &9188048350543740948
-SphereCollider:
+--- !u!65 &7448189882310903670
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2944,8 +2944,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.33, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &6111904110929861567
 PrefabInstance:
   m_ObjectHideFlags: 0

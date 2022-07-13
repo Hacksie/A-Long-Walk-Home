@@ -32,12 +32,7 @@ namespace HackedDesign
         public float startingArmourMax = 100.0f;
         public float startingHeatMax = 100.0f;
         public float startingCoolantMax = 100.0f;
-
-        public WeaponType startingLeftArm = WeaponType.Cannon;
-        public WeaponType startingRightArm = WeaponType.Claw;
-        public WeaponType startingLeftShoulder = WeaponType.Cannon;
-        public WeaponType startingRightShoulder = WeaponType.Cannon;
-        public WeaponType startingNose = WeaponType.Mining;
+        public int startingScrap = 0;
 
         public WeaponPosition startingPrimary = WeaponPosition.LeftArm;
         public WeaponPosition startingSecondary = WeaponPosition.Nose;

@@ -23,7 +23,7 @@ namespace HackedDesign
         public int currentLevel = 0;
         public int currentDialogLine = 0;
 
-        public int scrap = 100;
+        public int scrap = 0;
 
         public InventoryItem hoverItem;
 
@@ -40,6 +40,7 @@ namespace HackedDesign
             ambientHeatLoss = settings.ambientHeatLoss;
             heatDamage = 3.0f;
             coolantDump = 25.0f;
+            scrap = settings.startingScrap;
         }
     }
 }

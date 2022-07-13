@@ -19,6 +19,7 @@ namespace HackedDesign
         [SerializeField] private float clusterRadius = 30;
         [SerializeField] private float deadzone = 10.0f;
         [SerializeField] private LayerMask envMask;
+        [SerializeField] private LayerMask envObsMask;
 
 
         [Header("Prefabs")]
@@ -89,31 +90,29 @@ namespace HackedDesign
 
                 var idx = Random.Range(0, enemyPrefabs.Count);
 
-
                 var rotation = Quaternion.Euler(0, Random.Range(0, 359), 0);
-                var go = Instantiate(enemyPrefabs[idx].gameObject, spawnPos, rotation, enemyParent);
+                var e = Instantiate(enemyPrefabs[idx], spawnPos, rotation, enemyParent);
 
-                if (go.TryGetComponent<Enemy>(out var e))
-                {
-                    enemyPool.Add(e);
-                }
+                enemyPool.Add(e);
+                e.Reset();
+
                 i++;
 
                 infiniteLoop = 0;
             }
         }
 
-        public void SpawnDestroyedEnemy(Enemy enemy)
+        public void SpawnDestroyedEnemy(EnemyType enemyType, Vector3 position)
         {
-            var prefab = deadEnemyPrefabs.FirstOrDefault(p => p.EnemyType == enemy.EnemyType);
+            var prefab = deadEnemyPrefabs.FirstOrDefault(p => p.EnemyType == enemyType);
 
             if (prefab != null)
             {
                 var rotation = Quaternion.Euler(0, Random.Range(0, 359), 0);
-                
-                var e = Instantiate(prefab, enemy.transform.position, rotation, enemyParent);
-            }            
-        }        
+
+                var e = Instantiate(prefab, position, rotation, enemyParent);
+            }
+        }
 
         public void UpdateBehaviour()
         {
@@ -149,7 +148,7 @@ namespace HackedDesign
             }
 
             //if(Physics.SphereCast(Vector3 position, ))
-            if(Physics.CheckSphere(position, 1.5f, envMask, QueryTriggerInteraction.Ignore))
+            if (Physics.CheckSphere(position, 1.5f, envObsMask, QueryTriggerInteraction.Ignore))
             {
                 Debug.Log("Obstacle overlap");
                 return false;

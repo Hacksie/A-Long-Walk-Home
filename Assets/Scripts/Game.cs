@@ -60,8 +60,7 @@ namespace HackedDesign
         public LevelManager Level { get => levelManager; set => levelManager = value; }
         public EnemyManager Enemies { get => enemyManager; set => enemyManager = value; }
         public CameraShake CameraShake { get { return cameraShake; } private set { cameraShake = value; } }
-
-        
+        public Camera MainCamera { get => mainCamera; set => mainCamera = value; }
 
         Game()
         {

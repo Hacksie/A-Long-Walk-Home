@@ -78,11 +78,6 @@ namespace HackedDesign
             this.transform.position = settings.startPosition;
             weapons.selectedPrimaryWeapon = settings.startingPrimary;
             weapons.selectedSecondaryWeapon = settings.startingSecondary;
-            // weapons.leftArmWeapon = settings.startingLeftArm;
-            // weapons.rightArmWeapon = settings.startingRightArm;
-            // weapons.leftShoulderWeapon = settings.startingLeftShoulder;
-            // weapons.rightShoulderWeapon = settings.startingRightShoulder;
-            // weapons.noseWeapon = settings.startingNose;
             weapons.linkArms = false;
             weapons.linkShoulders = false;
             weapons.UpdateModels();

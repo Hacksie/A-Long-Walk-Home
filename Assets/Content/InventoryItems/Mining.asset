@@ -14,10 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowedMechPositions: 04000000
   weaponType: 8
+  itemType: 1
   ammoType: 5
-  baseFireRate: 0.6
-  baseDamage: 3
+  baseFireRate: 0.4
+  baseMinDamage: 1
+  baseMaxDamage: 6
   baseHeat: 2
   shake: 0.1
   sprite: {fileID: 21300000, guid: 6d1bd1f1962802847928e408839a8440, type: 3}
   canRemove: 0
+  sfx: {fileID: 8300000, guid: d0b2552990bcfcd44a3bffccce435abe, type: 3}
+  sfxPitch: 0.8
+  scrapAmount: 1

@@ -8,21 +8,22 @@ namespace HackedDesign.UI
 {
     public class InventoryPresenter : AbstractPresenter
     {
-        
+
         [SerializeField] private InvHoverPresenter hoverPanel;
         [SerializeField] private List<UnityEngine.UI.Image> icons;
         [SerializeField] private Sprite noItemIcon;
+        [SerializeField] private UnityEngine.UI.Text scrapAmountText;
 
-        
+        private MechPosition selectedSlot;
 
         private MechPosition dragSlot;
 
 
- 
+
         public override void Repaint()
         {
+            scrapAmountText.text = Game.Instance.Data.scrap.ToString() + "£";
             UpdateWeaponIcons(Game.Instance.Player.Weapons);
-            
         }
 
         public void HealClick()
@@ -34,6 +35,11 @@ namespace HackedDesign.UI
         public void ScrapClick()
         {
             Debug.Log("Scrap click");
+            if (selectedSlot != MechPosition.Nothing)
+            {
+                var item = Game.Instance.Player.Weapons.GetItem(selectedSlot);
+                Debug.Log("Scrap amount: " + item.scrapAmount);
+            }
         }
 
         public void CloseClick()
@@ -48,6 +54,11 @@ namespace HackedDesign.UI
                 var item = weapons.GetItem((MechPosition)i);
                 icons[i].sprite = item != null ? item.sprite : noItemIcon;
             }
+        }
+
+        public void RightArmSelected()
+        {
+            selectedSlot = MechPosition.RightArm;
         }
 
         public void RightArmMouseOver()
@@ -72,7 +83,7 @@ namespace HackedDesign.UI
         {
             hoverPanel.Show();
             hoverPanel.Repaint();
-        }        
+        }
 
         public void NoseMouseOver()
         {
@@ -88,12 +99,12 @@ namespace HackedDesign.UI
         public void LeftArmMouseOut()
         {
             hoverPanel.Hide();
-        }        
+        }
 
         public void RightShoulderMouseOut()
         {
             hoverPanel.Hide();
-        }           
+        }
 
         public void LeftShoulderMouseOut()
         {
@@ -103,7 +114,7 @@ namespace HackedDesign.UI
         public void NoseMouseOut()
         {
             hoverPanel.Hide();
-        }        
+        }
 
         public void RightArmDrag()
         {
@@ -118,7 +129,7 @@ namespace HackedDesign.UI
         public void RightShoulderDrag()
         {
             dragSlot = MechPosition.RightShoulder;
-        }        
+        }
 
         public void LeftShoulderDrag()
         {
@@ -128,7 +139,7 @@ namespace HackedDesign.UI
         public void NoseDrag()
         {
             dragSlot = MechPosition.Nose;
-        }        
+        }
 
         public void LegsDrag()
         {
@@ -138,53 +149,53 @@ namespace HackedDesign.UI
         public void BodyDrag()
         {
             dragSlot = MechPosition.Body;
-        }        
+        }
 
         public void RadarDrag()
         {
             dragSlot = MechPosition.Radar;
-        }        
+        }
 
         public void InvSlot0Drag()
         {
             dragSlot = MechPosition.InvSlot0;
-        }        
+        }
 
         public void InvSlot1Drag()
         {
             dragSlot = MechPosition.InvSlot1;
-        }        
+        }
 
         public void InvSlot2Drag()
         {
             dragSlot = MechPosition.InvSlot2;
-        }        
+        }
 
         public void InvSlot3Drag()
         {
             dragSlot = MechPosition.InvSlot3;
-        }      
+        }
 
 
         public void InvSlot4Drag()
         {
             dragSlot = MechPosition.InvSlot4;
-        }        
+        }
 
         public void InvSlot5Drag()
         {
             dragSlot = MechPosition.InvSlot5;
-        }        
+        }
 
         public void InvSlot6Drag()
         {
             dragSlot = MechPosition.InvSlot6;
-        }        
+        }
 
         public void InvSlot7Drag()
         {
             dragSlot = MechPosition.InvSlot7;
-        }                                
+        }
 
         public void RightArmDrop()
         {
@@ -219,28 +230,28 @@ namespace HackedDesign.UI
             Debug.Log("Drop " + dragSlot);
             Game.Instance.Player.Weapons.SwapItemPositions(dragSlot, MechPosition.Nose);
             Game.Instance.Player.Weapons.UpdateModels();
-        }        
+        }
 
         public void LegsDrop()
         {
             Debug.Log("Drop " + dragSlot);
             Game.Instance.Player.Weapons.SwapItemPositions(dragSlot, MechPosition.Legs);
             Game.Instance.Player.Weapons.UpdateModels();
-        }        
+        }
 
         public void BodyDrop()
         {
             Debug.Log("Drop " + dragSlot);
             Game.Instance.Player.Weapons.SwapItemPositions(dragSlot, MechPosition.Body);
             Game.Instance.Player.Weapons.UpdateModels();
-        }        
+        }
 
         public void RadarDrop()
         {
             Debug.Log("Drop " + dragSlot);
             Game.Instance.Player.Weapons.SwapItemPositions(dragSlot, MechPosition.Radar);
             Game.Instance.Player.Weapons.UpdateModels();
-        }        
+        }
 
         public void InvSlot0Drop()
         {
@@ -262,7 +273,7 @@ namespace HackedDesign.UI
             Game.Instance.Player.Weapons.SwapItemPositions(dragSlot, MechPosition.InvSlot2);
             Game.Instance.Player.Weapons.UpdateModels();
         }
-     
+
         public void InvSlot3Drop()
         {
             Debug.Log("Drop " + dragSlot);
@@ -275,21 +286,21 @@ namespace HackedDesign.UI
             Debug.Log("Drop " + dragSlot);
             Game.Instance.Player.Weapons.SwapItemPositions(dragSlot, MechPosition.InvSlot4);
             Game.Instance.Player.Weapons.UpdateModels();
-        }             
+        }
 
         public void InvSlot5Drop()
         {
             Debug.Log("Drop " + dragSlot);
             Game.Instance.Player.Weapons.SwapItemPositions(dragSlot, MechPosition.InvSlot5);
             Game.Instance.Player.Weapons.UpdateModels();
-        }        
+        }
 
         public void InvSlot6Drop()
         {
             Debug.Log("Drop " + dragSlot);
             Game.Instance.Player.Weapons.SwapItemPositions(dragSlot, MechPosition.InvSlot6);
             Game.Instance.Player.Weapons.UpdateModels();
-        }        
+        }
 
         public void InvSlot7Drop()
         {
@@ -298,7 +309,17 @@ namespace HackedDesign.UI
             Game.Instance.Player.Weapons.UpdateModels();
         }
 
+        public void ScrapDrop()
+        {
+            Debug.Log("Scrapdrop " + dragSlot);
+            var item = Game.Instance.Player.Weapons.GetItem(dragSlot);
+            if (item != null)
+            {
+                Debug.Log("Scrap amount: " + item.scrapAmount);
+                Game.Instance.Data.scrap += item.scrapAmount;
+                Game.Instance.Player.Weapons.SetItem(dragSlot, null);
+            }
 
-
+        }
     }
 }

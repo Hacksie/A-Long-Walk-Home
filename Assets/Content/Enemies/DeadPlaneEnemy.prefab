@@ -1965,7 +1965,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8296345778051940465}
   - component: {fileID: 5549611833398138030}
-  - component: {fileID: 5407246761165347948}
+  - component: {fileID: 6520903053631810738}
   m_Layer: 9
   m_Name: DeadPlaneEnemy
   m_TagString: Enemy
@@ -2009,8 +2009,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   loot: []
---- !u!135 &5407246761165347948
-SphereCollider:
+--- !u!65 &6520903053631810738
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2020,8 +2020,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &1729728900685558295
 PrefabInstance:
   m_ObjectHideFlags: 0

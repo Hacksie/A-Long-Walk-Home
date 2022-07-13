@@ -18,5 +18,6 @@ namespace HackedDesign
         InvSlot5,
         InvSlot6,
         InvSlot7,
+        Nothing
     }
 }

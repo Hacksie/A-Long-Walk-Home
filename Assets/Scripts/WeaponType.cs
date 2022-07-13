@@ -13,6 +13,8 @@ namespace HackedDesign
         Mining
     }
 
+
+
     public enum AmmoType
     {
         Claw,

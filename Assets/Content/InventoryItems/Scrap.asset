@@ -9,13 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92ebd5d9f76c5794c894801179d7aff7, type: 3}
-  m_Name: GaussSettings
+  m_Script: {fileID: 11500000, guid: df5667b83adca3f4baebc6f397d3cc02, type: 3}
+  m_Name: Scrap
   m_EditorClassIdentifier: 
-  type: 4
-  ammoType: 1
+  allowedMechPositions: 
+  weaponType: 0
+  itemType: 0
+  ammoType: 0
   baseFireRate: 0
-  baseDamage: 10
+  baseMinDamage: 10
+  baseMaxDamage: 10
   baseHeat: 10
   shake: 0.5
-  sprite: {fileID: 21300000, guid: d37ce60581e238f4bbf94cf42b126b8f, type: 3}
+  sprite: {fileID: 0}
+  canRemove: 1
+  sfx: {fileID: 0}
+  sfxPitch: 1
+  scrapAmount: 1

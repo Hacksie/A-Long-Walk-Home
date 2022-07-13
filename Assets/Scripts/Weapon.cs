@@ -7,6 +7,7 @@ namespace HackedDesign
     {
         [SerializeField] public GameObject parent;
         [SerializeField] public Transform firePoint;
+        [SerializeField] public AudioSource sfx;
         [SerializeField] public bool isPlayer = false;
         [SerializeField] public InventoryItem item;
         [SerializeField] public List<WeaponModel> models;
@@ -42,7 +43,7 @@ namespace HackedDesign
                         Game.Instance.IncreaseHeat(item.baseHeat);
                     }
                     Game.Instance.CameraShake.Shake(item.shake, 0.1f);
-                    PlaySFX();
+                    PlaySFX(item);
                     return true;
                 }
             }
@@ -50,18 +51,26 @@ namespace HackedDesign
             return false;
         }
 
-        private void PlaySFX()
+        private void PlaySFX(AudioClip clip, float pitch)
         {
-            var sfx = GetComponentInChildren<AudioSource>();
-            if (sfx != null)
+            if (sfx != null && clip != null)
             {
+                sfx.pitch = pitch;
+                sfx.clip = clip;
                 sfx.Play();
             }
         }
 
+        private void PlaySFX(InventoryItem item)
+        {
+            PlaySFX(item.sfx, item.sfxPitch);
+        }
+
         private void FireAmmo()
         {
-            Game.Instance.Pool.FireBullet(item.ammoType, parent, firePoint.position, firePoint.forward, item.baseDamage);
+            var dmg = Random.Range(item.baseMinDamage, item.baseMaxDamage);
+            Debug.Log("Damage: " + dmg);
+            Game.Instance.Pool.FireBullet(item.ammoType, parent, firePoint.position, firePoint.forward, dmg);
         }
     }
 }
