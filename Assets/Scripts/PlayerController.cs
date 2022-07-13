@@ -106,6 +106,15 @@ namespace HackedDesign
         public void UpdateBehaviour()
         {
             UpdateBodyRotation();
+            if (moveAction != null)
+            {
+                var movement = moveAction.ReadValue<Vector2>();
+                //rb.transform.position = this.transform.position + this.transform.forward * movement.y * Time.deltaTime * (settings.walkSpeed);
+                //rb.transform.rotation = Quaternion.Euler(0, this.transform.rotation.eulerAngles.y + movement.x * settings.rotateSpeed * Time.deltaTime, 0);
+                //rb.MovePosition(this.transform.position + this.transform.forward * movement.y * Time.fixedDeltaTime * (settings.walkSpeed));
+                //rb.MoveRotation(Quaternion.Euler(0, this.transform.rotation.eulerAngles.y + movement.x * settings.rotateSpeed * Time.fixedDeltaTime, 0));
+                Animate(movement);
+            }
         }
 
         public void FixedUpdateBehaviour()
@@ -245,7 +254,7 @@ namespace HackedDesign
             }
         }
 
-        private void Animate(Vector3 movement)
+        private void Animate(Vector2 movement)
         {
             animator?.SetFloat("Rotation", movement.x);
             animator?.SetFloat("Speed", movement.y);

@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 4226929764395167664}
   - component: {fileID: 2111596070904290170}
   - component: {fileID: -7321287141183692502}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: crops_dirtSingle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &938659317207506965
 Transform:

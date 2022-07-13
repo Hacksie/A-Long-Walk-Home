@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 1169464124416005547}
   - component: {fileID: 4025710252408299873}
   - component: {fileID: 3063572355065508200}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: flower_yellowA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2852219996345342478
 Transform:

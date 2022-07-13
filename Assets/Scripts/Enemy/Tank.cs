@@ -6,10 +6,13 @@ namespace HackedDesign
     [RequireComponent(typeof(Enemy), typeof(UnityEngine.AI.NavMeshAgent))]
     public class Tank : MonoBehaviour
     {
+        [SerializeField] private MechController controller;
         [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
         [SerializeField] private Enemy baseEnemy;
         [SerializeField] private float alertRadius = 50.0f;
+        [SerializeField] private float attackRadius = 15.0f;
         [SerializeField] private float explosionDamage = 40.0f;
+        [SerializeField] private Transform turret;
 
         void Awake()
         {
@@ -22,20 +25,29 @@ namespace HackedDesign
             var playerPosition = Game.Instance.Player.transform.position;
             var sqrDistanceToPlayer = (playerPosition - this.transform.position).sqrMagnitude;
 
-            if(sqrDistanceToPlayer < (alertRadius * alertRadius))
+            if(sqrDistanceToPlayer < (attackRadius * attackRadius))
             {
+                turret.LookAt(playerPosition);
+                controller?.FirePrimaryWeapon();
+            }
+            else if(sqrDistanceToPlayer < (alertRadius * alertRadius))
+            {
+                turret.LookAt(playerPosition);
                 agent.SetDestination(playerPosition);
             }
+
+            
         }
 
         void OnCollisionEnter(Collision collision)
         {
-            if(collision.collider.CompareTag("Player"))
-            {
-                Game.Instance.DamageArmour(explosionDamage);
-                Debug.Log("Drone explode", this);
-                baseEnemy.Explode();
-            }
+
+            // if(collision.collider.CompareTag("Player"))
+            // {
+            //     Game.Instance.DamageArmour(explosionDamage);
+            //     Debug.Log("Tank explode", this);
+            //     baseEnemy.Explode();
+            // }
         }
 
         // void OnTriggerEnter(Collider other)

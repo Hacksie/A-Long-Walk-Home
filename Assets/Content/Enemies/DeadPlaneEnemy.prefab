@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6904732491703534712}
   - component: {fileID: 1331844755473309984}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 6828594837826648882}
   m_LocalRotation: {x: 0.13972388, y: -0.019560633, z: 0.1372561, w: 0.9804363}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8296345778051940465}
@@ -1837,7 +1837,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4112
+  m_VersionIndex: 4116
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1894,7 +1894,7 @@ MeshRenderer:
   - {fileID: 2100000, guid: 9b531d12cf880394c8f2496b36083537, type: 2}
   - {fileID: 2100000, guid: e441b19de9beaed4bab0f2a19a4be046, type: 2}
   - {fileID: 2100000, guid: aa02e20ac78dc0b468a0c7103cede089, type: 2}
-  - {fileID: 2100000, guid: ee16028225a75e34b86ad106437b4106, type: 2}
+  - {fileID: 2100000, guid: f4d21cf6ccdd3464281a84a255e9cac1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

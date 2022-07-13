@@ -93,12 +93,12 @@ namespace HackedDesign
                     return;
                 }
 
-                var go = Instantiate(prefab, start, Quaternion.identity, parent);
-                if (!go.TryGetComponent<Bullet>(out bullet))
-                {
-                    Debug.LogError("No bullet component", this);
-                    return;
-                }
+                bullet = Instantiate(prefab, start, Quaternion.identity, parent);
+                // if (!go.TryGetComponent<Bullet>(out bullet))
+                // {
+                //     Debug.LogError("No bullet component", this);
+                //     return;
+                // }
                 bulletPool.Add(bullet);
             }
 
@@ -118,12 +118,12 @@ namespace HackedDesign
             bulletPool.Add(b);
         }
 
-        private GameObject ChoosePrefab(AmmoType ammoType)
+        private Bullet ChoosePrefab(AmmoType ammoType)
         {
             var b = bulletPrefabs.FirstOrDefault(b => b.ammoType == ammoType);
             if (b != null)
             {
-                return b.gameObject;
+                return b;
             }
             return null;
         }

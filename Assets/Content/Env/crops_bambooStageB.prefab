@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 4151007394006992934}
   - component: {fileID: 2197651557650955500}
   - component: {fileID: -2665625862098569543}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: crops_bambooStageB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1023597694771365763
 Transform:

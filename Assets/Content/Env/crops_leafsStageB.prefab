@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 7555080846449444241}
   - component: {fileID: 5709998395769942363}
   - component: {fileID: -5923798504225893153}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: crops_leafsStageB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6878915919070169652
 Transform:

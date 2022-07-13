@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 4965255383710579774}
   - component: {fileID: 7137315075802188020}
   - component: {fileID: 3507450611754795670}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: crops_wheatStageB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8306883893309813659
 Transform:

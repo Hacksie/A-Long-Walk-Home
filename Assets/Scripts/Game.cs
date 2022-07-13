@@ -86,6 +86,14 @@ namespace HackedDesign
             Application.Quit();
         }
 
+        public void MaxHeal()
+        {
+            float amountReq = Data.armourMax - Data.armour;
+            int amount = Mathf.CeilToInt(Mathf.Min(amountReq, Data.scrap));
+            DamageArmour(-1 * amount);
+            Data.scrap -= amount;
+        }
+
         public void DamageArmour(float amount)
         {
             Data.armour = Mathf.Clamp(Data.armour - amount, 0, Data.armourMax);

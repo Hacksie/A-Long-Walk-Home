@@ -18,6 +18,7 @@ namespace HackedDesign
         [SerializeField] private int maxClusterSize = 6;
         [SerializeField] private float clusterRadius = 30;
         [SerializeField] private float deadzone = 10.0f;
+        [SerializeField] private LayerMask envMask;
 
 
         [Header("Prefabs")]
@@ -144,6 +145,13 @@ namespace HackedDesign
             // Don't spawn off the map
             if (position.x < deadzone || position.z < deadzone || position.x >= (settings.worldSize.x - deadzone) || position.z >= (settings.worldSize.y - deadzone))
             {
+                return false;
+            }
+
+            //if(Physics.SphereCast(Vector3 position, ))
+            if(Physics.CheckSphere(position, 1.5f, envMask, QueryTriggerInteraction.Ignore))
+            {
+                Debug.Log("Obstacle overlap");
                 return false;
             }
 

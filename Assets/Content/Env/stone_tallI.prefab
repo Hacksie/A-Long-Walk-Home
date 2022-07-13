@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 1435699839459410315}
   - component: {fileID: 3749341438324815169}
   - component: {fileID: 6267997471490576272}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: stone_tallI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2613067384061120046
 Transform:

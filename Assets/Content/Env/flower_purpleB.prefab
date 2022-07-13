@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 7156580178336655445}
   - component: {fileID: 4951057466248617119}
   - component: {fileID: 4739428517942253231}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: flower_purpleB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6124504428102068208
 Transform:

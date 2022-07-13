@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 3368134374640692746}
   - component: {fileID: 674118377411533504}
   - component: {fileID: 2863430221703174187}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: meteor_half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1806470988963160495
 Transform:

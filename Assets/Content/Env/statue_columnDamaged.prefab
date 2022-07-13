@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 6557037518827995903}
   - component: {fileID: 9014994414538733109}
   - component: {fileID: -1440901160829415016}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: statue_columnDamaged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7876968873011563866
 Transform:

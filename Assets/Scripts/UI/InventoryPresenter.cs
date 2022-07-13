@@ -25,6 +25,12 @@ namespace HackedDesign.UI
             
         }
 
+        public void HealClick()
+        {
+            Debug.Log("Heal");
+            Game.Instance.MaxHeal();
+        }
+
         public void ScrapClick()
         {
             Debug.Log("Scrap click");

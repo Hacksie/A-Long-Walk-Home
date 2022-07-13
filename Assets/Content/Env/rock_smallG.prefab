@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2347883464936582050}
   - component: {fileID: 536399890312208232}
   - component: {fileID: 2516771093906449974}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: rock_smallG
   m_TagString: Untagged
   m_Icon: {fileID: 0}

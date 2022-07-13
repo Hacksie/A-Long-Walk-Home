@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 1314631309060795539}
   - component: {fileID: 3880543205195520089}
   - component: {fileID: 9197474065436367814}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: path_stoneCorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2707043397392393014
 Transform:

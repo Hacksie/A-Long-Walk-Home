@@ -23,7 +23,7 @@ namespace HackedDesign
         public int currentLevel = 0;
         public int currentDialogLine = 0;
 
-        public int scrap = 0;
+        public int scrap = 100;
 
         public InventoryItem hoverItem;
 
