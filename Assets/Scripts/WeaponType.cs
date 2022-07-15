@@ -18,7 +18,7 @@ namespace HackedDesign
     public enum AmmoType
     {
         Claw,
-        Guass,
+        Gauss,
         Laser,
         Bullet,
         Missile,

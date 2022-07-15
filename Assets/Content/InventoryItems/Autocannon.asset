@@ -18,12 +18,151 @@ MonoBehaviour:
   itemLevel: 0
   ammoType: 3
   baseFireRate: 0.6
+  genFireRate:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
   baseMinDamage: 20
+  genMinDamage:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
   baseMaxDamage: 60
+  genMaxDamage:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
   baseHeat: 10
+  genHeat:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseSpeed: 0
+  genSpeed:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseOverdriveTime: 0
+  genOverdriveTime:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseOverdriveMult: 0
+  genOverdriveMult:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseRange: 10
+  genRange:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseArmour: 0
+  genArmour:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseArmourRegen: 0
+  genArmourRegen:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseShield: 0
+  genShield:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  scrapAmount: 2
+  genScrap:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
   shake: 0.5
-  sprite: {fileID: 21300000, guid: bde4e455d70188144a0a04165ceae6b6, type: 3}
+  sprite: {fileID: 120248529, guid: b70d1ced80c336d40ac896344cc1d098, type: 3}
   canRemove: 1
   sfx: {fileID: 8300000, guid: 33041d94d3f396a43a5c2636069e9d50, type: 3}
   sfxPitch: 0.1
-  scrapAmount: 2

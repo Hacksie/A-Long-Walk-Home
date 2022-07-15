@@ -10,6 +10,7 @@ namespace HackedDesign
     {
         [SerializeField] private Transform terrain;
         //[SerializeField] private Transform terrainBoundary
+        [SerializeField] private GameObject startingShip;
         [SerializeField] private Transform obstacleParent;
         [SerializeField] private List<GameObject> ObstaclePrefabs;
         [SerializeField] private CoolantPool coolantPoolPrefab;
@@ -24,12 +25,13 @@ namespace HackedDesign
         [SerializeField] private Transform start;
         [SerializeField] private Transform target;
 
-        public void SpawnLevel(Settings settings)
+        public void SpawnLevel(Settings settings, int level)
         {
             UpdateTerrain(settings);
             SpawnObstacles(settings);
             SpawnCoolant(settings);
-        }
+            startingShip.SetActive(level == 0);
+       }
 
         private void UpdateTerrain(Settings settings)
         {

@@ -34,13 +34,18 @@ namespace HackedDesign
             {
                 if (Time.time >= nextFireTime)
                 {
-                    nextFireTime = Time.time + item.baseFireRate;
+                    
 
                     FireAmmo();
 
                     if (isPlayer)
                     {
-                        Game.Instance.IncreaseHeat(item.baseHeat);
+                        nextFireTime = Time.time + (item.baseFireRate * (1 + Game.Instance.Player.Mech.OverdriveMultiplier));
+                        Game.Instance.Player.Mech.IncreaseHeat(item.baseHeat);
+                    }
+                    else
+                    {
+                        nextFireTime = Time.time + item.baseFireRate ;
                     }
                     Game.Instance.CameraShake.Shake(item.shake, 0.1f);
                     PlaySFX(item);

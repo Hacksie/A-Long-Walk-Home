@@ -17,7 +17,7 @@ namespace HackedDesign
         public void Begin()
         {
             x = 0;
-            
+
             this.loadingPresenter.Show();
         }
 
@@ -43,26 +43,26 @@ namespace HackedDesign
 
         public void Update()
         {
-            if(x ==0 ) // hack to skip a frame
+            if (x == 0) // hack to skip a frame
             {
                 x = 1;
                 return;
             }
             this.loadingPresenter.Repaint();
             Debug.Log("Loading Level");
-            Game.Instance.Level.SpawnLevel(Game.Instance.Settings);
+            Game.Instance.Level.SpawnLevel(Game.Instance.Settings, Game.Instance.Data.currentLevel);
             Debug.Log("Loading Enemies");
             Game.Instance.Enemies.SpawnEnemies(100 + (Game.Instance.Data.currentLevel * 10), Game.Instance.Settings);
             Debug.Log("Level loaded");
-            if(Game.Instance.Settings.skipIntro)
+            if (Game.Instance.Data.skipIntro)
             {
                 Game.Instance.SetPlaying();
             }
-            else 
+            else
             {
                 Game.Instance.SetIntro();
             }
-            
+
         }
     }
 

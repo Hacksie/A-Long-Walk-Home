@@ -19,7 +19,7 @@ namespace HackedDesign
         [SerializeField] private CameraShake cameraShake = null;
 
         [Header("Data")]
-        [SerializeField] public int currentSlot = 0;
+        [SerializeField] private int currentSlot = 0;
         [SerializeField] public List<GameData> gameSlots = new List<GameData>(3);
         [SerializeField] private Settings settings;
 
@@ -33,6 +33,7 @@ namespace HackedDesign
         [SerializeField] private UI.InvHoverPresenter invHoverPanel = null;
         [SerializeField] private UI.DeadPresenter deadPanel = null;
         [SerializeField] private UI.PausePresenter pausePanel = null;
+        [SerializeField] private UI.DragPresenter dragPanel = null;
 
 
         private IState state = new EmptyState();
@@ -61,6 +62,7 @@ namespace HackedDesign
         public EnemyManager Enemies { get => enemyManager; set => enemyManager = value; }
         public CameraShake CameraShake { get { return cameraShake; } private set { cameraShake = value; } }
         public Camera MainCamera { get => mainCamera; set => mainCamera = value; }
+        public int CurrentSlot { get => currentSlot; set => currentSlot = value; }
 
         Game()
         {
@@ -84,46 +86,6 @@ namespace HackedDesign
         {
             Application.Quit();
         }
-
-        public void MaxHeal()
-        {
-            float amountReq = Data.armourMax - Data.armour;
-            int amount = Mathf.CeilToInt(Mathf.Min(amountReq, Data.scrap));
-            DamageArmour(-1 * amount);
-            Data.scrap -= amount;
-        }
-
-        public void DamageArmour(float amount)
-        {
-            Data.armour = Mathf.Clamp(Data.armour - amount, 0, Data.armourMax);
-            CameraShake.Shake(0.5f, 0.2f); //FIXME: Setting
-
-            if (Data.armour <= 0)
-            {
-                Pool.SpawnExplosion(Player.transform.position);
-                SetDead();
-            }
-        }
-
-        public void IncreaseHeat(float amount)
-        {
-            Data.heat = Mathf.Max(Data.heat + amount, 0);
-        }
-
-        public void IncreaseCoolant(float amount)
-        {
-            Data.coolant = Mathf.Clamp(Data.coolant + amount, 0,  Data.coolantMax);
-        }    
-
-        public void CoolantDump()
-        {
-            var amount = Data.coolant;
-
-            IncreaseHeat(-1 * Data.coolant);
-            Data.coolant = 0;
-        }    
-
-
 
         private void CheckBindings()
         {
@@ -156,6 +118,7 @@ namespace HackedDesign
             invHoverPanel.Hide();
             deadPanel.Hide();
             pausePanel.Hide();
+            dragPanel.Hide();
         }
     }
 }

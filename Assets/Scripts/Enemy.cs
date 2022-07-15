@@ -9,8 +9,6 @@ namespace HackedDesign
 
     public class Enemy : MonoBehaviour
     {
-        [SerializeField] private float radius = 1.0f;
-        [SerializeField] private int minLevel = 0;
         [SerializeField] private Transform healthBar;
         [SerializeField] private EnemyType enemyType;
 
@@ -20,12 +18,14 @@ namespace HackedDesign
         [SerializeField] public float health;
 
         private float currentHealth;
+        private EnemyState state;
 
         public EnemyType EnemyType { get => enemyType; set => enemyType = value; }
+        public EnemyState State { get => state; set => state = value; }
 
         public void Reset()
         {
-            currentHealth = health;
+            currentHealth = health * (float)Math.Exp(Game.Instance.Data.currentLevel);
         }
 
         public void UpdateBehaviour()
@@ -64,15 +64,10 @@ namespace HackedDesign
         {
             var spawnPos = new Vector3(transform.position.x, 0.5f, transform.position.z);
 
-            Debug.Log("Die here " + spawnPos);
-
             if (Physics.Raycast(transform.position, Vector3.up, out var raycastHit, 10.0f, envMask))
             {
                 spawnPos = raycastHit.point;
-                Debug.Log("Die here instead " + spawnPos);
             }
-
-
 
             Game.Instance.Enemies.SpawnDestroyedEnemy(enemyType, spawnPos);
             Game.Instance.Pool.SpawnExplosion(spawnPos);
@@ -89,5 +84,13 @@ namespace HackedDesign
         Artillery,
         OrbitalDrop,
         Mech
+    }
+
+    public enum EnemyState
+    {
+        Idle,
+        Patrol,
+        Attack,
+        Adjust
     }
 }

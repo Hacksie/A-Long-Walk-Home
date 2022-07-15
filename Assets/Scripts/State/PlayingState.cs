@@ -33,14 +33,15 @@ namespace HackedDesign
 
         public void Update()
         {
-            UpdateOverHeat();
+            this.player.Mech.UpdateStatus(Time.deltaTime);
             UpdateNearDeath();
-            UpdateAmbientHeatLoss();
+
             this.player.UpdateBehaviour();
             this.enemies.UpdateBehaviour();
             this.hudPresenter.Repaint();
             this.actionPresenter.Repaint();
-            
+
+
         }
 
         public void FixedUpdate()
@@ -58,26 +59,14 @@ namespace HackedDesign
             Game.Instance.SetLoadout();
         }
 
-        private static void UpdateAmbientHeatLoss()
-        {
-            Game.Instance.IncreaseHeat(-1.0f * (Game.Instance.Data.ambientHeatLoss) * Time.deltaTime);
-        }        
 
-        private void UpdateOverHeat()
-        {
-            if (Game.Instance.Data.heat >= Game.Instance.Data.heatMax)
-            {
-                Game.Instance.DamageArmour(Game.Instance.Data.heatDamage * Time.deltaTime);
-                //AudioManager.Instance.PlayWarning();
-            }
-        }
 
         private void UpdateNearDeath()
         {
-            if (Game.Instance.Data.armour <= 10)
-            {
-                //AudioManager.Instance.PlayWarning();
-            }
+            // if (Game.Instance.Data.armour <= 10)
+            // {
+            //     //AudioManager.Instance.PlayWarning();
+            // }
         }
 
 

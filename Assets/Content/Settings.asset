@@ -12,26 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be349674ee367314981dd2863a4f4ddb, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  walkSpeed: 2.5
   rotateSpeed: 180
   orbitSpeed: 180
   clawRange: 0.7
-  maxLevels: 25
-  skipIntro: 1
+  maxLevels: 6
+  skipIntro: 0
   worldSize: {x: 300, y: 300}
   safeArea: {x: 33, y: 33}
-  maxHeat: 100
-  maxCoolant: 100
-  maxArmour: 100
-  startingArmour: 100
-  startingHeat: 0
-  startingCoolant: 0
+  deadzone: 20
+  obstacleCount: 300
+  enemyCount: 200
+  coolantCount: 13
+  pickupRadius: 2
   ambientHeatLoss: 1
-  startingLeftArm: 2
-  startingRightArm: 1
-  startingLeftShoulder: 0
-  startingRightShoulder: 0
-  startingNose: 8
+  scrap: {fileID: 11400000, guid: ebac8ca73a159084fbfb6261b280391b, type: 2}
+  motor: {fileID: 11400000, guid: e7dd4624cb9fd8243b3cea6f4071351c, type: 2}
+  armour: {fileID: 11400000, guid: 9dd3ceb494cc80a4ea58c75a32b6fe12, type: 2}
+  radar: {fileID: 11400000, guid: d76101c251761654688a60ef3ebf01b2, type: 2}
+  claw: {fileID: 11400000, guid: a95da663499e60444a51a2e4c751e4c6, type: 2}
+  mining: {fileID: 11400000, guid: 5e8f010c96b1200458af7f117a9d78c1, type: 2}
+  cannon: {fileID: 11400000, guid: 30158efc54e33944ab66fe3c718a9b95, type: 2}
+  gattling: {fileID: 11400000, guid: b762ae661478ee44db35479f1df30dfc, type: 2}
+  gauss: {fileID: 11400000, guid: 2fd9b43c86589b44295a5ff32822779b, type: 2}
+  laser: {fileID: 11400000, guid: 13f76aadd9851ff4cb37476c1eb989d6, type: 2}
+  autocannon: {fileID: 11400000, guid: a9b411753e3bf2943ad82ac49036b869, type: 2}
+  missiles: {fileID: 11400000, guid: f07ebf99ff26eac42a07e7d6d34230aa, type: 2}
   startingPrimary: 1
   startingSecondary: 4
   dialogLines:

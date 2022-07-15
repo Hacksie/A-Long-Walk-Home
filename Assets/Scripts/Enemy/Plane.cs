@@ -37,12 +37,12 @@ namespace HackedDesign
 
         void OnCollisionEnter(Collision collision)
         {
-            if(collision.collider.CompareTag("Player"))
-            {
-                Game.Instance.DamageArmour(explosionDamage);
-                Debug.Log("Drone explode", this);
-                baseEnemy.Explode();
-            }
+            // if(collision.collider.CompareTag("Player"))
+            // {
+            //     Game.Instance.Player.Mech.DamageArmour(explosionDamage);
+            //     Debug.Log("Drone explode", this);
+            //     baseEnemy.Explode();
+            // }
         }
     }
 }

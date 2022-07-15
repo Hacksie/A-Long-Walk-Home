@@ -87,7 +87,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Primary Action",
+                    "name": "Overdrive",
                     "type": "Button",
                     "id": "075fcdb0-225e-4ae2-98ed-87d1c80c5dc5",
                     "expectedControlType": "Button",
@@ -96,7 +96,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Secondary Action",
+                    "name": "Coolant Dump",
                     "type": "Button",
                     "id": "0d81261a-3638-416f-99df-2e3268de1a7c",
                     "expectedControlType": "Button",
@@ -476,7 +476,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Primary Action",
+                    "action": "Overdrive",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -487,7 +487,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Secondary Action",
+                    "action": "Coolant Dump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -498,7 +498,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Secondary Action",
+                    "action": "Coolant Dump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

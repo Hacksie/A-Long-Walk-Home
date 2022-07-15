@@ -12,13 +12,14 @@ namespace HackedDesign
         [SerializeField] private Rigidbody? rb;
         [SerializeField] private PlayerInput? playerInput;
         [SerializeField] private Animator? animator;
-        [SerializeField] private MechController? weapons;
+        [SerializeField] private MechController? mech;
 
         [Header("Settings")]
         [SerializeField] private Settings? settings;
         [SerializeField] private LayerMask aimMask;
+        [SerializeField] private LayerMask deadenemyMask;
 
-        public MechController? Weapons { get => weapons; set => weapons = value; }
+        public MechController? Mech { get => mech; set => mech = value; }
 
         private InputAction? startAction;
         private InputAction? selectAction;
@@ -38,7 +39,7 @@ namespace HackedDesign
             playerInput = playerInput ?? GetComponent<PlayerInput>();
             rb = rb ?? GetComponent<Rigidbody>();
             animator = animator ?? GetComponent<Animator>();
-            weapons = weapons ?? GetComponent<MechController>();
+            mech = mech ?? GetComponent<MechController>();
 
             startAction = playerInput.actions["Start"];
             selectAction = playerInput.actions["Select"];
@@ -46,8 +47,8 @@ namespace HackedDesign
             mousePosAction = playerInput.actions["Mouse Position"];
             primaryFire = playerInput.actions["Primary Fire"];
             secondaryFire = playerInput.actions["Secondary Fire"];
-            primaryAction = playerInput.actions["Primary Action"];
-            secondaryAction = playerInput.actions["Secondary Action"];
+            primaryAction = playerInput.actions["Overdrive"];
+            secondaryAction = playerInput.actions["Coolant Dump"];
 
             changePrimaryAction = playerInput.actions["Change Primary Weapon"];
             changeSecondaryAction = playerInput.actions["Change Secondary Weapon"];
@@ -70,17 +71,24 @@ namespace HackedDesign
                 Debug.LogError("settings is null", this);
                 return;
             }
-            if (weapons == null)
+            if (mech == null)
             {
                 Debug.LogError("weapons is null", this);
                 return;
             }
             this.transform.position = settings.startPosition;
-            weapons.selectedPrimaryWeapon = settings.startingPrimary;
-            weapons.selectedSecondaryWeapon = settings.startingSecondary;
-            weapons.linkArms = false;
-            weapons.linkShoulders = false;
-            weapons.UpdateModels();
+            mech.selectedPrimaryWeapon = settings.startingPrimary;
+            mech.selectedSecondaryWeapon = settings.startingSecondary;
+            mech.linkArms = false;
+            mech.linkShoulders = false;
+            mech.UpdateModels();
+            mech.SetItem(MechPosition.RightArm, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.claw));
+            mech.SetItem(MechPosition.LeftArm, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.cannon));
+            mech.SetItem(MechPosition.LeftShoulder, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.missiles));
+            mech.SetItem(MechPosition.InvSlot0, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.scrap));
+            mech.SetItem(MechPosition.Armour, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.armour).Randomize());
+            mech.SetItem(MechPosition.Motor, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.motor).Randomize());
+            mech.SetItem(MechPosition.Radar, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.radar).Randomize());
         }
 
         public void Die()
@@ -100,15 +108,28 @@ namespace HackedDesign
 
         public void UpdateBehaviour()
         {
-            UpdateBodyRotation();
+            var mousePos = GetMousePosition();
+            UpdateBodyRotation(mousePos);
+            UpdatePickupHover(mousePos);
             if (moveAction != null)
             {
                 var movement = moveAction.ReadValue<Vector2>();
-                //rb.transform.position = this.transform.position + this.transform.forward * movement.y * Time.deltaTime * (settings.walkSpeed);
-                //rb.transform.rotation = Quaternion.Euler(0, this.transform.rotation.eulerAngles.y + movement.x * settings.rotateSpeed * Time.deltaTime, 0);
-                //rb.MovePosition(this.transform.position + this.transform.forward * movement.y * Time.fixedDeltaTime * (settings.walkSpeed));
-                //rb.MoveRotation(Quaternion.Euler(0, this.transform.rotation.eulerAngles.y + movement.x * settings.rotateSpeed * Time.fixedDeltaTime, 0));
                 Animate(movement);
+            }
+        }
+
+        public void UpdatePickupHover(Vector2 mousePosition)
+        {
+            if (mainCamera == null)
+            {
+                Debug.LogError("mainCamera not set", this);
+                return;
+            }
+
+            Ray ray = mainCamera.ScreenPointToRay(mousePosition);
+            if (Physics.Raycast(ray.origin, ray.direction, 20, deadenemyMask))
+            {
+                Debug.Log("hovering over dead enemy", this);
             }
         }
 
@@ -132,8 +153,14 @@ namespace HackedDesign
                 return;
             }
 
+            if (Mech == null)
+            {
+                Debug.LogError("MechController not set", this);
+                return;
+            }
+
             var movement = moveAction.ReadValue<Vector2>();
-            rb.MovePosition(this.transform.position + this.transform.forward * movement.y * Time.fixedDeltaTime * (settings.walkSpeed));
+            rb.MovePosition(this.transform.position + this.transform.forward * movement.y * Time.fixedDeltaTime * (Mech.WalkSpeed));
             rb.MoveRotation(Quaternion.Euler(0, this.transform.rotation.eulerAngles.y + movement.x * settings.rotateSpeed * Time.fixedDeltaTime, 0));
             Animate(movement);
         }
@@ -152,9 +179,9 @@ namespace HackedDesign
         {
             if (Game.Instance.State.Playing)
             {
-                if (weapons != null)
+                if (mech != null)
                 {
-                    weapons.FirePrimaryWeapon();
+                    mech.FirePrimaryWeapon();
                 }
                 else
                 {
@@ -167,9 +194,9 @@ namespace HackedDesign
         {
             if (Game.Instance.State.Playing)
             {
-                if (weapons != null)
+                if (mech != null)
                 {
-                    weapons.FireSecondaryWeapon();
+                    mech.FireSecondaryWeapon();
                 }
                 else
                 {
@@ -180,12 +207,12 @@ namespace HackedDesign
 
         private void OnPrimaryAction(InputAction.CallbackContext context)
         {
-
+            Mech?.Overdrive();
         }
 
         private void OnSecondaryAction(InputAction.CallbackContext context)
         {
-            Game.Instance.CoolantDump();
+            Mech?.CoolantDump();
         }
 
         private void OnChangePrimaryWeapon(InputAction.CallbackContext context)
@@ -194,12 +221,12 @@ namespace HackedDesign
 
             if (dir > 0)
             {
-                weapons?.NextPrimaryWeapon();
+                mech?.NextPrimaryWeapon();
             }
 
             if (dir < 0)
             {
-                weapons?.PrevPrimaryWeapon();
+                mech?.PrevPrimaryWeapon();
             }
         }
 
@@ -209,16 +236,26 @@ namespace HackedDesign
 
             if (dir > 0)
             {
-                weapons?.NextSecondaryWeapon();
+                mech?.NextSecondaryWeapon();
             }
 
             if (dir < 0)
             {
-                weapons?.PrevSecondaryWeapon();
+                mech?.PrevSecondaryWeapon();
             }
         }
 
-        private void UpdateBodyRotation()
+        private Vector2 GetMousePosition()
+        {
+            if (mousePosAction == null)
+            {
+                Debug.LogError("mousePosAction not set", this);
+                return Vector2.zero;
+            }
+            return mousePosAction.ReadValue<Vector2>();
+        }
+
+        private void UpdateBodyRotation(Vector2 mousePosition)
         {
             if (mousePosAction == null)
             {
@@ -238,7 +275,6 @@ namespace HackedDesign
                 return;
             }
 
-            var mousePosition = mousePosAction.ReadValue<Vector2>();
             Ray ray = mainCamera.ScreenPointToRay(mousePosition);
 
             if (Physics.RaycastNonAlloc(ray, raycastHits, 100, aimMask) > 0)

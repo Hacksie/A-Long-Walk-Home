@@ -32,7 +32,7 @@ namespace HackedDesign
         {
             if(collision.collider.CompareTag("Player"))
             {
-                Game.Instance.DamageArmour(explosionDamage);
+                Game.Instance.Player.Mech.DamageArmour(explosionDamage, true);
                 Debug.Log("Drone explode", this);
                 baseEnemy.Explode();
             }

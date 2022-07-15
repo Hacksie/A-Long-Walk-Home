@@ -88,7 +88,7 @@ namespace HackedDesign
                 }
                 if (other.collider.CompareTag("Player") && !this.firer.CompareTag("Player"))
                 {
-                    Game.Instance.DamageArmour(this.damage);
+                    Game.Instance.Player.Mech.DamageArmour(this.damage, true);
                 }
                 Explode(this.transform.position);
             }
