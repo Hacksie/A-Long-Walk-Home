@@ -15,6 +15,11 @@ namespace HackedDesign.UI
         [SerializeField] private UnityEngine.UI.Text item3Value;
         [SerializeField] private UnityEngine.UI.Text itemPosition;
         [SerializeField] private UnityEngine.UI.Text itemScrap;
+        [SerializeField] private Color scrapColor;
+        [SerializeField] private Color normalColor;
+        [SerializeField] private Color uncommonColor;
+        [SerializeField] private Color rareColor;
+        [SerializeField] private Color epicColor;
         [SerializeField] private Color dmgColor;
         [SerializeField] private Color apsColor;
         [SerializeField] private Color heatColor;
@@ -60,10 +65,28 @@ namespace HackedDesign.UI
 
         public override void Repaint()
         {
-            itemName.text = currentItem != null ? currentItem.name : "";
+            itemName.text = "<color='#" + ColorUtility.ToHtmlStringRGB(ItemColor(currentItem.itemLevel)) + "'>" + (currentItem != null ? currentItem.name : "") + "</color>";
             itemPosition.text = "(" + (currentItem != null ? this.position.ToString() : "") + ")";
             itemScrap.text = currentItem != null ? currentItem.scrapAmount + "£" : "";
             ShowItem();
+        }
+
+        private Color ItemColor(ItemLevel itemLevel)
+        {
+            switch (itemLevel)
+            {
+                case ItemLevel.Normal:
+                    return normalColor;
+                case ItemLevel.Uncommon:
+                    return uncommonColor;
+                case ItemLevel.Rare:
+                    return rareColor;
+                case ItemLevel.Epic:
+                    return epicColor;
+                default:
+                case ItemLevel.Scrap:
+                    return scrapColor;
+            }
         }
 
         public void ShowItem()
@@ -107,7 +130,7 @@ namespace HackedDesign.UI
             itemType.text = "Armour";
             item1Value.text = "<color='#" + ColorUtility.ToHtmlStringRGB(typeColor) + "'>+" + currentItem.baseArmour.ToString("N2") + " armour</color>";
             item2Value.text = "<color='#" + ColorUtility.ToHtmlStringRGB(typeColor) + "'>+" + currentItem.baseArmourRegen.ToString("N2") + " Arm/s</color>";
-            item3Value.text = "<color='#" + ColorUtility.ToHtmlStringRGB(typeColor) + "'>+" + currentItem.baseShield.ToString("N2") + " shield</color>";;
+            item3Value.text = "<color='#" + ColorUtility.ToHtmlStringRGB(typeColor) + "'>+" + currentItem.baseShield.ToString("N2") + " shield</color>"; ;
         }
         public void ShowMotor()
         {
@@ -119,7 +142,7 @@ namespace HackedDesign.UI
         public void ShowRadar()
         {
             itemType.text = "Radar";
-            item1Value.text = "<color='#" + ColorUtility.ToHtmlStringRGB(typeColor) + "'>+" + currentItem.baseRange.ToString("N1") + " range</color>";;
+            item1Value.text = "<color='#" + ColorUtility.ToHtmlStringRGB(typeColor) + "'>+" + currentItem.baseRange.ToString("N1") + " range</color>"; ;
             item2Value.text = "";
             item3Value.text = "";
         }

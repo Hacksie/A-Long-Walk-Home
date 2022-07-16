@@ -6,6 +6,8 @@ namespace HackedDesign
     [CreateAssetMenu(fileName = "MechSettings", menuName = "State/MechSettings")]
     public class MechSettings : ScriptableObject
     {
+        public float rotateSpeed = 180.0f;
+        //public float orbitSpeed = 180.0f;        
         public float startingArmour = 100.0f;
         public float startingShield = 0.0f;
         public float overdriveTime = 60.0f;

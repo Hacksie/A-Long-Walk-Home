@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 namespace HackedDesign
 {
     [RequireComponent(typeof(Enemy), typeof(UnityEngine.AI.NavMeshAgent))]
@@ -37,15 +36,5 @@ namespace HackedDesign
                 baseEnemy.Explode();
             }
         }
-
-        // void OnTriggerEnter(Collider other)
-        // {
-        //     if(other.CompareTag("Player"))
-        //     {
-        //         Game.Instance.DamageArmour(explosionDamage);
-        //         Debug.Log("Drone explode", this);
-        //         baseEnemy.Explode();
-        //     }
-        // }        
     }
 }

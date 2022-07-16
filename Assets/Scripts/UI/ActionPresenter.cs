@@ -14,18 +14,19 @@ namespace HackedDesign.UI
         [SerializeField] private Color primaryColor = Color.cyan;
         [SerializeField] private Color secondaryColor = Color.magenta;
         [SerializeField] private UnityEngine.UI.Text overdriveText;
+        [SerializeField] private UnityEngine.UI.Text scrapText;
         [SerializeField] private Sprite noWeaponIcon;
 
         public override void Repaint()
         {
-            var weapons = Game.Instance.Player.Mech;
-            linkArms.SetActive(weapons.linkArms);
-            linkShoulders.SetActive(weapons.linkShoulders);
-            //var data = Game.Instance.Data;
-            var cooldown = Game.Instance.Player.Mech.OverdriveCooldown;
-            overdriveText.text = cooldown <= 0 ? "" : (cooldown - Time.time).ToString("N0");
-            UpdateWeaponFrames(weapons);
-            UpdateWeaponIcons(weapons);
+            var mech = Game.Instance.Player.Mech;
+            linkArms.SetActive(mech.linkArms);
+            linkShoulders.SetActive(mech.linkShoulders);
+            var cooldown = mech.OverdriveCooldown - Time.time;
+            overdriveText.text = cooldown <= 0 ? "" : cooldown.ToString("N0");
+            scrapText.text = mech.Scrap.ToString("N0");
+            UpdateWeaponFrames(mech);
+            UpdateWeaponIcons(mech);
         }
 
         private void UpdateWeaponFrames(MechController weapons)

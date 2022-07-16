@@ -18,7 +18,7 @@ namespace HackedDesign
         [SerializeField] public float health;
 
         private float currentHealth;
-        private EnemyState state;
+        [SerializeField] private EnemyState state;
 
         public EnemyType EnemyType { get => enemyType; set => enemyType = value; }
         public EnemyState State { get => state; set => state = value; }
@@ -83,13 +83,15 @@ namespace HackedDesign
         Tank,
         Artillery,
         OrbitalDrop,
-        Mech
+        Mech,
+        Pickup
     }
 
     public enum EnemyState
     {
         Idle,
         Patrol,
+        Alert,
         Attack,
         Adjust
     }

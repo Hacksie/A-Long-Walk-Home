@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace HackedDesign
 {
-    // FIXME: Make this a generic inventory item settings
     // Include what positon it can go in
     [CreateAssetMenu(fileName = "InvItem", menuName = "State/InvItem")]
     public class InventoryItem : ScriptableObject
@@ -26,7 +25,7 @@ namespace HackedDesign
         [SerializeField] public float baseOverdriveTime = 0.0f;
         [SerializeField] public InvRange[] genOverdriveTime = new InvRange[5];
         [SerializeField] public float baseOverdriveMult = 0.0f;
-        [SerializeField] public InvRange[] genOverdriveMult = new InvRange[5];        
+        [SerializeField] public InvRange[] genOverdriveMult = new InvRange[5];
         [SerializeField] public float baseRange = 10;
         [SerializeField] public InvRange[] genRange = new InvRange[5];
         [SerializeField] public float baseArmour = 0;
@@ -36,12 +35,76 @@ namespace HackedDesign
         [SerializeField] public float baseShield = 0;
         [SerializeField] public InvRange[] genShield = new InvRange[5];
         [SerializeField] public int scrapAmount = 1;
-        [SerializeField] public InvRange[] genScrap = new InvRange[5];
+        [SerializeField] public int scrapMulti = 1;
+        [SerializeField] public InvIntRange[] genScrap = new InvIntRange[5];
+        [SerializeField] public float baseCoolant = 0;
+        [SerializeField] public InvRange[] genCoolant = new InvRange[5];        
         [SerializeField] public float shake = 0.5f;
         [SerializeField] public Sprite sprite;
         [SerializeField] public bool canRemove = true;
         [SerializeField] public AudioClip sfx;
         [SerializeField] public float sfxPitch = 1.0f;
+
+        public static InventoryItem RandomScrap()
+        {
+            var settings = Game.Instance.Settings;
+            InventoryItem item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.scrap);
+            item.Randomize();
+            return item;
+        }
+
+        public static InventoryItem RandomItem()
+        {
+            var roll = Mathf.FloorToInt(Random.value * 12.0f);
+            var settings = Game.Instance.Settings;
+            InventoryItem item;
+            //FIXME: Check the roll against a loot table to allow for different chances for differen items
+
+            switch (roll)
+            {
+                case 0:
+                    // Scrap
+                    item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.scrap);
+                    break;
+                case 1:
+                    item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.armour);
+                    break;
+                case 2:
+                    item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.autocannon);
+                    break;
+                case 3:
+                    item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.cannon);
+                    break;
+                case 4:
+                    item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.gattling);
+                    break;
+                case 5:
+                    item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.gauss);
+                    break;
+                case 6:
+                    item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.laser);
+                    break;
+                case 7:
+                    item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.mining);
+                    break;
+                case 8:
+                    item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.missiles);
+                    break;
+                case 9:
+                    item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.motor);
+                    break;
+                case 10:
+                    item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.radar);
+                    break;
+                default:
+                    item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.scrap);
+                    break;
+                    //Scrap;
+            }
+
+            item.Randomize();
+            return item;
+        }
 
 
         public InventoryItem Copy(InventoryItem item)
@@ -63,26 +126,28 @@ namespace HackedDesign
             sfxPitch = item.sfxPitch;
             scrapAmount = item.scrapAmount;
             allowedMechPositions = new List<MechPosition>(item.allowedMechPositions);
-            item.genArmour.CopyTo(genArmour,0);
-            item.genArmourRegen.CopyTo(genArmourRegen,0);
-            item.genShield.CopyTo(genShield,0);
-            item.genRange.CopyTo(genRange,0);
-            item.genFireRate.CopyTo(genFireRate,0);
-            item.genMinDamage.CopyTo(genMinDamage,0);
-            item.genMaxDamage.CopyTo(genMaxDamage,0);
-            item.genHeat.CopyTo(genHeat,0);
-            item.genSpeed.CopyTo(genSpeed,0);
-            item.genOverdriveTime.CopyTo(genOverdriveTime,0);
-            item.genOverdriveMult.CopyTo(genOverdriveMult,0);
-            item.genScrap.CopyTo(genScrap,0);
+            item.genArmour.CopyTo(genArmour, 0);
+            item.genArmourRegen.CopyTo(genArmourRegen, 0);
+            item.genShield.CopyTo(genShield, 0);
+            item.genRange.CopyTo(genRange, 0);
+            item.genFireRate.CopyTo(genFireRate, 0);
+            item.genMinDamage.CopyTo(genMinDamage, 0);
+            item.genMaxDamage.CopyTo(genMaxDamage, 0);
+            item.genHeat.CopyTo(genHeat, 0);
+            item.genSpeed.CopyTo(genSpeed, 0);
+            item.genOverdriveTime.CopyTo(genOverdriveTime, 0);
+            item.genOverdriveMult.CopyTo(genOverdriveMult, 0);
+            item.genScrap.CopyTo(genScrap, 0);
             return this;
         }
 
 
+
+
         public InventoryItem Randomize()
         {
-            //FIXME: Add levels
-            return Randomize(ItemLevel.Normal);
+            itemLevel = GenerateItemLevel();
+            return Randomize(itemLevel);
         }
         public InventoryItem Randomize(ItemLevel level)
         {
@@ -94,8 +159,18 @@ namespace HackedDesign
             baseRange = GetRandomRange(level);
             baseMinDamage = GetRandomMinDamage(level);
             baseMaxDamage = GetRandomMaxDamage(level);
+            baseHeat = GetRandomHeat(level);
+            baseOverdriveTime = GetRandomOverdriveTime(level); // FIXME: Generate this
+            scrapAmount = GetRandomScrap(level);
 
             return this;
+        }
+
+        private ItemLevel GenerateItemLevel()
+        {
+            var currentLevel = Game.Instance.Data.currentLevel;
+            var roll = Random.value * (1 + currentLevel / 10);
+            return (ItemLevel)(Game.Instance.Settings.lootLevel.Count - Game.Instance.Settings.lootLevel.FindIndex(0, c => c <= roll) - 1);
         }
 
         public float GetRandomFireRate(ItemLevel level) => Random.Range(genFireRate[(int)level].min, genFireRate[(int)level].max);
@@ -107,6 +182,10 @@ namespace HackedDesign
         public float GetRandomShield(ItemLevel level) => Random.Range(genShield[(int)level].min, genShield[(int)level].max);
         public float GetRandomMinDamage(ItemLevel level) => Random.Range(genMinDamage[(int)level].min, genMinDamage[(int)level].max);
         public float GetRandomMaxDamage(ItemLevel level) => Random.Range(genMaxDamage[(int)level].min, genMaxDamage[(int)level].max);
+        public float GetRandomOverdriveTime(ItemLevel level) => Random.Range(genOverdriveTime[(int)level].min, genOverdriveTime[(int)level].max);
+        public int GetRandomScrap(ItemLevel level) => Random.Range(genScrap[(int)level].min, genScrap[(int)level].max);
+        
+
     }
 
     [System.Serializable]
@@ -121,7 +200,7 @@ namespace HackedDesign
     {
         public int min;
         public int max;
-    }    
+    }
 
     public enum ItemType
     {
@@ -129,7 +208,8 @@ namespace HackedDesign
         Weapon,
         Motor,
         Armour,
-        Radar
+        Radar,
+        Coolant
     }
 
     public enum ItemLevel

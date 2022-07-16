@@ -12,19 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be349674ee367314981dd2863a4f4ddb, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  rotateSpeed: 180
-  orbitSpeed: 180
-  clawRange: 0.7
-  maxLevels: 6
-  skipIntro: 0
+  maxLevels: 5
+  skipIntro: 1
   worldSize: {x: 300, y: 300}
-  safeArea: {x: 33, y: 33}
+  safeArea: {x: 35, y: 35}
   deadzone: 20
   obstacleCount: 300
-  enemyCount: 200
-  coolantCount: 13
-  pickupRadius: 2
-  ambientHeatLoss: 1
+  enemyCount: 100
+  coolantCount: 25
+  sqPickupRadius: 12.25
+  lootChance: 0.5
+  scrapChance: 0.5
+  lootLevel:
+  - 0.99
+  - 0.96
+  - 0.75
+  - 0.2
+  - 0
+  damageShakeAmount: 0.5
+  damageShakeLength: 0.2
   scrap: {fileID: 11400000, guid: ebac8ca73a159084fbfb6261b280391b, type: 2}
   motor: {fileID: 11400000, guid: e7dd4624cb9fd8243b3cea6f4071351c, type: 2}
   armour: {fileID: 11400000, guid: 9dd3ceb494cc80a4ea58c75a32b6fe12, type: 2}
@@ -37,8 +43,11 @@ MonoBehaviour:
   laser: {fileID: 11400000, guid: 13f76aadd9851ff4cb37476c1eb989d6, type: 2}
   autocannon: {fileID: 11400000, guid: a9b411753e3bf2943ad82ac49036b869, type: 2}
   missiles: {fileID: 11400000, guid: f07ebf99ff26eac42a07e7d6d34230aa, type: 2}
+  coolant: {fileID: 0}
   startingPrimary: 1
   startingSecondary: 4
   dialogLines:
   - {fileID: 11400000, guid: 7cb5f80067346de4abd1f48ae591f738, type: 2}
+  - {fileID: 11400000, guid: 9a69531ae20e55346832367a966f6374, type: 2}
+  - {fileID: 11400000, guid: 92c33f1c2c71d34499a0f8674e6bbd34, type: 2}
   startPosition: {x: 24, y: 0, z: 26}

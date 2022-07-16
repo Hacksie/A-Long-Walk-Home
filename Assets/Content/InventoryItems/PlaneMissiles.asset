@@ -17,7 +17,7 @@ MonoBehaviour:
   itemType: 1
   itemLevel: 1
   ammoType: 4
-  baseFireRate: 0.5
+  baseFireRate: 1
   genFireRate:
   - min: 0
     max: 0
@@ -150,17 +150,18 @@ MonoBehaviour:
   - min: 0
     max: 0
   scrapAmount: 1
+  scrapMulti: 1
   genScrap:
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
+  - min: 1
+    max: 1
+  - min: 2
+    max: 3
+  - min: 3
+    max: 6
+  - min: 4
+    max: 8
+  - min: 8
+    max: 16
   shake: 0.5
   sprite: {fileID: 21300000, guid: 714488c7b1bc32642a872cae2942c292, type: 3}
   canRemove: 1

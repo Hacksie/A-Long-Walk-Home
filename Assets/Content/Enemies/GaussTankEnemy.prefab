@@ -65,7 +65,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 53
+  m_VersionIndex: 59
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2548,7 +2548,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e441b19de9beaed4bab0f2a19a4be046, type: 2}
+  - {fileID: 2100000, guid: 2a376965c0e57684db6df02f3d96b777, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9082,6 +9082,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   health: 10
+  state: 0
 --- !u!114 &3059020358135776908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9099,8 +9100,14 @@ MonoBehaviour:
   baseEnemy: {fileID: 8296345778051940470}
   alertRadius: 20
   attackRadius: 15
+  adjustRadius: 5
   rotateSpeed: 60
   turret: {fileID: 2876713446739787940}
+  idleTime: 10
+  patrolTime: 10
+  adjustTime: 3
+  patrolRadius: 10
+  patrolDestination: {x: 0, y: 0, z: 0}
 --- !u!114 &766087150055938785
 MonoBehaviour:
   m_ObjectHideFlags: 0

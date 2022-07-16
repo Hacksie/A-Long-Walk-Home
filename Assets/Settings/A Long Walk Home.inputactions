@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Repair",
+                    "type": "Button",
+                    "id": "ac64c059-7563-4bec-9c2b-ead264db0924",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -499,6 +508,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Coolant Dump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "730a1f24-8ba4-4329-8826-cfe9bf2b3c9b",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Repair",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

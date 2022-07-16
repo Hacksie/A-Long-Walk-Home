@@ -207,7 +207,6 @@ namespace HackedDesign.UI
         public void StartDrag(MechPosition position)
         {
             dragSlot = position;
-            // FIXME: Check for nulls
             var item = Game.Instance.Player.Mech.GetItem(dragSlot);
             if (item != null && item.sprite != null)
             {

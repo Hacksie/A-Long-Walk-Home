@@ -29,7 +29,7 @@ MonoBehaviour:
     max: 0
   - min: 0
     max: 0
-  baseMinDamage: 5
+  baseMinDamage: 3
   genMinDamage:
   - min: 0
     max: 0
@@ -41,7 +41,7 @@ MonoBehaviour:
     max: 0
   - min: 0
     max: 0
-  baseMaxDamage: 10
+  baseMaxDamage: 8
   genMaxDamage:
   - min: 0
     max: 0

@@ -2007,10 +2007,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 1
-  behaviour:
-    m_PersistentCalls:
-      m_Calls: []
   loot: []
+  pickupIndicator: {fileID: 50308115967488482}
+  radarIndicator: {fileID: 9005551186712947130}
 --- !u!65 &6520903053631810738
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2198,6 +2197,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 61aa26ed1b0eb8c41a13082ccd607948, type: 3}
+--- !u!1 &50308115967488482 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1779908880564306933, guid: 61aa26ed1b0eb8c41a13082ccd607948,
+    type: 3}
+  m_PrefabInstance: {fileID: 1729728900685558295}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4781737087738584115 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6511395608571342372, guid: 61aa26ed1b0eb8c41a13082ccd607948,

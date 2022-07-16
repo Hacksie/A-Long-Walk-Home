@@ -74,8 +74,9 @@ namespace HackedDesign
         private void FireAmmo()
         {
             var dmg = Random.Range(item.baseMinDamage, item.baseMaxDamage);
-            Debug.Log("Damage: " + dmg);
-            Game.Instance.Pool.FireBullet(item.ammoType, parent, firePoint.position, firePoint.forward, dmg);
+            // FIXME: Elec damage
+            //Debug.Log("Damage: " + dmg);
+            Game.Instance.Pool.FireBullet(item.ammoType, parent, firePoint.position, firePoint.forward, dmg, 0);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace HackedDesign
         [SerializeField] private CoolantPool coolantPoolPrefab;
         //[SerializeField] private int safeX = 33;
         //[SerializeField] private int safeZ = 33;
-        
+
 
         [SerializeField] private Unity.AI.Navigation.NavMeshSurface surface;
         //[SerializeField] private Unity.AI.Navigation.
@@ -31,7 +31,7 @@ namespace HackedDesign
             SpawnObstacles(settings);
             SpawnCoolant(settings);
             startingShip.SetActive(level == 0);
-       }
+        }
 
         private void UpdateTerrain(Settings settings)
         {
@@ -40,18 +40,18 @@ namespace HackedDesign
 
         private void SpawnCoolant(Settings settings)
         {
-            for(int i=0;i<settings.coolantCount;i++)
+            for (int i = 0; i < settings.coolantCount; i++)
             {
                 var x = Random.Range(settings.deadzone, settings.worldSize.x - settings.deadzone);
                 var z = Random.Range(settings.deadzone, settings.worldSize.y - settings.deadzone);
-                var spawnPos = new Vector3(x,0,z);                
+                var spawnPos = new Vector3(x, 0, z);
                 var go = Instantiate(coolantPoolPrefab, spawnPos, Quaternion.identity, obstacleParent);
             }
-        }        
+        }
 
         private void SpawnObstacles(Settings settings)
         {
-            DestroyObstacles();
+            Reset();
 
             UnityEngine.AI.NavMeshPath navpath = new NavMeshPath();
 
@@ -64,15 +64,15 @@ namespace HackedDesign
             while (i < settings.obstacleCount)
             {
                 infiniteLoop++;
-                if(infiniteLoop > 1000)
+                if (infiniteLoop > 1000)
                 {
                     Debug.LogWarning("Infinite loop, breaking");
                     return;
                 }
                 var x = Random.Range(settings.deadzone, settings.worldSize.x - settings.deadzone);
                 var z = Random.Range(settings.deadzone, settings.worldSize.y - settings.deadzone);
-                var spawnPos = new Vector3(x,0,z);
-                if(!IsSafeLocationToSpawn(spawnPos, settings))
+                var spawnPos = new Vector3(x, 0, z);
+                if (!IsSafeLocationToSpawn(spawnPos, settings))
                 {
                     continue;
                 }
@@ -114,12 +114,13 @@ namespace HackedDesign
             GeneratePath(navpath);
         }
 
-        private void DestroyObstacles()
+        public void Reset()
         {
             for (int i = 0; i < obstacleParent.transform.childCount; i++)
             {
                 Destroy(obstacleParent.transform.GetChild(i).gameObject);
             }
+            startingShip.SetActive(true);
         }
 
         private void GeneratePath(UnityEngine.AI.NavMeshPath navpath)
@@ -130,18 +131,18 @@ namespace HackedDesign
 
         private bool IsSafeLocationToSpawn(Vector3 position, Settings settings)
         {
-            if (position.x <= settings.safeArea.x && position.z <= settings.safeArea.y) // FIXME: This could be an infinite loop
+            if (position.x <= settings.safeArea.x && position.z <= settings.safeArea.y)
             {
                 return false;
             }
 
             // Don't spawn off the map
-            if(position.x >= settings.worldSize.x || position.z >= settings.worldSize.y)
+            if (position.x >= settings.worldSize.x || position.z >= settings.worldSize.y)
             {
                 return false;
             }
 
             return true;
-        }        
+        }
     }
 }

@@ -14,23 +14,30 @@ namespace HackedDesign
         private GameObject firer;
         private float timeout = 1.5f;
         private float damage = 0;
+        private float elecDamage = 0;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
         }
 
-        public void Fire(GameObject firer, float damage)
+        // public void Fire(GameObject firer, float damage)
+        // {
+        //     Fire(firer, damage, 0);
+        // }
+
+        public void Fire(GameObject firer, float damage, float elecDamage)
         {
             timeout = baseTimeout;
             this.firer = firer;
             this.damage = damage;
+            this.elecDamage = damage;
             rb.velocity = Vector3.zero;
             if (addForce)
             {
                 rb.AddForce(transform.forward * speed, ForceMode.Impulse);
             }
-        }
+        }        
 
         private void Update()
         {
@@ -75,7 +82,7 @@ namespace HackedDesign
         {
             if (!other.collider.isTrigger && other.collider.gameObject != this.firer)
             {
-                if (other.collider.CompareTag("Enemy"))
+                if (other.collider.CompareTag("Enemy") && !this.firer.CompareTag("Enemy"))
                 {
                     if (other.collider.TryGetComponent<Enemy>(out var e))
                     {

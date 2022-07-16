@@ -15,56 +15,56 @@ MonoBehaviour:
   allowedMechPositions: 00000000010000000200000003000000
   weaponType: 2
   itemType: 1
-  itemLevel: 1
+  itemLevel: 0
   ammoType: 3
-  baseFireRate: 0.4
+  baseFireRate: 0.8
   genFireRate:
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
+  - min: 0.8
+    max: 0.8
+  - min: 0.5
+    max: 0.5
+  - min: 0.4
+    max: 0.5
+  - min: 0.4
+    max: 0.5
+  - min: 0.2
+    max: 0.5
   baseMinDamage: 2
   genMinDamage:
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  baseMaxDamage: 5
+  - min: 2
+    max: 2
+  - min: 2
+    max: 3
+  - min: 5
+    max: 8
+  - min: 10
+    max: 20
+  - min: 20
+    max: 50
+  baseMaxDamage: 4
   genMaxDamage:
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
+  - min: 5
+    max: 5
+  - min: 6
+    max: 7
+  - min: 7
+    max: 9
+  - min: 12
+    max: 25
+  - min: 30
+    max: 66
   baseHeat: 2
   genHeat:
+  - min: 3
+    max: 3
+  - min: 2
+    max: 2
+  - min: 2
+    max: 2
+  - min: 1
+    max: 2
   - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
+    max: 2
   baseSpeed: 0
   genSpeed:
   - min: 0
@@ -150,7 +150,20 @@ MonoBehaviour:
   - min: 0
     max: 0
   scrapAmount: 1
+  scrapMulti: 1
   genScrap:
+  - min: 1
+    max: 1
+  - min: 3
+    max: 3
+  - min: 8
+    max: 8
+  - min: 21
+    max: 21
+  - min: 55
+    max: 55
+  baseCoolant: 0
+  genCoolant:
   - min: 0
     max: 0
   - min: 0

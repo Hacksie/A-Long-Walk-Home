@@ -20,6 +20,7 @@ namespace HackedDesign
 
         public void Begin()
         {
+            Game.Instance.Reset();
             this.menuPanel.Show();
             mainCamera.gameObject.SetActive(false);
             menuCamera.gameObject.SetActive(true);

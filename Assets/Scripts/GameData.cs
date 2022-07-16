@@ -24,7 +24,8 @@ namespace HackedDesign
         {
             overheatDamage = 3.0f;
             coolantDump = 25.0f;
-            currentLevel = 1;
+            currentLevel = 0;
+            currentDialogLine = 0;
         }
     }
 }

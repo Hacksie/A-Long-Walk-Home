@@ -1,0 +1,169 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df5667b83adca3f4baebc6f397d3cc02, type: 3}
+  m_Name: Coolant
+  m_EditorClassIdentifier: 
+  allowedMechPositions: 
+  weaponType: 0
+  itemType: 0
+  itemLevel: 1
+  ammoType: 0
+  baseFireRate: 0
+  genFireRate:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseMinDamage: 10
+  genMinDamage:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseMaxDamage: 10
+  genMaxDamage:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseHeat: 10
+  genHeat:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseSpeed: 0
+  genSpeed:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseOverdriveTime: 0
+  genOverdriveTime:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseOverdriveMult: 0
+  genOverdriveMult:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseRange: 10
+  genRange:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseArmour: 0
+  genArmour:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseArmourRegen: 0
+  genArmourRegen:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseShield: 0
+  genShield:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  scrapAmount: 1
+  scrapMulti: 1
+  genScrap:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  shake: 0.5
+  sprite: {fileID: -927475736, guid: b70d1ced80c336d40ac896344cc1d098, type: 3}
+  canRemove: 1
+  sfx: {fileID: 0}
+  sfxPitch: 1

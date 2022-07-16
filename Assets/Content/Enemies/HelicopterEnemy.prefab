@@ -7398,7 +7398,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8296345778051940465}
   - component: {fileID: 8296345778051940470}
-  - component: {fileID: 3877274877011509327}
+  - component: {fileID: 5980134127093089266}
   - component: {fileID: 4722764194961129352}
   - component: {fileID: 4978502164860694770}
   - component: {fileID: 6830702138244769228}
@@ -7445,8 +7445,8 @@ MonoBehaviour:
   behaviour:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3877274877011509327}
-        m_TargetAssemblyTypeName: HackedDesign.Helicopter, Assembly-CSharp
+      - m_Target: {fileID: 5980134127093089266}
+        m_TargetAssemblyTypeName: HackedDesign.Tank, Assembly-CSharp
         m_MethodName: UpdateBehaviour
         m_Mode: 1
         m_Arguments:
@@ -7461,7 +7461,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   health: 7
---- !u!114 &3877274877011509327
+  state: 0
+--- !u!114 &5980134127093089266
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7470,18 +7471,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 8296345778051940464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cd9de9fcb6eb0b4d9bc25fdca99b0e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c7e73d15f74d29488bbabda8620a74b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 4722764194961129352}
   agent: {fileID: 4978502164860694770}
-  baseEnemy: {fileID: 8296345778051940470}
+  baseEnemy: {fileID: 0}
   alertRadius: 20
-  attackRadius: 10
-  explosionDamage: 40
-  readjustTime: 5
-  turretrotateSpeed: 90
+  attackRadius: 15
+  adjustRadius: 7
+  rotateSpeed: 120
   turret: {fileID: 3540053161653274565}
+  idleTime: 10
+  patrolTime: 10
+  adjustTime: 2
+  patrolRadius: 25
+  patrolDestination: {x: 0, y: 0, z: 0}
 --- !u!114 &4722764194961129352
 MonoBehaviour:
   m_ObjectHideFlags: 0

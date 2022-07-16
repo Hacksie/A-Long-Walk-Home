@@ -52,7 +52,10 @@ namespace HackedDesign
             Debug.Log("Loading Level");
             Game.Instance.Level.SpawnLevel(Game.Instance.Settings, Game.Instance.Data.currentLevel);
             Debug.Log("Loading Enemies");
-            Game.Instance.Enemies.SpawnEnemies(100 + (Game.Instance.Data.currentLevel * 10), Game.Instance.Settings);
+            Game.Instance.Enemies.SpawnEnemies(Game.Instance.Settings.enemyCount + (Game.Instance.Data.currentLevel * 10), Game.Instance.Settings);
+            Debug.Log("Loading Pickups");
+            Game.Instance.Enemies.SpawnPickups(Game.Instance.Settings);
+
             Debug.Log("Level loaded");
             if (Game.Instance.Data.skipIntro)
             {

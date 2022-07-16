@@ -15,45 +15,45 @@ MonoBehaviour:
   allowedMechPositions: 0000000001000000
   weaponType: 1
   itemType: 1
-  itemLevel: 1
+  itemLevel: 0
   ammoType: 0
-  baseFireRate: 0.33
+  baseFireRate: 0.5
   genFireRate:
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
+  - min: 1
+    max: 1
+  - min: 0.8
+    max: 0.8
+  - min: 0.33
+    max: 0.6
+  - min: 0.33
+    max: 0.6
+  - min: 0.27
+    max: 0.5
   baseMinDamage: 10
   genMinDamage:
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
+  - min: 10
+    max: 10
+  - min: 10
+    max: 20
+  - min: 15
+    max: 30
+  - min: 25
+    max: 40
+  - min: 35
+    max: 60
   baseMaxDamage: 30
   genMaxDamage:
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  baseHeat: 3
+  - min: 15
+    max: 15
+  - min: 15
+    max: 30
+  - min: 35
+    max: 50
+  - min: 45
+    max: 90
+  - min: 120
+    max: 200
+  baseHeat: 0
   genHeat:
   - min: 0
     max: 0
@@ -150,17 +150,18 @@ MonoBehaviour:
   - min: 0
     max: 0
   scrapAmount: 1
+  scrapMulti: 1
   genScrap:
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
-  - min: 0
-    max: 0
+  - min: 1
+    max: 1
+  - min: 3
+    max: 3
+  - min: 8
+    max: 8
+  - min: 21
+    max: 21
+  - min: 55
+    max: 55
   shake: 0.1
   sprite: {fileID: 1280609564, guid: b70d1ced80c336d40ac896344cc1d098, type: 3}
   canRemove: 1

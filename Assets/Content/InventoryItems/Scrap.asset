@@ -150,17 +150,18 @@ MonoBehaviour:
   - min: 0
     max: 0
   scrapAmount: 1
+  scrapMulti: 1
   genScrap:
   - min: 1
-    max: 1
-  - min: 2
-    max: 4
-  - min: 5
-    max: 10
-  - min: 10
-    max: 20
-  - min: 20
-    max: 50
+    max: 2
+  - min: 3
+    max: 5
+  - min: 8
+    max: 13
+  - min: 21
+    max: 34
+  - min: 55
+    max: 89
   shake: 0.5
   sprite: {fileID: -20604645, guid: b70d1ced80c336d40ac896344cc1d098, type: 3}
   canRemove: 1

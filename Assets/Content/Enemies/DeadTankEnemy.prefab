@@ -65,7 +65,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 32
+  m_VersionIndex: 38
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -7347,10 +7347,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 3
-  behaviour:
-    m_PersistentCalls:
-      m_Calls: []
   loot: []
+  pickupIndicator: {fileID: 3734679179532297028}
+  radarIndicator: {fileID: 6663994992240060429}
 --- !u!65 &7604311481669789315
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7455,6 +7454,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 61aa26ed1b0eb8c41a13082ccd607948, type: 3}
+--- !u!1 &3734679179532297028 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1779908880564306933, guid: 61aa26ed1b0eb8c41a13082ccd607948,
+    type: 3}
+  m_PrefabInstance: {fileID: 3127678882997117105}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8159010223196360341 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6511395608571342372, guid: 61aa26ed1b0eb8c41a13082ccd607948,

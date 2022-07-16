@@ -1,3 +1,4 @@
+#nullable enable
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,18 +7,21 @@ namespace HackedDesign
 {
     public class MechController : MonoBehaviour
     {
-        [SerializeField] private MechSettings settings;
-        [SerializeField] private Weapon nose;
-        [SerializeField] private Weapon rightArm;
-        [SerializeField] private Weapon leftArm;
-        [SerializeField] private Weapon rightShoulder;
-        [SerializeField] private Weapon leftShoulder;
-        [SerializeField] private List<MechData> data = new List<MechData>(3);
-        [SerializeField] private InventoryItem legs;
-        [SerializeField] private InventoryItem body;
-        [SerializeField] private InventoryItem radar;
-        [SerializeField] private List<InventoryItem> inventory = new List<InventoryItem>(8);
+        [SerializeField] private MechSettings? settings;
+        [Header("Referenced Game Objects")]
 
+        [SerializeField] private Weapon? nose;
+        [SerializeField] private Weapon? rightArm;
+        [SerializeField] private Weapon? leftArm;
+        [SerializeField] private Weapon? rightShoulder;
+        [SerializeField] private Weapon? leftShoulder;
+        [SerializeField] private InventoryItem? legs;
+        [SerializeField] private InventoryItem? body;
+        [SerializeField] private InventoryItem? radar;
+        [SerializeField] private List<InventoryItem?> inventory = new List<InventoryItem?>(8);
+        [SerializeField] private ParticleSystem? overdrive;
+        [Header("State")]
+        [SerializeField] private List<MechData> data = new List<MechData>(3);
         [SerializeField] public WeaponPosition selectedPrimaryWeapon = 0;
         [SerializeField] public WeaponPosition selectedSecondaryWeapon = 0;
 
@@ -30,24 +34,33 @@ namespace HackedDesign
 
         public MechData Data { get { return data[Game.Instance.CurrentSlot]; } private set { data[Game.Instance.CurrentSlot] = value; } }
 
-        public float HeatLoss { get { return Game.Instance.Settings.ambientHeatLoss; } }
-        public float ArmourMax { get { return settings.startingArmourMax + (body != null ? body.baseArmour : 0); } }
-        public float ShieldMax { get { return settings.startingShieldMax + (body != null ? body.baseShield : 0); } }
-        public float HeatMax { get { return settings.startingHeatMax; } }
-        public float CoolantMax { get { return settings.startingCoolantMax; } }
+        public int Scrap { get { return Data.scrap; } }
+        public float RotateSpeed { get { return settings is not null ? settings.rotateSpeed : 0; } }
+        public float HeatLoss { get { return settings is not null ? settings.ambientHeatLoss : 0; } }
+        public float ArmourMax { get { return (settings is not null ? settings.startingArmourMax : 0) + (body != null ? body.baseArmour : 0); } }
+        public float ShieldMax { get { return (settings is not null ? settings.startingShieldMax : 0) + (body != null ? body.baseShield : 0); } }
+        public float HeatMax { get { return (settings is not null ? settings.startingHeatMax : 0); } }
+        public float CoolantMax { get { return (settings is not null ? settings.startingCoolantMax : 0); } }
         public bool IsOverheating { get { return Data.heat >= HeatMax; } }
-        public float WalkSpeed { get { return settings.walkSpeed + body.baseSpeed + (overdriven ? 1 : 0); } }
+        public float WalkSpeed { get { return (settings is not null ? settings.walkSpeed : 0) + (body != null ? body.baseSpeed : 0) + (overdriven ? 1 : 0); } }
         public float RadarRange { get { return radar != null ? radar.baseRange : 0.0f; } }
-        public float OverdriveMultiplier { get { return legs != null ? legs.baseOverdriveMult : 0; }}
-        public float OverdriveCooldown { get { return overdriveCooldown; }}
+        public float OverdriveMultiplier { get { return legs != null ? legs.baseOverdriveMult : 0; } }
+        public float OverdriveCooldown { get { return overdriveCooldown; } }
 
         public void Awake()
         {
+            CheckBindings();
             for (int i = 0; i < 3; i++)
             {
                 data[i] = new MechData();
             }
         }
+
+        private void CheckBindings()
+        {
+
+        }
+
         public void Start()
         {
 
@@ -67,7 +80,7 @@ namespace HackedDesign
             Data.armour = Mathf.Clamp(Data.armour - amount, 0, ArmourMax);
             if (shake)
             {
-                Game.Instance.CameraShake.Shake(0.5f, 0.2f); //FIXME: Setting
+                Game.Instance.CameraShake.Shake(Game.Instance.Settings.damageShakeAmount, Game.Instance.Settings.damageShakeLength);
             }
 
             // Check if player
@@ -82,11 +95,17 @@ namespace HackedDesign
         {
             if (!overdriven && overdriveTime <= 0.0f && Time.time >= overdriveCooldown)
             {
-                Debug.Log("OVERDRIVE!", this);
+
                 var item = GetItem(MechPosition.Motor);
-                overdriveTime = item.baseOverdriveTime;
-                overdriveCooldown = Time.time + settings.overdriveTime;
-                overdriven = true;
+                if (item != null)
+                {
+                    Debug.Log("OVERDRIVE!", this);
+                    overdrive.Play();
+                    overdriveTime = item.baseOverdriveTime;
+                    overdriveCooldown = Time.time + (settings is not null ? settings.overdriveTime : 60);
+                    overdriven = true;
+                }
+
             }
         }
 
@@ -100,11 +119,12 @@ namespace HackedDesign
 
         public void UpdateOverdrive(float deltaTime)
         {
-            
+
             if (overdriven && overdriveTime <= 0.0f)
             {
                 overdriveTime = 0;
                 overdriven = false;
+                overdrive.Stop();
             }
             if (overdriven)
             {
@@ -129,10 +149,10 @@ namespace HackedDesign
             {
                 DamageArmour(-4 * deltaTime, false);
             }
-            
+
             var item = GetItem(MechPosition.Armour);
 
-            if(item != null)
+            if (item != null)
             {
                 DamageArmour(-1 * item.baseArmourRegen * deltaTime, false);
             }
@@ -158,7 +178,7 @@ namespace HackedDesign
                 DamageArmour(Game.Instance.Data.overheatDamage * deltaTime, true);
                 //AudioManager.Instance.PlayWarning();
             }
-        }        
+        }
 
         public void IncreaseHeat(float amount)
         {
@@ -229,7 +249,7 @@ namespace HackedDesign
             }
         }
 
-        public Weapon GetWeapon(WeaponPosition position)
+        public Weapon? GetWeapon(WeaponPosition position)
         {
             switch (position)
             {
@@ -247,20 +267,20 @@ namespace HackedDesign
             }
         }
 
-        public InventoryItem GetItem(MechPosition position)
+        public InventoryItem? GetItem(MechPosition position)
         {
             switch (position)
             {
                 case MechPosition.RightArm:
-                    return rightArm.item;
+                    return rightArm?.item;
                 case MechPosition.LeftArm:
-                    return leftArm.item;
+                    return leftArm?.item;
                 case MechPosition.RightShoulder:
-                    return rightShoulder.item;
+                    return rightShoulder?.item;
                 case MechPosition.LeftShoulder:
-                    return leftShoulder.item;
+                    return leftShoulder?.item;
                 case MechPosition.Nose:
-                    return nose.item;
+                    return nose?.item;
                 case MechPosition.Motor:
                     return legs;
                 case MechPosition.Armour:
@@ -288,7 +308,7 @@ namespace HackedDesign
             }
         }
 
-        public void SetItem(MechPosition position, InventoryItem item)
+        public void SetItem(MechPosition position, InventoryItem? item)
         {
             switch (position)
             {
@@ -346,6 +366,36 @@ namespace HackedDesign
                     break;
             }
             UpdateModels();
+        }
+
+        public bool PickupItem(InventoryItem item)
+        {
+            if (item.itemType == ItemType.Scrap)
+            {
+                Data.scrap += item.scrapAmount;
+                return true;
+            }
+
+            foreach (var pos in item.allowedMechPositions)
+            {
+                var posItem = GetItem(pos);
+                if (posItem is null)
+                {
+                    SetItem(pos, item);
+                    return true;
+                }
+            }
+
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                if (inventory[i] is null)
+                {
+                    inventory[i] = item;
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool SwapItemPositions(MechPosition pos1, MechPosition pos2)

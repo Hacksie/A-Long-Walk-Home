@@ -80,7 +80,7 @@ namespace HackedDesign
             explosion.Play();
         }
 
-        public void FireBullet(AmmoType ammoType, GameObject firer, Vector3 start, Vector3 forward, float damage)
+        public void FireBullet(AmmoType ammoType, GameObject firer, Vector3 start, Vector3 forward, float damage, float elecDamage)
         {
             Bullet bullet = GetPooledAmmo(ammoType);
 
@@ -105,7 +105,7 @@ namespace HackedDesign
             bullet.gameObject.SetActive(true);
             bullet.transform.position = start;
             bullet.transform.forward = forward;
-            bullet.Fire(firer, damage);
+            bullet.Fire(firer, damage, elecDamage);
         }
 
         private Bullet GetPooledAmmo(AmmoType ammoType)

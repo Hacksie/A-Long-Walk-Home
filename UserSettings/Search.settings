@@ -3,13 +3,16 @@ fetchPreview = true
 defaultFlags = 0
 keepOpen = false
 queryFolder = "Assets"
-onBoardingDoNotAskAgain = false
+onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
 	"last_search.8C24D059" = ""
 	"OpenInspectorPreview.8C24D059" = "0"
 	"currentGroup.8C24D059" = "all"
+	"last_search.AE24D059" = "h: ref=<$object:none$>"
+	"OpenInspectorPreview.AE24D059" = "0"
+	"currentGroup.AE24D059" = "all"
 }
 providers = {
 	adb = {
@@ -56,6 +59,10 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"h: ref=<$object:none$>"
+	"h: ref=\"Assets/Content/Path.mat\""
+	"h: ref=\"Assets/Content/Minimap.renderTexture\""
+	"h: ref=\"Assets/Content/pixel.png\""
 ]
 searchItemFavorites = [
 ]

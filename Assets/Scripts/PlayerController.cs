@@ -1,4 +1,5 @@
 #nullable enable
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +19,10 @@ namespace HackedDesign
         [SerializeField] private Settings? settings;
         [SerializeField] private LayerMask aimMask;
         [SerializeField] private LayerMask deadenemyMask;
+        [SerializeField] private Texture2D defaultCursor;
+        [SerializeField] private Texture2D pickupCursor;
+        [SerializeField] private Texture2D outofrangeCursor;
+
 
         public MechController? Mech { get => mech; set => mech = value; }
 
@@ -27,10 +32,12 @@ namespace HackedDesign
         private InputAction? mousePosAction;
         private InputAction? primaryFire;
         private InputAction? secondaryFire;
-        private InputAction? primaryAction;
-        private InputAction? secondaryAction;
         private InputAction? changePrimaryAction;
         private InputAction? changeSecondaryAction;
+        private InputAction? repairAction;
+        private InputAction? overdriveAction;
+        private InputAction? coolantAction;
+
 
         private RaycastHit[] raycastHits = new RaycastHit[1];
 
@@ -47,8 +54,9 @@ namespace HackedDesign
             mousePosAction = playerInput.actions["Mouse Position"];
             primaryFire = playerInput.actions["Primary Fire"];
             secondaryFire = playerInput.actions["Secondary Fire"];
-            primaryAction = playerInput.actions["Overdrive"];
-            secondaryAction = playerInput.actions["Coolant Dump"];
+            repairAction = playerInput.actions["Repair"];
+            overdriveAction = playerInput.actions["Overdrive"];
+            coolantAction = playerInput.actions["Coolant Dump"];
 
             changePrimaryAction = playerInput.actions["Change Primary Weapon"];
             changeSecondaryAction = playerInput.actions["Change Secondary Weapon"];
@@ -59,8 +67,9 @@ namespace HackedDesign
             selectAction.performed += OnSelect;
             changePrimaryAction.performed += OnChangePrimaryWeapon;
             changeSecondaryAction.performed += OnChangeSecondaryWeapon;
-            primaryAction.performed += OnPrimaryAction;
-            secondaryAction.performed += OnSecondaryAction;
+            repairAction.performed += OnRepairAction;
+            overdriveAction.performed += OnOverdriveAction;
+            coolantAction.performed += OnCoolantDumpAction;
 
         }
 
@@ -76,7 +85,10 @@ namespace HackedDesign
                 Debug.LogError("weapons is null", this);
                 return;
             }
+            mech.Reset();
             this.transform.position = settings.startPosition;
+            this.transform.rotation = Quaternion.Euler(0, 33, 0);
+            body.rotation = Quaternion.Euler(0, 33, 0);
             mech.selectedPrimaryWeapon = settings.startingPrimary;
             mech.selectedSecondaryWeapon = settings.startingSecondary;
             mech.linkArms = false;
@@ -84,16 +96,24 @@ namespace HackedDesign
             mech.UpdateModels();
             mech.SetItem(MechPosition.RightArm, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.claw));
             mech.SetItem(MechPosition.LeftArm, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.cannon));
-            mech.SetItem(MechPosition.LeftShoulder, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.missiles));
-            mech.SetItem(MechPosition.InvSlot0, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.scrap));
-            mech.SetItem(MechPosition.Armour, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.armour).Randomize());
-            mech.SetItem(MechPosition.Motor, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.motor).Randomize());
-            mech.SetItem(MechPosition.Radar, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.radar).Randomize());
+            mech.SetItem(MechPosition.LeftShoulder, null);
+            mech.SetItem(MechPosition.Armour, null);
+            mech.SetItem(MechPosition.Motor, null);
+            mech.SetItem(MechPosition.Radar, null);
+            mech.SetItem(MechPosition.InvSlot0, null);
+            mech.SetItem(MechPosition.InvSlot1, null);
+            mech.SetItem(MechPosition.InvSlot2, null);
+            mech.SetItem(MechPosition.InvSlot3, null);
+            mech.SetItem(MechPosition.InvSlot4, null);
+            mech.SetItem(MechPosition.InvSlot5, null);
+            mech.SetItem(MechPosition.InvSlot6, null);
+            mech.SetItem(MechPosition.InvSlot7, null);
         }
 
         public void Die()
         {
             moveAction?.Reset();
+            Animate(Vector2.zero);
         }
 
         public void NewLevel()
@@ -109,28 +129,100 @@ namespace HackedDesign
         public void UpdateBehaviour()
         {
             var mousePos = GetMousePosition();
+            UpdateCursor(mousePos);
             UpdateBodyRotation(mousePos);
-            UpdatePickupHover(mousePos);
-            if (moveAction != null)
+            if (moveAction is not null)
             {
                 var movement = moveAction.ReadValue<Vector2>();
                 Animate(movement);
             }
         }
 
-        public void UpdatePickupHover(Vector2 mousePosition)
+        private void UpdateCursor(Vector2 mousePos)
         {
-            if (mainCamera == null)
+
+            if (mainCamera is null)
             {
                 Debug.LogError("mainCamera not set", this);
                 return;
             }
 
-            Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-            if (Physics.Raycast(ray.origin, ray.direction, 20, deadenemyMask))
+            Ray ray = mainCamera.ScreenPointToRay(mousePos);
+            if (Physics.Raycast(ray.origin, ray.direction, out var hit, 20, deadenemyMask))
             {
-                Debug.Log("hovering over dead enemy", this);
+                hit.collider.TryGetComponent<DeadEnemy>(out var deadEnemy);
+
+                if (deadEnemy is not null && deadEnemy.HasLoot)
+                {
+
+                    if ((transform.position - hit.collider.transform.position).sqrMagnitude <= (settings is not null ? settings.sqPickupRadius : 4f))
+                    {
+                        Cursor.SetCursor(pickupCursor, new Vector2(64, 64), CursorMode.Auto);
+                        return;
+                    }
+                    else
+                    {
+                        Cursor.SetCursor(outofrangeCursor, new Vector2(64, 64), CursorMode.Auto);
+                        return;
+                    }
+                }
             }
+
+            Cursor.SetCursor(defaultCursor, new Vector2(64, 64), CursorMode.Auto);
+        }
+
+        private bool TryPickup()
+        {
+
+            if (mainCamera is null)
+            {
+                Debug.LogError("mainCamera not set", this);
+                return false;
+            }
+
+            var mousePos = GetMousePosition();
+
+
+            Ray ray = mainCamera.ScreenPointToRay(mousePos);
+            if (Physics.Raycast(ray.origin, ray.direction, out var hit, 20, deadenemyMask))
+            {
+                if ((transform.position - hit.collider.transform.position).sqrMagnitude <= (settings is not null ? settings.sqPickupRadius : 4f))
+                {
+                    Debug.Log("Can pickup");
+                    hit.collider.TryGetComponent<DeadEnemy>(out var deadEnemy);
+                    if (deadEnemy != null)
+                    {
+                        List<InventoryItem> pickedupItems = new List<InventoryItem>();
+                        foreach (var item in deadEnemy.loot)
+                        {
+                            if (Mech is not null && Mech.PickupItem(item))
+                            {
+                                Debug.Log("picked up " + item.name + " " + item.itemLevel);
+                                pickedupItems.Add(item);
+                                //deadEnemy.PickupLoot(item);
+                            }
+                            else
+                            {
+                                Debug.Log("could not pick up " + item.name);
+                            }
+                        }
+
+                        foreach (var item in pickedupItems)
+                        {
+                            deadEnemy.PickupLoot(item);
+                        }
+                    }
+
+
+                    return true;
+                }
+                else
+                {
+                    Debug.Log("Out of range");
+                    return false;
+                }
+            }
+            return false;
         }
 
         public void FixedUpdateBehaviour()
@@ -161,7 +253,7 @@ namespace HackedDesign
 
             var movement = moveAction.ReadValue<Vector2>();
             rb.MovePosition(this.transform.position + this.transform.forward * movement.y * Time.fixedDeltaTime * (Mech.WalkSpeed));
-            rb.MoveRotation(Quaternion.Euler(0, this.transform.rotation.eulerAngles.y + movement.x * settings.rotateSpeed * Time.fixedDeltaTime, 0));
+            rb.MoveRotation(Quaternion.Euler(0, this.transform.rotation.eulerAngles.y + movement.x * Mech.RotateSpeed * Time.fixedDeltaTime, 0));
             Animate(movement);
         }
 
@@ -181,7 +273,10 @@ namespace HackedDesign
             {
                 if (mech != null)
                 {
-                    mech.FirePrimaryWeapon();
+                    if (!TryPickup())
+                    {
+                        mech.FirePrimaryWeapon();
+                    }
                 }
                 else
                 {
@@ -205,12 +300,18 @@ namespace HackedDesign
             }
         }
 
-        private void OnPrimaryAction(InputAction.CallbackContext context)
+        private void OnRepairAction(InputAction.CallbackContext context)
         {
+            Mech?.MaxHeal();
+        }
+
+        private void OnOverdriveAction(InputAction.CallbackContext context)
+        {
+            Debug.Log("Overdrive");
             Mech?.Overdrive();
         }
 
-        private void OnSecondaryAction(InputAction.CallbackContext context)
+        private void OnCoolantDumpAction(InputAction.CallbackContext context)
         {
             Mech?.CoolantDump();
         }
@@ -238,7 +339,6 @@ namespace HackedDesign
             {
                 mech?.NextSecondaryWeapon();
             }
-
             if (dir < 0)
             {
                 mech?.PrevSecondaryWeapon();

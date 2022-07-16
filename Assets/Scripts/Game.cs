@@ -1,5 +1,4 @@
-using System;
-using System.Collections;
+#nullable enable
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -94,10 +93,12 @@ namespace HackedDesign
             //throw new NotImplementedException();
         }
 
-        private void Reset()
+        public void Reset()
         {
             Data.Reset(Settings);
             Player.Reset();
+            Enemies.Reset();
+            Level.Reset();
         }
 
         private void Initialization()

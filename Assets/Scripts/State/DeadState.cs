@@ -23,6 +23,7 @@ namespace HackedDesign
         public void End()
         {
             this.deadPresenter.Hide();
+            
         }
 
         public void FixedUpdate()

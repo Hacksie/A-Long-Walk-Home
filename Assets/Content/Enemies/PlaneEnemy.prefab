@@ -2972,6 +2972,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   health: 5
+  state: 0
 --- !u!114 &3331113109231325045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2988,8 +2989,14 @@ MonoBehaviour:
   baseEnemy: {fileID: 8296345778051940470}
   controller: {fileID: 4722764194961129352}
   alertRadius: 20
-  shootingRadius: 15
-  explosionDamage: 0
+  attackRadius: 15
+  adjustRadius: 5
+  rotateSpeed: 60
+  idleTime: 0
+  patrolTime: 10
+  adjustTime: 5
+  patrolRadius: 100
+  patrolDestination: {x: 0, y: 0, z: 0}
 --- !u!114 &4722764194961129352
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,7 +12,8 @@ namespace HackedDesign
             if(other.CompareTag("Player"))
             {
                 Debug.Log("end of level trigger");
-                //Game.Instance.Data.currentLevel += 1;
+                Game.Instance.Data.currentLevel += 1;
+                Game.Instance.SetLoading();
             }
             
         }
