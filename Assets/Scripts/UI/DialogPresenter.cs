@@ -25,14 +25,12 @@ namespace HackedDesign.UI
 
             if (Game.Instance.Settings.dialogLines == null || Game.Instance.Settings.dialogLines.Count <= Game.Instance.Data.currentLevel || Game.Instance.Settings.dialogLines[Game.Instance.Data.currentLevel].lines == null || Game.Instance.Settings.dialogLines[Game.Instance.Data.currentLevel].lines.Count <= Game.Instance.Data.currentDialogLine)
             {
-                Debug.Log("Start game", this);
                 Game.Instance.Data.currentDialogLine = 0;
                 Game.Instance.SetPlaying();
             }
 
             else if (Game.Instance.Data.currentDialogLine >= Game.Instance.Settings.dialogLines[Game.Instance.Data.currentLevel].lines.Count)
             {
-                Debug.Log("Start game", this);
                 Game.Instance.Data.currentDialogLine = 0;
                 Game.Instance.SetPlaying();
             }

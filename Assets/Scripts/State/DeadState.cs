@@ -14,7 +14,6 @@ namespace HackedDesign
 
         public void Begin()
         {
-            Debug.Log("Dead");
             Game.Instance.Player.Die();
             this.deadPresenter.Show();
             this.deadPresenter.Repaint();

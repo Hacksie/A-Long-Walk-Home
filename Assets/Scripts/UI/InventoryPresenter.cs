@@ -27,17 +27,14 @@ namespace HackedDesign.UI
 
         public void HealClick()
         {
-            Debug.Log("Heal");
             Game.Instance.Player.Mech.MaxHeal();
         }
 
         public void ScrapClick()
         {
-            Debug.Log("Scrap click");
             if (selectedSlot != MechPosition.Nothing)
             {
                 var item = Game.Instance.Player.Mech.GetItem(selectedSlot);
-                Debug.Log("Scrap amount: " + item.scrapAmount);
             }
         }
 
@@ -248,11 +245,10 @@ namespace HackedDesign.UI
 
         public void ScrapDrop()
         {
-            Debug.Log("Scrapdrop " + dragSlot);
             var item = Game.Instance.Player.Mech.GetItem(dragSlot);
             if (item != null)
             {
-                Debug.Log("Scrap amount: " + item.scrapAmount);
+                Game.Instance.AddConsoleMessage("Scrap amount " + item.scrapAmount);
                 Game.Instance.Player.Mech.Data.scrap += item.scrapAmount;
                 Game.Instance.Player.Mech.SetItem(dragSlot, null);
 

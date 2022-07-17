@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,13 +8,20 @@ namespace HackedDesign
     {
         [SerializeField] private Transform healthBar;
         [SerializeField] private EnemyType enemyType;
+        [SerializeField] private MechController mech;
 
         [SerializeField] private UnityEvent behaviour;
         [SerializeField] private LayerMask envMask;
         [Header("Settings")]
         [SerializeField] public float health;
+        [SerializeField] public WeaponType nose;
+        [SerializeField] public WeaponType leftArm;
+        [SerializeField] public WeaponType rightArm;
+        [SerializeField] public WeaponType leftShoulder;
+        [SerializeField] public WeaponType rightShoulder;
 
         private float currentHealth;
+        private float maxHealth;
         [SerializeField] private EnemyState state;
 
         public EnemyType EnemyType { get => enemyType; set => enemyType = value; }
@@ -25,7 +29,34 @@ namespace HackedDesign
 
         public void Reset()
         {
-            currentHealth = health * (float)Math.Exp(Game.Instance.Data.currentLevel);
+            maxHealth = currentHealth = health * (float)Mathf.Exp(Game.Instance.Data.currentLevel);
+            ItemLevel itemLevel = ItemLevel.Scrap;
+            if (Game.Instance.Data.currentLevel <= 4)
+            {
+                itemLevel = (ItemLevel)Game.Instance.Data.currentLevel;
+            }
+            else
+            {
+                itemLevel = ItemLevel.Epic;
+            }
+
+            UpdateItemLevels(itemLevel);
+        }
+
+        private void UpdateItemLevels(ItemLevel itemLevel)
+        {
+            if (mech != null)
+            {
+                for (int i = 0; i < (int)MechPosition.Nose; i++)
+                {
+                    var item = mech.GetItem((MechPosition)i);
+                    if (item is not null)
+                    {
+                        item = item.Minimize(itemLevel);
+                        mech.SetItem((MechPosition)i, item);
+                    }
+                }
+            }
         }
 
         public void UpdateBehaviour()
@@ -36,16 +67,12 @@ namespace HackedDesign
 
         private void UpdateHealthBar()
         {
-            var scale = healthBar.localScale;
-            scale.x = currentHealth / health;
             if (healthBar != null)
             {
+                var scale = healthBar.localScale;
+                scale.x = currentHealth / maxHealth;
                 healthBar.localScale = scale;
                 healthBar.transform.LookAt(Game.Instance.MainCamera.transform);
-            }
-            else
-            {
-                Debug.LogWarning("Healthbar not set", this);
             }
         }
 
@@ -55,6 +82,7 @@ namespace HackedDesign
 
             if (currentHealth <= 0)
             {
+                Game.Instance.AddConsoleMessage(this.name + " exploded");
                 Explode();
             }
         }

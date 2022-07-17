@@ -10,9 +10,12 @@ scopes = {
 	"last_search.8C24D059" = ""
 	"OpenInspectorPreview.8C24D059" = "0"
 	"currentGroup.8C24D059" = "all"
-	"last_search.AE24D059" = "h: ref=<$object:none$>"
+	"last_search.AE24D059" = "t=AudioSource"
 	"OpenInspectorPreview.AE24D059" = "0"
 	"currentGroup.AE24D059" = "all"
+	"last_search.8BEC98E7" = "t=AudioSource"
+	"OpenInspectorPreview.8BEC98E7" = "0"
+	"currentGroup.8BEC98E7" = "scene"
 }
 providers = {
 	adb = {

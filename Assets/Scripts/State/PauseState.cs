@@ -14,7 +14,6 @@ namespace HackedDesign
 
         public void Begin()
         {
-            Debug.Log("Pause");
             this.pausePresenter.Show();
             this.pausePresenter.Repaint();
         }

@@ -7,7 +7,7 @@ namespace HackedDesign
     public class Settings : ScriptableObject
     {
         [Header("Game settings")]
-        public int maxLevels = 25;
+        public int maxLevels = 5;
         public bool skipIntro = true;
         public Vector2 worldSize = new Vector2(400, 400);
         public Vector2 safeArea = new Vector2(35, 35);
@@ -23,6 +23,7 @@ namespace HackedDesign
         public List<float> lootLevel = new List<float>();
         public float damageShakeAmount = 0.5f;
         public float damageShakeLength = 0.2f;
+        public int consoleLength = 10;
         
 
 

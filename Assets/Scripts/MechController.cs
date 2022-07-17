@@ -46,14 +46,23 @@ namespace HackedDesign
         public float RadarRange { get { return radar != null ? radar.baseRange : 0.0f; } }
         public float OverdriveMultiplier { get { return legs != null ? legs.baseOverdriveMult : 0; } }
         public float OverdriveCooldown { get { return overdriveCooldown; } }
+        public bool Overdriven { get => overdriven; private set => overdriven = value; }
+        public bool CanOverdrive { get => (legs != null && legs.baseOverdriveTime > 0); }
+        public float Coolant { get => Data.coolant; }
 
-        public void Awake()
+        void Awake()
         {
             CheckBindings();
+            // FIXME: Need to be able to load from save file
             for (int i = 0; i < 3; i++)
             {
                 data[i] = new MechData();
             }
+        }
+
+        void Start()
+        {
+            Reset();
         }
 
         private void CheckBindings()
@@ -61,11 +70,7 @@ namespace HackedDesign
 
         }
 
-        public void Start()
-        {
 
-            Reset();
-        }
 
         public void Reset()
         {
@@ -75,20 +80,37 @@ namespace HackedDesign
             UpdateModels();
         }
 
-        public void DamageArmour(float amount, bool shake)
+        public void Damage(float amount, bool show, bool shake)
         {
             Data.armour = Mathf.Clamp(Data.armour - amount, 0, ArmourMax);
-            if (shake)
+            if (show)
             {
-                Game.Instance.CameraShake.Shake(Game.Instance.Settings.damageShakeAmount, Game.Instance.Settings.damageShakeLength);
+                if (amount > 0)
+                {
+                    Game.Instance.AddConsoleMessage(this.name + " took " + amount.ToString("N2") + " damage");
+                }
+                else
+                {
+                    Game.Instance.AddConsoleMessage(this.name + " gained " + (-1 * amount).ToString("N2") + " damage");
+                }
             }
 
-            // Check if player
-            if (Data.armour <= 0)
+            if (this.gameObject.CompareTag("Player"))
             {
-                Game.Instance.Pool.SpawnExplosion(Game.Instance.Player.transform.position);
-                Game.Instance.SetDead();
+                if (shake)
+                {
+                    Game.Instance.CameraShake.Shake(Game.Instance.Settings.damageShakeAmount, Game.Instance.Settings.damageShakeLength);
+                }
+                // Check if player
+                if (Data.armour <= 0)
+                {
+                    Game.Instance.Pool.SpawnExplosion(Game.Instance.Player.transform.position);
+                    Game.Instance.SetDead();
+                }
             }
+
+
+
         }
 
         public void Overdrive()
@@ -99,8 +121,10 @@ namespace HackedDesign
                 var item = GetItem(MechPosition.Motor);
                 if (item != null)
                 {
-                    Debug.Log("OVERDRIVE!", this);
+                    Game.Instance.AddConsoleMessage("OVERDRIVE!");
+                    AudioManager.Instance.PlayOverdrive();
                     overdrive.Play();
+
                     overdriveTime = item.baseOverdriveTime;
                     overdriveCooldown = Time.time + (settings is not null ? settings.overdriveTime : 60);
                     overdriven = true;
@@ -129,7 +153,6 @@ namespace HackedDesign
             if (overdriven)
             {
                 overdriveTime -= deltaTime;
-                Debug.Log("OVERDRIVE!", this);
             }
         }
 
@@ -137,9 +160,10 @@ namespace HackedDesign
 
         public void MaxHeal()
         {
+            AudioManager.Instance.PlayRepair();
             float amountReq = ArmourMax - Data.armour;
             int amount = Mathf.CeilToInt(Mathf.Min(amountReq, Data.scrap));
-            DamageArmour(-1 * amount, false);
+            Damage(-1 * amount, true, false);
             Data.scrap -= amount;
         }
 
@@ -147,14 +171,14 @@ namespace HackedDesign
         {
             if (overdriven)
             {
-                DamageArmour(-4 * deltaTime, false);
+                Damage(-4 * deltaTime, false, false);
             }
 
             var item = GetItem(MechPosition.Armour);
 
             if (item != null)
             {
-                DamageArmour(-1 * item.baseArmourRegen * deltaTime, false);
+                Damage(-1 * item.baseArmourRegen * deltaTime, false, false);
             }
         }
 
@@ -175,7 +199,7 @@ namespace HackedDesign
         {
             if (IsOverheating)
             {
-                DamageArmour(Game.Instance.Data.overheatDamage * deltaTime, true);
+                Damage(Game.Instance.Data.overheatDamage * deltaTime, true, true);
                 //AudioManager.Instance.PlayWarning();
             }
         }
@@ -192,14 +216,17 @@ namespace HackedDesign
 
         public void CoolantDump()
         {
+            AudioManager.Instance.PlayCoolantDump();
             var amount = Data.coolant;
 
             IncreaseHeat(-1 * Data.coolant);
+            Game.Instance.AddConsoleMessage("Coolant dump " + amount.ToString("N0"));
             Data.coolant = 0;
         }
 
-        public bool FirePrimaryWeapon() => GetWeapon(selectedPrimaryWeapon).Fire();
-        public bool FireSecondaryWeapon() => GetWeapon(selectedSecondaryWeapon).Fire();
+        public bool FireWeapon(WeaponPosition position) => GetWeapon(position).Fire();
+        public bool FirePrimaryWeapon() => FireWeapon(selectedPrimaryWeapon);
+        public bool FireSecondaryWeapon() => FireWeapon(selectedSecondaryWeapon);
 
         public void FireAllWeapons()
         {
@@ -405,25 +432,25 @@ namespace HackedDesign
 
             if (item1 != null && !item1.canRemove)
             {
-                Debug.Log("Can't remove item1");
+                Game.Instance.AddConsoleMessage("Can't remove item 1");
                 return false;
             }
 
             if (item2 != null && !item2.canRemove)
             {
-                Debug.Log("Can't remove item2");
+                Game.Instance.AddConsoleMessage("Can't remove item 2");
                 return false;
             }
 
             if (item1 != null && !(item1.allowedMechPositions.Contains(pos2) || isInventoryPosition(pos2)))
             {
-                Debug.Log("Can't swap item1 here");
+                Game.Instance.AddConsoleMessage("Can't swap item 1 here");
                 return false;
             }
 
             if (item2 != null && !(item2.allowedMechPositions.Contains(pos1) || isInventoryPosition(pos1)))
             {
-                Debug.Log("Can't swap item2 here");
+                Game.Instance.AddConsoleMessage("Can't swap item 2 here");
                 return false;
             }
 
@@ -444,7 +471,6 @@ namespace HackedDesign
                     || pos == MechPosition.InvSlot5
                     || pos == MechPosition.InvSlot6
                     || pos == MechPosition.InvSlot7);
-
         }
 
         public void UpdateModels()

@@ -5,11 +5,13 @@ namespace HackedDesign
     public class LoadingState : IState
     {
         UI.AbstractPresenter loadingPresenter;
+        PlayerController player;
         int x = 0;
 
-        public LoadingState(UI.AbstractPresenter loadingPresenter)
+        public LoadingState(PlayerController player, UI.AbstractPresenter loadingPresenter)
         {
             this.loadingPresenter = loadingPresenter;
+            this.player = player;
         }
 
         public bool Playing => false;
@@ -17,7 +19,7 @@ namespace HackedDesign
         public void Begin()
         {
             x = 0;
-
+            this.player.NewLevel();
             this.loadingPresenter.Show();
         }
 
@@ -52,11 +54,9 @@ namespace HackedDesign
             Debug.Log("Loading Level");
             Game.Instance.Level.SpawnLevel(Game.Instance.Settings, Game.Instance.Data.currentLevel);
             Debug.Log("Loading Enemies");
-            Game.Instance.Enemies.SpawnEnemies(Game.Instance.Settings.enemyCount + (Game.Instance.Data.currentLevel * 10), Game.Instance.Settings);
-            Debug.Log("Loading Pickups");
-            Game.Instance.Enemies.SpawnPickups(Game.Instance.Settings);
-
+            Game.Instance.Enemies.Spawn(Game.Instance.Data.currentLevel, Game.Instance.Settings);
             Debug.Log("Level loaded");
+            Game.Instance.AddConsoleMessage("Arena Loaded");
             if (Game.Instance.Data.skipIntro)
             {
                 Game.Instance.SetPlaying();

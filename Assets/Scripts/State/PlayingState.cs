@@ -8,13 +8,15 @@ namespace HackedDesign
         EnemyManager enemies;
         UI.AbstractPresenter hudPresenter;
         UI.AbstractPresenter actionPresenter;
+        UI.AbstractPresenter consolePresenter;
 
-        public PlayingState(PlayerController player, EnemyManager enemies, UI.AbstractPresenter hudPresenter, UI.AbstractPresenter actionPresenter)
+        public PlayingState(PlayerController player, EnemyManager enemies, UI.AbstractPresenter hudPresenter, UI.AbstractPresenter actionPresenter, UI.AbstractPresenter consolePresenter)
         {
             this.player = player;
             this.enemies = enemies;
             this.hudPresenter = hudPresenter;
             this.actionPresenter = actionPresenter;
+            this.consolePresenter = consolePresenter;
         }
 
         public bool Playing => true;
@@ -23,12 +25,14 @@ namespace HackedDesign
         {
             this.hudPresenter.Show();
             this.actionPresenter.Show();
+            this.consolePresenter.Show();
         }
 
         public void End()
         {
             this.hudPresenter.Hide();
             this.actionPresenter.Hide();
+            this.consolePresenter.Hide();
         }
 
         public void Update()
@@ -40,8 +44,7 @@ namespace HackedDesign
             this.enemies.UpdateBehaviour();
             this.hudPresenter.Repaint();
             this.actionPresenter.Repaint();
-
-
+            //this.consolePresenter.Repaint();
         }
 
         public void FixedUpdate()

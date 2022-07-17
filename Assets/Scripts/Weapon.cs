@@ -40,12 +40,12 @@ namespace HackedDesign
 
                     if (isPlayer)
                     {
-                        nextFireTime = Time.time + (item.baseFireRate * (1 + Game.Instance.Player.Mech.OverdriveMultiplier));
+                        nextFireTime = Time.time + (item.baseFireRate * (1 + (Game.Instance.Player.Mech.Overdriven ? Game.Instance.Player.Mech.OverdriveMultiplier : 0))); // FIXME: 
                         Game.Instance.Player.Mech.IncreaseHeat(item.baseHeat);
                     }
                     else
                     {
-                        nextFireTime = Time.time + item.baseFireRate ;
+                        nextFireTime = Time.time + item.baseFireRate;
                     }
                     Game.Instance.CameraShake.Shake(item.shake, 0.1f);
                     PlaySFX(item);
@@ -74,8 +74,11 @@ namespace HackedDesign
         private void FireAmmo()
         {
             var dmg = Random.Range(item.baseMinDamage, item.baseMaxDamage);
+            if(!isPlayer)
+            {
+                dmg = dmg * (0.5f + (0.25f * PlayerPreferences.Instance.difficulty));
+            }
             // FIXME: Elec damage
-            //Debug.Log("Damage: " + dmg);
             Game.Instance.Pool.FireBullet(item.ammoType, parent, firePoint.position, firePoint.forward, dmg, 0);
         }
     }

@@ -38,7 +38,7 @@ namespace HackedDesign
         [SerializeField] public int scrapMulti = 1;
         [SerializeField] public InvIntRange[] genScrap = new InvIntRange[5];
         [SerializeField] public float baseCoolant = 0;
-        [SerializeField] public InvRange[] genCoolant = new InvRange[5];        
+        [SerializeField] public InvRange[] genCoolant = new InvRange[5];
         [SerializeField] public float shake = 0.5f;
         [SerializeField] public Sprite sprite;
         [SerializeField] public bool canRemove = true;
@@ -49,13 +49,13 @@ namespace HackedDesign
         {
             var settings = Game.Instance.Settings;
             InventoryItem item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.scrap);
-            item.Randomize();
+            item.Randomize(true);
             return item;
         }
 
         public static InventoryItem RandomItem()
         {
-            var roll = Mathf.FloorToInt(Random.value * 12.0f);
+            var roll = Mathf.FloorToInt(Random.value * 13.0f);
             var settings = Game.Instance.Settings;
             InventoryItem item;
             //FIXME: Check the roll against a loot table to allow for different chances for differen items
@@ -67,6 +67,7 @@ namespace HackedDesign
                     item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.scrap);
                     break;
                 case 1:
+                case 11: // Double roll armour
                     item = ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.armour);
                     break;
                 case 2:
@@ -102,7 +103,7 @@ namespace HackedDesign
                     //Scrap;
             }
 
-            item.Randomize();
+            item.Randomize(true);
             return item;
         }
 
@@ -144,10 +145,17 @@ namespace HackedDesign
 
 
 
-        public InventoryItem Randomize()
+        public InventoryItem Randomize(bool roll)
         {
             itemLevel = GenerateItemLevel();
-            return Randomize(itemLevel);
+            if (roll)
+            {
+                return Randomize(itemLevel);
+            }
+            else
+            {
+                return Minimize(itemLevel);
+            }
         }
         public InventoryItem Randomize(ItemLevel level)
         {
@@ -160,8 +168,25 @@ namespace HackedDesign
             baseMinDamage = GetRandomMinDamage(level);
             baseMaxDamage = GetRandomMaxDamage(level);
             baseHeat = GetRandomHeat(level);
-            baseOverdriveTime = GetRandomOverdriveTime(level); // FIXME: Generate this
+            baseOverdriveTime = GetRandomOverdriveTime(level);
             scrapAmount = GetRandomScrap(level);
+
+            return this;
+        }
+
+        public InventoryItem Minimize(ItemLevel level)
+        {
+            baseFireRate = GetMinFireRate(level);
+            baseSpeed = GetMinSpeed(level);
+            baseArmour = GetMinArmour(level);
+            baseArmourRegen = GetMinArmourRegen(level);
+            baseShield = GetMinShield(level);
+            baseRange = GetMinRange(level);
+            baseMinDamage = GetMinMinDamage(level);
+            baseMaxDamage = GetMinMaxDamage(level);
+            baseHeat = GetMinHeat(level);
+            baseOverdriveTime = GetMinOverdriveTime(level);
+            scrapAmount = GetMinScrap(level);
 
             return this;
         }
@@ -169,7 +194,7 @@ namespace HackedDesign
         private ItemLevel GenerateItemLevel()
         {
             var currentLevel = Game.Instance.Data.currentLevel;
-            var roll = Random.value * (1 + currentLevel / 10);
+            var roll = Random.value + (currentLevel / 10);
             return (ItemLevel)(Game.Instance.Settings.lootLevel.Count - Game.Instance.Settings.lootLevel.FindIndex(0, c => c <= roll) - 1);
         }
 
@@ -184,7 +209,19 @@ namespace HackedDesign
         public float GetRandomMaxDamage(ItemLevel level) => Random.Range(genMaxDamage[(int)level].min, genMaxDamage[(int)level].max);
         public float GetRandomOverdriveTime(ItemLevel level) => Random.Range(genOverdriveTime[(int)level].min, genOverdriveTime[(int)level].max);
         public int GetRandomScrap(ItemLevel level) => Random.Range(genScrap[(int)level].min, genScrap[(int)level].max);
-        
+
+        public float GetMinFireRate(ItemLevel level) => genFireRate[(int)level].min;
+        public float GetMinSpeed(ItemLevel level) => genSpeed[(int)level].min;
+        public float GetMinHeat(ItemLevel level) => genHeat[(int)level].min;
+        public float GetMinRange(ItemLevel level) => genRange[(int)level].min;
+        public float GetMinArmour(ItemLevel level) => genArmour[(int)level].min;
+        public float GetMinArmourRegen(ItemLevel level) => genArmourRegen[(int)level].min;
+        public float GetMinShield(ItemLevel level) => genShield[(int)level].min;
+        public float GetMinMinDamage(ItemLevel level) => genMinDamage[(int)level].min;
+        public float GetMinMaxDamage(ItemLevel level) => genMaxDamage[(int)level].min;
+        public float GetMinOverdriveTime(ItemLevel level) => genOverdriveTime[(int)level].min;
+        public int GetMinScrap(ItemLevel level) => genScrap[(int)level].min;
+
 
     }
 

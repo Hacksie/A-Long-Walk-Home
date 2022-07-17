@@ -8,7 +8,9 @@ namespace HackedDesign
     public class PlayerController : MonoBehaviour
     {
         [Header("GameObjects")]
+        [SerializeField] private Transform? hips;
         [SerializeField] private Transform? body;
+        [SerializeField] private GameObject? hipsDirArrow;
         [SerializeField] private Camera? mainCamera;
         [SerializeField] private Rigidbody? rb;
         [SerializeField] private PlayerInput? playerInput;
@@ -85,10 +87,9 @@ namespace HackedDesign
                 Debug.LogError("weapons is null", this);
                 return;
             }
+            NewLevel();
             mech.Reset();
             this.transform.position = settings.startPosition;
-            this.transform.rotation = Quaternion.Euler(0, 33, 0);
-            body.rotation = Quaternion.Euler(0, 33, 0);
             mech.selectedPrimaryWeapon = settings.startingPrimary;
             mech.selectedSecondaryWeapon = settings.startingSecondary;
             mech.linkArms = false;
@@ -108,9 +109,16 @@ namespace HackedDesign
             mech.SetItem(MechPosition.InvSlot5, null);
             mech.SetItem(MechPosition.InvSlot6, null);
             mech.SetItem(MechPosition.InvSlot7, null);
+
+            //mech.SetItem(MechPosition.Motor, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.motor));
         }
 
         public void Die()
+        {
+            ResetAnimation();
+        }
+
+        private void ResetAnimation()
         {
             moveAction?.Reset();
             Animate(Vector2.zero);
@@ -123,7 +131,11 @@ namespace HackedDesign
                 Debug.LogError("settings is null", this);
                 return;
             }
+            Cursor.SetCursor(defaultCursor, new Vector2(50, 50), CursorMode.Auto);
+            ResetAnimation();
             this.transform.position = settings.startPosition;
+            this.transform.rotation = Quaternion.Euler(0, 45, 0);
+            body.rotation = Quaternion.Euler(0, 45, 0);
         }
 
         public void UpdateBehaviour()
@@ -138,92 +150,7 @@ namespace HackedDesign
             }
         }
 
-        private void UpdateCursor(Vector2 mousePos)
-        {
 
-            if (mainCamera is null)
-            {
-                Debug.LogError("mainCamera not set", this);
-                return;
-            }
-
-            Ray ray = mainCamera.ScreenPointToRay(mousePos);
-            if (Physics.Raycast(ray.origin, ray.direction, out var hit, 20, deadenemyMask))
-            {
-                hit.collider.TryGetComponent<DeadEnemy>(out var deadEnemy);
-
-                if (deadEnemy is not null && deadEnemy.HasLoot)
-                {
-
-                    if ((transform.position - hit.collider.transform.position).sqrMagnitude <= (settings is not null ? settings.sqPickupRadius : 4f))
-                    {
-                        Cursor.SetCursor(pickupCursor, new Vector2(64, 64), CursorMode.Auto);
-                        return;
-                    }
-                    else
-                    {
-                        Cursor.SetCursor(outofrangeCursor, new Vector2(64, 64), CursorMode.Auto);
-                        return;
-                    }
-                }
-            }
-
-            Cursor.SetCursor(defaultCursor, new Vector2(64, 64), CursorMode.Auto);
-        }
-
-        private bool TryPickup()
-        {
-
-            if (mainCamera is null)
-            {
-                Debug.LogError("mainCamera not set", this);
-                return false;
-            }
-
-            var mousePos = GetMousePosition();
-
-
-            Ray ray = mainCamera.ScreenPointToRay(mousePos);
-            if (Physics.Raycast(ray.origin, ray.direction, out var hit, 20, deadenemyMask))
-            {
-                if ((transform.position - hit.collider.transform.position).sqrMagnitude <= (settings is not null ? settings.sqPickupRadius : 4f))
-                {
-                    Debug.Log("Can pickup");
-                    hit.collider.TryGetComponent<DeadEnemy>(out var deadEnemy);
-                    if (deadEnemy != null)
-                    {
-                        List<InventoryItem> pickedupItems = new List<InventoryItem>();
-                        foreach (var item in deadEnemy.loot)
-                        {
-                            if (Mech is not null && Mech.PickupItem(item))
-                            {
-                                Debug.Log("picked up " + item.name + " " + item.itemLevel);
-                                pickedupItems.Add(item);
-                                //deadEnemy.PickupLoot(item);
-                            }
-                            else
-                            {
-                                Debug.Log("could not pick up " + item.name);
-                            }
-                        }
-
-                        foreach (var item in pickedupItems)
-                        {
-                            deadEnemy.PickupLoot(item);
-                        }
-                    }
-
-
-                    return true;
-                }
-                else
-                {
-                    Debug.Log("Out of range");
-                    return false;
-                }
-            }
-            return false;
-        }
 
         public void FixedUpdateBehaviour()
         {
@@ -252,17 +179,33 @@ namespace HackedDesign
             }
 
             var movement = moveAction.ReadValue<Vector2>();
-            rb.MovePosition(this.transform.position + this.transform.forward * movement.y * Time.fixedDeltaTime * (Mech.WalkSpeed));
-            rb.MoveRotation(Quaternion.Euler(0, this.transform.rotation.eulerAngles.y + movement.x * Mech.RotateSpeed * Time.fixedDeltaTime, 0));
+            if (PlayerPreferences.Instance.mechControls)
+            {
+                rb.MovePosition(this.transform.position + (this.transform.forward * movement.y * Time.fixedDeltaTime * (Mech.WalkSpeed)));
+                rb.MoveRotation(Quaternion.Euler(0, this.transform.rotation.eulerAngles.y + movement.x * Mech.RotateSpeed * Time.fixedDeltaTime, 0));
+            }
+            else
+            {
+                rb.MovePosition(this.transform.position + (this.transform.forward * movement.y * Time.fixedDeltaTime * (Mech.WalkSpeed)) + (this.transform.right * movement.x * Time.fixedDeltaTime * (Mech.WalkSpeed)));
+                if (hips is not null && movement.sqrMagnitude > Vector3.kEpsilonNormalSqrt)
+                {
+                    var rotation = Quaternion.LookRotation(new Vector3(movement.x, 0, movement.y), Vector3.up);
+                    hips.rotation = Quaternion.Euler(0, rotation.eulerAngles.y + 45, 0);
+
+                }
+            }
+
+            hipsDirArrow?.SetActive(PlayerPreferences.Instance.mechControls);
+
             Animate(movement);
         }
 
-        public void OnStart(InputAction.CallbackContext context)
+        private void OnStart(InputAction.CallbackContext context)
         {
             Game.Instance.State.Start();
         }
 
-        public void OnSelect(InputAction.CallbackContext context)
+        private void OnSelect(InputAction.CallbackContext context)
         {
             Game.Instance.State.Select();
         }
@@ -307,7 +250,6 @@ namespace HackedDesign
 
         private void OnOverdriveAction(InputAction.CallbackContext context)
         {
-            Debug.Log("Overdrive");
             Mech?.Overdrive();
         }
 
@@ -383,6 +325,90 @@ namespace HackedDesign
                 body.rotation = Quaternion.Euler(0, rotation.eulerAngles.y, 0);
 
             }
+        }
+
+        private void UpdateCursor(Vector2 mousePos)
+        {
+
+
+            if (mainCamera is null)
+            {
+                Debug.LogError("mainCamera not set", this);
+                return;
+            }
+
+            Ray ray = mainCamera.ScreenPointToRay(mousePos);
+            if (Physics.Raycast(ray.origin, ray.direction, out var hit, 20, deadenemyMask))
+            {
+                hit.collider.TryGetComponent<DeadEnemy>(out var deadEnemy);
+
+                if (deadEnemy is not null && deadEnemy.HasLoot)
+                {
+
+                    if ((transform.position - hit.collider.transform.position).sqrMagnitude <= (settings is not null ? settings.sqPickupRadius : 4f))
+                    {
+                        Cursor.SetCursor(pickupCursor, new Vector2(50, 50), CursorMode.Auto);
+                        return;
+                    }
+                    else
+                    {
+                        Cursor.SetCursor(outofrangeCursor, new Vector2(50, 50), CursorMode.Auto);
+                        return;
+                    }
+                }
+            }
+
+            Cursor.SetCursor(defaultCursor, new Vector2(50, 50), CursorMode.Auto);
+        }
+
+        private bool TryPickup()
+        {
+
+            if (mainCamera is null)
+            {
+                Debug.LogError("mainCamera not set", this);
+                return false;
+            }
+
+            var mousePos = GetMousePosition();
+
+
+            Ray ray = mainCamera.ScreenPointToRay(mousePos);
+            if (Physics.Raycast(ray.origin, ray.direction, out var hit, 20, deadenemyMask))
+            {
+                if ((transform.position - hit.collider.transform.position).sqrMagnitude <= (settings is not null ? settings.sqPickupRadius : 4f))
+                {
+                    hit.collider.TryGetComponent<DeadEnemy>(out var deadEnemy);
+                    if (deadEnemy != null)
+                    {
+                        List<InventoryItem> pickedupItems = new List<InventoryItem>();
+                        foreach (var item in deadEnemy.loot)
+                        {
+                            if (Mech is not null && Mech.PickupItem(item))
+                            {
+                                Game.Instance.AddConsoleMessage("Picked up " + item.name + " (" + item.itemLevel + ")");
+                                pickedupItems.Add(item);
+                            }
+                            else
+                            {
+                                Game.Instance.AddConsoleMessage("Could not pick up " + item.name + " (" + item.itemLevel + ")");
+                            }
+                        }
+
+                        foreach (var item in pickedupItems)
+                        {
+                            deadEnemy.PickupLoot(item);
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    Game.Instance.AddConsoleMessage("Out of range");
+                    return false;
+                }
+            }
+            return false;
         }
 
         private void Animate(Vector2 movement)

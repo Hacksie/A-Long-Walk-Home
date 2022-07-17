@@ -20,17 +20,19 @@ MonoBehaviour:
   obstacleCount: 300
   enemyCount: 100
   coolantCount: 25
+  pickupCount: 20
   sqPickupRadius: 12.25
-  lootChance: 0.5
-  scrapChance: 0.5
+  lootChance: 0.4
+  scrapChance: 0.6
   lootLevel:
-  - 0.99
-  - 0.96
-  - 0.75
-  - 0.2
+  - 1.01
+  - 0.98
+  - 0.73
+  - 0.3
   - 0
   damageShakeAmount: 0.5
   damageShakeLength: 0.2
+  consoleLength: 9
   scrap: {fileID: 11400000, guid: ebac8ca73a159084fbfb6261b280391b, type: 2}
   motor: {fileID: 11400000, guid: e7dd4624cb9fd8243b3cea6f4071351c, type: 2}
   armour: {fileID: 11400000, guid: 9dd3ceb494cc80a4ea58c75a32b6fe12, type: 2}
@@ -50,4 +52,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7cb5f80067346de4abd1f48ae591f738, type: 2}
   - {fileID: 11400000, guid: 9a69531ae20e55346832367a966f6374, type: 2}
   - {fileID: 11400000, guid: 92c33f1c2c71d34499a0f8674e6bbd34, type: 2}
+  - {fileID: 11400000, guid: e54372bd3ed9244478cdb96145846c57, type: 2}
   startPosition: {x: 24, y: 0, z: 26}

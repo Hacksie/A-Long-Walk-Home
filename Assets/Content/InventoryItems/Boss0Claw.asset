@@ -1,0 +1,169 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df5667b83adca3f4baebc6f397d3cc02, type: 3}
+  m_Name: Boss0Claw
+  m_EditorClassIdentifier: 
+  allowedMechPositions: 0000000001000000
+  weaponType: 1
+  itemType: 1
+  itemLevel: 0
+  ammoType: 0
+  baseFireRate: 0.5
+  genFireRate:
+  - min: 1
+    max: 1
+  - min: 0.8
+    max: 0.8
+  - min: 0.33
+    max: 0.6
+  - min: 0.33
+    max: 0.6
+  - min: 0.27
+    max: 0.5
+  baseMinDamage: 10
+  genMinDamage:
+  - min: 10
+    max: 10
+  - min: 10
+    max: 20
+  - min: 15
+    max: 30
+  - min: 25
+    max: 40
+  - min: 35
+    max: 60
+  baseMaxDamage: 30
+  genMaxDamage:
+  - min: 15
+    max: 15
+  - min: 15
+    max: 30
+  - min: 35
+    max: 50
+  - min: 45
+    max: 90
+  - min: 120
+    max: 200
+  baseHeat: 0
+  genHeat:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseSpeed: 3
+  genSpeed:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseOverdriveTime: 0
+  genOverdriveTime:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseOverdriveMult: 0
+  genOverdriveMult:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseRange: 10
+  genRange:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseArmour: 0
+  genArmour:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseArmourRegen: 0
+  genArmourRegen:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  baseShield: 0
+  genShield:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  scrapAmount: 1
+  scrapMulti: 1
+  genScrap:
+  - min: 1
+    max: 1
+  - min: 3
+    max: 3
+  - min: 8
+    max: 8
+  - min: 21
+    max: 21
+  - min: 55
+    max: 55
+  shake: 0.1
+  sprite: {fileID: 1280609564, guid: b70d1ced80c336d40ac896344cc1d098, type: 3}
+  canRemove: 1
+  sfx: {fileID: 8300000, guid: 5a603f37d838e5a4e93dd45d5f044e19, type: 3}
+  sfxPitch: 1

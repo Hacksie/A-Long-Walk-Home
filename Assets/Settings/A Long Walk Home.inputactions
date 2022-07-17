@@ -112,6 +112,51 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Nose Fire",
+                    "type": "Button",
+                    "id": "cd35ea96-4806-49e6-8526-5a77071789f4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Right Arm Fire",
+                    "type": "Button",
+                    "id": "d769147d-6224-4ac4-a265-741b1eba8d24",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Left Arm Fire",
+                    "type": "Button",
+                    "id": "0978a3bb-3105-42e4-8ddf-719e0ad84b70",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Right Shoulder Fire",
+                    "type": "Button",
+                    "id": "5f6bd833-5e6d-4fd8-afdf-e9eb743eee87",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Left Shoulder Fire",
+                    "type": "Button",
+                    "id": "fb088b95-50f4-457f-b0dd-f697879b9945",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -491,6 +536,17 @@
                 },
                 {
                     "name": "",
+                    "id": "07f925a5-e272-4c5a-99e6-ef3d7b0ce470",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Overdrive",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "811e9661-8f4f-49d7-876c-4ac3f83077c9",
                     "path": "<Keyboard>/c",
                     "interactions": "",
@@ -519,6 +575,61 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Repair",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "61c754bb-4cc2-4cdc-9cbc-d48b7e50a95f",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Nose Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "59817691-d69f-4713-b579-866ef0bc83fa",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Right Arm Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b97ee9d5-7f03-44af-924f-1baccd662246",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Left Arm Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ac64aff-e524-4e6d-b19b-8cf720800995",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Right Shoulder Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e1cc239-9c8e-44a1-946d-8973acd46ee2",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Left Shoulder Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

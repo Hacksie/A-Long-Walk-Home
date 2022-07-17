@@ -25,7 +25,6 @@ namespace HackedDesign
 
             if (Random.value < settings.lootChance)
             {
-                Debug.Log("No loot", this);
                 UpdatePickupIndicator();
                 return;
             }
@@ -43,7 +42,6 @@ namespace HackedDesign
             }
 
             item = InventoryItem.RandomItem();
-            Debug.Log("Generated " + item.name + " " + item.itemLevel);
             loot = new List<InventoryItem>();
             loot.Add(item);
             UpdatePickupIndicator();

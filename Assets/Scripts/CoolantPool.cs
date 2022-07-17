@@ -14,11 +14,10 @@ namespace HackedDesign
         {
             if (other.CompareTag("Player"))
             {
-
-                Game.Instance.Player.Mech.IncreaseCoolant(Random.Range(minCoolantAmount, maxCoolantAmount));
+                var amount = Random.Range(minCoolantAmount, maxCoolantAmount);
+                Game.Instance.Player.Mech.IncreaseCoolant(amount);
+                Game.Instance.AddConsoleMessage("Coolant pickedup: " + amount.ToString("N0"));
                 this.gameObject.SetActive(false);
-                //pool.SetActive(false);
-                //collider.enabled = false;
             }
         }
     }

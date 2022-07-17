@@ -82,7 +82,6 @@ namespace HackedDesign
                     //TurretLookAt(playerPosition);
                     if (sqrDistanceToPlayer < (adjustRadius * adjustRadius))
                     {
-                        Debug.Log("too close");
                         SetAdjust();
                     }
                     else if (sqrDistanceToPlayer < (attackRadius * attackRadius))
@@ -101,14 +100,12 @@ namespace HackedDesign
                     }
                     else
                     {
-                        Debug.Log("too far");
                         SetAdjust();
                     }
                     break;
                 case EnemyState.Adjust:
                     if (Time.time >= adjustTimer)
                     {
-                        Debug.Log("Set idle from adjust");
                         SetIdle();
                     }
                     break;
@@ -138,7 +135,6 @@ namespace HackedDesign
             //TurretLookAt(playerPosition);
             agent.isStopped = false;
             agent.SetDestination(playerPosition);
-            Debug.Log("Set alert");
         }
 
         private void SetAttack(Vector3 playerPosition)
@@ -147,7 +143,6 @@ namespace HackedDesign
             //TurretLookAt(playerPosition);
             agent.isStopped = false;
             agent.SetDestination(playerPosition);
-            Debug.Log("Set attack");
         }
 
         private void SetAdjust()
@@ -156,7 +151,6 @@ namespace HackedDesign
             baseEnemy.State = EnemyState.Adjust;
             agent.SetDestination(transform.position + (transform.right * (Random.value < 0.5 ? -1 : 1) * alertRadius));
             agent.isStopped = false;
-            Debug.Log("Set setadjust");
         }
 
     }

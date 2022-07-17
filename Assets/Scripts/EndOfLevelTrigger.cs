@@ -9,13 +9,19 @@ namespace HackedDesign
     {
         public void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Player"))
+            if (other.CompareTag("Player"))
             {
-                Debug.Log("end of level trigger");
                 Game.Instance.Data.currentLevel += 1;
-                Game.Instance.SetLoading();
+                if (Game.Instance.Data.currentLevel < Game.Instance.Settings.maxLevels)
+                {
+                    Game.Instance.SetLoading();
+                }
+                else
+                {
+                    Game.Instance.SetGameoverState();
+                }
             }
-            
+
         }
     }
 }

@@ -26,7 +26,7 @@ namespace HackedDesign
         [SerializeField] private List<Enemy> enemyPrefabs = new List<Enemy>();
         [SerializeField] private List<DeadEnemy> deadEnemyPrefabs = new List<DeadEnemy>();
         [SerializeField] private List<Enemy> bossPrefabs = new List<Enemy>();
-        [SerializeField] private Enemy pickupPrefab = null;
+        [SerializeField] private List<Enemy> pickupPrefabs = new List<Enemy>();
 
         private List<Enemy> enemyPool = new List<Enemy>();
 
@@ -53,7 +53,19 @@ namespace HackedDesign
 
         }
 
-        public void SpawnPickups(Settings settings)
+        public void Spawn(int level, Settings settings)
+        {
+            Reset();
+            Debug.Log("Spawning enemies");
+            SpawnEnemies(settings.enemyCount + (level * 10), settings);
+            Debug.Log("Spawning boss");
+            SpawnBoss(level);
+            Debug.Log("Spawning pickups");
+            SpawnPickups(settings);
+
+        }
+
+        private void SpawnPickups(Settings settings)
         {
             int i = 0;
             int infiniteLoop = 0;
@@ -72,8 +84,10 @@ namespace HackedDesign
                 var spawnPos = new Vector3(x, 0, z);
 
                 var rotation = Quaternion.Euler(0, Random.Range(0, 359), 0);
-                var e = Instantiate(pickupPrefab, spawnPos, rotation, enemyParent);
-
+                var idx = Random.Range(0, pickupPrefabs.Count);
+                
+                var e = Instantiate(pickupPrefabs[idx], spawnPos, rotation, enemyParent);
+                e.name = pickupPrefabs[idx].name;
                 enemyPool.Add(e);
                 e.Reset();
 
@@ -84,9 +98,18 @@ namespace HackedDesign
             }
         }
 
-        public void SpawnEnemies(int enemyCount, Settings settings)
+        private void SpawnBoss(int level)
         {
-            Reset();
+            var rotation = Quaternion.Euler(0, -45, 0);
+            var e = Instantiate(bossPrefabs[level], bossPosition.position, rotation, enemyParent);
+            e.name = "Boss";
+            enemyPool.Add(e);
+            e.Reset();
+        }
+
+        private void SpawnEnemies(int enemyCount, Settings settings)
+        {
+            //Reset();
             int i = 0;
             int j = 0;
             int infiniteLoop = 0;
@@ -137,6 +160,7 @@ namespace HackedDesign
 
                 var rotation = Quaternion.Euler(0, Random.Range(0, 359), 0);
                 var e = Instantiate(enemyPrefabs[idx], spawnPos, rotation, enemyParent);
+                e.name = enemyPrefabs[idx].name;
 
                 enemyPool.Add(e);
                 e.Reset();
@@ -196,7 +220,7 @@ namespace HackedDesign
             //if(Physics.SphereCast(Vector3 position, ))
             if (Physics.CheckSphere(position, 1.5f, envObsMask, QueryTriggerInteraction.Ignore))
             {
-                Debug.Log("Obstacle overlap");
+                Debug.LogWarning("Obstacle overlap");
                 return false;
             }
 

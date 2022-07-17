@@ -31,16 +31,16 @@ MonoBehaviour:
     max: 0.25
   baseMinDamage: 10
   genMinDamage:
-  - min: 10
-    max: 10
-  - min: 12
+  - min: 4
+    max: 4
+  - min: 4
+    max: 7
+  - min: 7
+    max: 11
+  - min: 11
     max: 15
   - min: 12
-    max: 15
-  - min: 12
-    max: 15
-  - min: 12
-    max: 15
+    max: 16
   baseMaxDamage: 10
   genMaxDamage:
   - min: 5
@@ -162,6 +162,18 @@ MonoBehaviour:
     max: 32
   - min: 80
     max: 80
+  baseCoolant: 0
+  genCoolant:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
   shake: 0.5
   sprite: {fileID: 1351508869, guid: b70d1ced80c336d40ac896344cc1d098, type: 3}
   canRemove: 1

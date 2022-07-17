@@ -88,7 +88,7 @@ namespace HackedDesign
                     canPath = NavMesh.CalculatePath(Game.Instance.Player.transform.position, target.position, 1, navpath);
                     if (!canPath)
                     {
-                        Debug.Log("Can't path, reverting", this);
+                        Debug.LogWarning("Can't path, reverting", this);
                         for (int j = 0; j < lastObjects.Count; j++)
                         {
                             Destroy(lastObjects[j]);
@@ -103,7 +103,7 @@ namespace HackedDesign
             canPath = NavMesh.CalculatePath(Game.Instance.Player.transform.position, target.position, 1, navpath);
             if (!canPath)
             {
-                Debug.Log("Can't path, reverting", this);
+                Debug.LogWarning("Can't path, reverting", this);
                 for (int j = 0; j < lastObjects.Count; j++)
                 {
                     Destroy(lastObjects[j]);

@@ -8,7 +8,8 @@ namespace HackedDesign
         [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
         [SerializeField] private Enemy baseEnemy;
         [SerializeField] private float alertRadius = 50.0f;
-        [SerializeField] private float explosionDamage = 40.0f;
+        [SerializeField] private float minExplosionDamage = 20.0f;
+        [SerializeField] private float maxExplosionDamage = 50.0f;
 
         void Awake()
         {
@@ -31,8 +32,8 @@ namespace HackedDesign
         {
             if(collision.collider.CompareTag("Player"))
             {
-                Game.Instance.Player.Mech.DamageArmour(explosionDamage, true);
-                Debug.Log("Drone explode", this);
+                var dmg = Random.Range(minExplosionDamage, maxExplosionDamage) * (float)Mathf.Exp(Game.Instance.Data.currentLevel);
+                Game.Instance.Player.Mech.Damage(dmg, true, true);
                 baseEnemy.Explode();
             }
         }

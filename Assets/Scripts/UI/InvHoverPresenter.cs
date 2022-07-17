@@ -136,8 +136,8 @@ namespace HackedDesign.UI
         {
             itemType.text = "Motor";
             item1Value.text = "<color='#" + ColorUtility.ToHtmlStringRGB(typeColor) + "'>+" + currentItem.baseSpeed.ToString("N1") + " walk speed</color>";
-            item2Value.text = "";
-            item3Value.text = "";
+            item2Value.text = "<color='#" + ColorUtility.ToHtmlStringRGB(typeColor) + "'>+" + currentItem.baseOverdriveTime.ToString("N1") + " overdrive time</color>";
+            item3Value.text = "<color='#" + ColorUtility.ToHtmlStringRGB(typeColor) + "'>+" + currentItem.baseOverdriveMult.ToString("N1") + " overdrive mult</color>";
         }
         public void ShowRadar()
         {

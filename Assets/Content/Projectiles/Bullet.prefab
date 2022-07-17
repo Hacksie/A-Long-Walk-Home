@@ -50,8 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoType: 3
-  speed: 25
-  baseTimeout: 0.66
+  speed: 15
+  baseTimeout: 1.25
   addForce: 1
   explode: 1
 --- !u!54 &1449756959558690286
