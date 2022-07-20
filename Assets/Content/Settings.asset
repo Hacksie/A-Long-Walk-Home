@@ -47,7 +47,7 @@ MonoBehaviour:
   missiles: {fileID: 11400000, guid: f07ebf99ff26eac42a07e7d6d34230aa, type: 2}
   coolant: {fileID: 0}
   startingPrimary: 1
-  startingSecondary: 4
+  startingSecondary: 0
   dialogLines:
   - {fileID: 11400000, guid: 7cb5f80067346de4abd1f48ae591f738, type: 2}
   - {fileID: 11400000, guid: 9a69531ae20e55346832367a966f6374, type: 2}

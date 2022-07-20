@@ -10225,6 +10225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 7779222115645057319}
   enemyType: 0
+  mech: {fileID: 0}
   behaviour:
     m_PersistentCalls:
       m_Calls:
@@ -10240,10 +10241,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  pause:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4834324738802683043}
+        m_TargetAssemblyTypeName: HackedDesign.Drone, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   envMask:
     serializedVersion: 2
     m_Bits: 64
   health: 1
+  nose: 0
+  leftArm: 0
+  rightArm: 0
+  leftShoulder: 0
+  rightShoulder: 0
   state: 0
 --- !u!114 &4834324738802683043
 MonoBehaviour:
@@ -10260,7 +10281,8 @@ MonoBehaviour:
   agent: {fileID: 4978502164860694770}
   baseEnemy: {fileID: 8296345778051940470}
   alertRadius: 25
-  explosionDamage: 40
+  minExplosionDamage: 20
+  maxExplosionDamage: 50
 --- !u!195 &4978502164860694770
 NavMeshAgent:
   m_ObjectHideFlags: 0

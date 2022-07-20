@@ -34,13 +34,18 @@ namespace HackedDesign
             idleTimer += (Random.value * 5.0f);
         }
 
+        public void Pause()
+        {
+            SetIdle();
+        }
+
         public void UpdateBehaviour()
         {
             var playerPosition = Game.Instance.Player.transform.position;
             var playerDirection = playerPosition - this.transform.position;
             var sqrDistanceToPlayer = playerDirection.sqrMagnitude;
 
-            if(sqrDistanceToPlayer > 100)
+            if (sqrDistanceToPlayer > 100)
             {
                 SetIdle();
             }
@@ -58,7 +63,7 @@ namespace HackedDesign
                         SetPatrol();
                     }
                     break;
-                    
+
                 case EnemyState.Patrol:
                     if (sqrDistanceToPlayer < (alertRadius * alertRadius))
                     {
@@ -91,19 +96,19 @@ namespace HackedDesign
                     }
                     else if (sqrDistanceToPlayer < (attackRadius * attackRadius))
                     {
-                        if(Physics.Raycast(this.transform.position, playerDirection.normalized, out var hit, 20.0f))
+                        if (Physics.Raycast(this.transform.position, playerDirection.normalized, out var hit, 20.0f))
                         {
-                            if(hit.collider.CompareTag("Player"))
+                            if (hit.collider.CompareTag("Player"))
                             {
                                 controller?.FirePrimaryWeapon();
                             }
-                            else 
+                            else
                             {
                                 SetAdjust();
                             }
                         }
 
-                        
+
                     }
                     else
                     {

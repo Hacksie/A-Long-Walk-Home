@@ -13,7 +13,7 @@ namespace HackedDesign
         public float musicVolume;
         public bool infiniteWaves;
         public bool mechControls = false; 
-        public int difficulty = 1;
+        public int difficulty = 2;
 
         public static PlayerPreferences Instance { get; private set; }
 

@@ -14,6 +14,7 @@ namespace HackedDesign
 
         public void Begin()
         {
+            AudioManager.Instance.PlayDeadMusic();
             Game.Instance.Player.Die();
             this.deadPresenter.Show();
             this.deadPresenter.Repaint();
@@ -22,6 +23,7 @@ namespace HackedDesign
         public void End()
         {
             this.deadPresenter.Hide();
+            AudioManager.Instance.StopDeadMusic();
             
         }
 

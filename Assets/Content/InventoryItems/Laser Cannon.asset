@@ -29,18 +29,18 @@ MonoBehaviour:
     max: 0.3
   - min: 0.2
     max: 0.25
-  baseMinDamage: 10
+  baseMinDamage: 4
   genMinDamage:
-  - min: 4
+  - min: 2
+    max: 3
+  - min: 3
     max: 4
-  - min: 4
-    max: 7
+  - min: 5
+    max: 6
   - min: 7
-    max: 11
-  - min: 11
-    max: 15
-  - min: 12
-    max: 16
+    max: 9
+  - min: 10
+    max: 13
   baseMaxDamage: 10
   genMaxDamage:
   - min: 5

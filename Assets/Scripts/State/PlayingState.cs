@@ -26,10 +26,15 @@ namespace HackedDesign
             this.hudPresenter.Show();
             this.actionPresenter.Show();
             this.consolePresenter.Show();
+            AudioManager.Instance.PlayLoopMusic();
+
         }
 
         public void End()
         {
+            //AudioManager.Instance.StopIntroMusic();
+            AudioManager.Instance.PauseLoopMusic();
+            this.enemies.PauseEnemies();
             this.hudPresenter.Hide();
             this.actionPresenter.Hide();
             this.consolePresenter.Hide();
@@ -44,7 +49,6 @@ namespace HackedDesign
             this.enemies.UpdateBehaviour();
             this.hudPresenter.Repaint();
             this.actionPresenter.Repaint();
-            //this.consolePresenter.Repaint();
         }
 
         public void FixedUpdate()

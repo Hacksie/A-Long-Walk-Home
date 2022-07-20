@@ -24,10 +24,13 @@ namespace HackedDesign
             this.menuPanel.Show();
             mainCamera.gameObject.SetActive(false);
             menuCamera.gameObject.SetActive(true);
+            AudioManager.Instance.PlayMenuMusic();
         }
 
         public void End()
         {
+            AudioManager.Instance.StopMenuMusic();
+            AudioManager.Instance.StopLoopMusic();
             this.menuPanel.Hide();
             mainCamera.gameObject.SetActive(true);
             menuCamera.gameObject.SetActive(false);

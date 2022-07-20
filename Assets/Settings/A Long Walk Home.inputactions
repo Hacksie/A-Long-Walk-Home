@@ -282,6 +282,61 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "Numpad",
+                    "id": "2ccbac82-6520-49ca-9e1b-de1da3c59138",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "bfaf612e-c47c-4816-b2b3-bebd8746d7bf",
+                    "path": "<Keyboard>/numpad8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "100573a2-4274-456e-b25d-245d1a602f75",
+                    "path": "<Keyboard>/numpad2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "a562917c-2a97-40f6-b175-85f8d1f1e83e",
+                    "path": "<Keyboard>/numpad4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "eed24675-d0fd-4200-b5b1-1242e04285e5",
+                    "path": "<Keyboard>/numpad6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
                     "path": "<Gamepad>/rightStick",
@@ -376,6 +431,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Mouse Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d715fc8a-5ea8-4db7-9341-937ae3ff0293",
+                    "path": "<VirtualMouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Mouse Position",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -547,6 +613,17 @@
                 },
                 {
                     "name": "",
+                    "id": "91ae79a7-ff1b-46f0-9d3e-150d03921cc8",
+                    "path": "<Keyboard>/numpadPlus",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Overdrive",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "811e9661-8f4f-49d7-876c-4ac3f83077c9",
                     "path": "<Keyboard>/c",
                     "interactions": "",
@@ -569,8 +646,30 @@
                 },
                 {
                     "name": "",
+                    "id": "b59c1e8c-19fd-40c7-86bc-f16cc741346a",
+                    "path": "<Keyboard>/numpadEnter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Coolant Dump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "730a1f24-8ba4-4329-8826-cfe9bf2b3c9b",
                     "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Repair",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "285046a1-0020-4465-a797-ca8c357a0f08",
+                    "path": "<Keyboard>/numpadMultiply",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",

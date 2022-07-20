@@ -65,7 +65,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 56
+  m_VersionIndex: 59
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -9737,6 +9737,21 @@ MonoBehaviour:
       - m_Target: {fileID: 3059020358135776908}
         m_TargetAssemblyTypeName: HackedDesign.Tank, Assembly-CSharp
         m_MethodName: UpdateBehaviour
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  pause:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3059020358135776908}
+        m_TargetAssemblyTypeName: HackedDesign.Tank, Assembly-CSharp
+        m_MethodName: Pause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

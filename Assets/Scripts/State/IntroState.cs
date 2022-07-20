@@ -21,6 +21,7 @@ namespace HackedDesign
             //     Game.Instance.SetPlaying();
             // }
             //Time.timeScale = 0;
+            AudioManager.Instance.PlayLoopMusic();
             this.dialogPanel.Show();
         }
 

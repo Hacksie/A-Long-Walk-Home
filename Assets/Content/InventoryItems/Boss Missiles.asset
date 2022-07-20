@@ -162,8 +162,20 @@ MonoBehaviour:
     max: 34
   - min: 89
     max: 89
+  baseCoolant: 0
+  genCoolant:
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
+  - min: 0
+    max: 0
   shake: 0.5
   sprite: {fileID: -1659291940, guid: b70d1ced80c336d40ac896344cc1d098, type: 3}
   canRemove: 1
-  sfx: {fileID: 0}
+  sfx: {fileID: 8300000, guid: 5a603f37d838e5a4e93dd45d5f044e19, type: 3}
   sfxPitch: 1

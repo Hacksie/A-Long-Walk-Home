@@ -45694,7 +45694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5349860751086311601
 Transform:
   m_ObjectHideFlags: 0
@@ -61215,9 +61215,9 @@ MonoBehaviour:
   deadenemyMask:
     serializedVersion: 2
     m_Bits: 2048
-  defaultCursor: {fileID: 2800000, guid: 54a91440511bb794ab8d00c06ed30c40, type: 3}
-  pickupCursor: {fileID: 2800000, guid: ee84827e748ec9745a0b9f62a852214d, type: 3}
-  outofrangeCursor: {fileID: 2800000, guid: 2bac022c7fbb4a64f888c2d00be07f8a, type: 3}
+  defaultCursor: {fileID: 2800000, guid: 6ab895daf851711498072e2c7a77f76f, type: 3}
+  pickupCursor: {fileID: 2800000, guid: 6c04d296327587146a045f881ed61e7f, type: 3}
+  outofrangeCursor: {fileID: 2800000, guid: 52c44de86de6e7a4ea48f01230a6c84d, type: 3}
 --- !u!114 &5349860752053088543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61266,9 +61266,7 @@ MonoBehaviour:
     heat: 0
     coolant: 100
   selectedPrimaryWeapon: 0
-  selectedSecondaryWeapon: 4
-  linkArms: 0
-  linkShoulders: 0
+  selectedSecondaryWeapon: 1
 --- !u!114 &5349860752053088516
 MonoBehaviour:
   m_ObjectHideFlags: 0

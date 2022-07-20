@@ -6,8 +6,6 @@ namespace HackedDesign.UI
 {
     public class ActionPresenter : AbstractPresenter
     {
-        [SerializeField] private GameObject linkArms;
-        [SerializeField] private GameObject linkShoulders;
         [SerializeField] private List<UnityEngine.UI.Image> frames;
         [SerializeField] private List<UnityEngine.UI.Image> icons;
         [SerializeField] private Color defaultColor = Color.white;
@@ -23,8 +21,7 @@ namespace HackedDesign.UI
         public override void Repaint()
         {
             var mech = Game.Instance.Player.Mech;
-            linkArms.SetActive(mech.linkArms);
-            linkShoulders.SetActive(mech.linkShoulders);
+
             var cooldown = mech.OverdriveCooldown - Time.time;
             overdriveText.text = cooldown <= 0 ? "" : cooldown.ToString("N0");
             scrapText.text = mech.Scrap.ToString("N0");
@@ -38,22 +35,22 @@ namespace HackedDesign.UI
         public void LeftArmClick()
         {
             Game.Instance.Player.Mech?.FireWeapon(WeaponPosition.LeftArm);
-        }   
+        }
 
         public void RightArmClick()
         {
             Game.Instance.Player.Mech?.FireWeapon(WeaponPosition.RightArm);
-        }                
+        }
 
         public void LeftShoulderClick()
         {
             Game.Instance.Player.Mech?.FireWeapon(WeaponPosition.LeftShoulder);
-        }           
+        }
 
         public void RightShoulderClick()
         {
             Game.Instance.Player.Mech?.FireWeapon(WeaponPosition.RightShoulder);
-        }           
+        }
 
         public void NoseClick()
         {

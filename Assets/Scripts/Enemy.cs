@@ -11,6 +11,7 @@ namespace HackedDesign
         [SerializeField] private MechController mech;
 
         [SerializeField] private UnityEvent behaviour;
+        [SerializeField] private UnityEvent pause;
         [SerializeField] private LayerMask envMask;
         [Header("Settings")]
         [SerializeField] public float health;
@@ -43,6 +44,11 @@ namespace HackedDesign
             UpdateItemLevels(itemLevel);
         }
 
+        public void Pause()
+        {
+            pause.Invoke();
+        }
+
         private void UpdateItemLevels(ItemLevel itemLevel)
         {
             if (mech != null)
@@ -72,7 +78,7 @@ namespace HackedDesign
                 var scale = healthBar.localScale;
                 scale.x = currentHealth / maxHealth;
                 healthBar.localScale = scale;
-                healthBar.transform.LookAt(Game.Instance.MainCamera.transform);
+                //healthBar.transform.LookAt(Game.Instance.MainCamera.transform);
             }
         }
 

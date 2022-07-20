@@ -25,8 +25,12 @@ namespace HackedDesign.UI
             if (gameObject.activeInHierarchy)
             {
                 var pos = mousePosAction.ReadValue<Vector2>();
+                var newx = (pos.x / Screen.currentResolution.width) * 1920;
+                var newy = (pos.y / Screen.currentResolution.height) * 1080;
                 //transform.localPosition = pos;
-                rect.anchoredPosition = pos;
+                rect.anchoredPosition = new Vector2(newx, newy);
+                //transform.localPosition = pos;
+                //rect.anchoredPosition = pos;
             }
         }
 

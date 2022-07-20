@@ -40,11 +40,14 @@ namespace HackedDesign
         private InputAction? overdriveAction;
         private InputAction? coolantAction;
 
+        private Texture2D currentCursor;
+
 
         private RaycastHit[] raycastHits = new RaycastHit[1];
 
         void Awake()
         {
+            currentCursor = defaultCursor;
             playerInput = playerInput ?? GetComponent<PlayerInput>();
             rb = rb ?? GetComponent<Rigidbody>();
             animator = animator ?? GetComponent<Animator>();
@@ -92,8 +95,6 @@ namespace HackedDesign
             this.transform.position = settings.startPosition;
             mech.selectedPrimaryWeapon = settings.startingPrimary;
             mech.selectedSecondaryWeapon = settings.startingSecondary;
-            mech.linkArms = false;
-            mech.linkShoulders = false;
             mech.UpdateModels();
             mech.SetItem(MechPosition.RightArm, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.claw));
             mech.SetItem(MechPosition.LeftArm, ScriptableObject.CreateInstance<InventoryItem>().Copy(settings.cannon));
@@ -131,7 +132,7 @@ namespace HackedDesign
                 Debug.LogError("settings is null", this);
                 return;
             }
-            Cursor.SetCursor(defaultCursor, new Vector2(50, 50), CursorMode.Auto);
+            SetCursor(defaultCursor);
             ResetAnimation();
             this.transform.position = settings.startPosition;
             this.transform.rotation = Quaternion.Euler(0, 45, 0);
@@ -191,7 +192,6 @@ namespace HackedDesign
                 {
                     var rotation = Quaternion.LookRotation(new Vector3(movement.x, 0, movement.y), Vector3.up);
                     hips.rotation = Quaternion.Euler(0, rotation.eulerAngles.y + 45, 0);
-
                 }
             }
 
@@ -347,18 +347,29 @@ namespace HackedDesign
 
                     if ((transform.position - hit.collider.transform.position).sqrMagnitude <= (settings is not null ? settings.sqPickupRadius : 4f))
                     {
-                        Cursor.SetCursor(pickupCursor, new Vector2(50, 50), CursorMode.Auto);
+                        SetCursor(pickupCursor);
                         return;
                     }
                     else
                     {
-                        Cursor.SetCursor(outofrangeCursor, new Vector2(50, 50), CursorMode.Auto);
+                        SetCursor(outofrangeCursor);
                         return;
                     }
                 }
             }
 
-            Cursor.SetCursor(defaultCursor, new Vector2(50, 50), CursorMode.Auto);
+            SetCursor(defaultCursor);
+        }
+
+        private void SetCursor(Texture2D cursor)
+        {
+            
+            if (cursor != currentCursor)
+            {
+                Cursor.SetCursor(cursor, new Vector2(32, 32), CursorMode.Auto);
+                currentCursor = cursor;
+            }
+
         }
 
         private bool TryPickup()
@@ -381,23 +392,30 @@ namespace HackedDesign
                     hit.collider.TryGetComponent<DeadEnemy>(out var deadEnemy);
                     if (deadEnemy != null)
                     {
-                        List<InventoryItem> pickedupItems = new List<InventoryItem>();
-                        foreach (var item in deadEnemy.loot)
+                        if (deadEnemy.loot.Count > 0)
                         {
-                            if (Mech is not null && Mech.PickupItem(item))
+                            List<InventoryItem> pickedupItems = new List<InventoryItem>();
+                            foreach (var item in deadEnemy.loot)
                             {
-                                Game.Instance.AddConsoleMessage("Picked up " + item.name + " (" + item.itemLevel + ")");
-                                pickedupItems.Add(item);
+                                if (Mech is not null && Mech.PickupItem(item))
+                                {
+                                    Game.Instance.AddConsoleMessage("Picked up " + item.name + " (" + item.itemLevel + ")");
+                                    pickedupItems.Add(item);
+                                }
+                                else
+                                {
+                                    Game.Instance.AddConsoleMessage("Could not pick up " + item.name + " (" + item.itemLevel + ")");
+                                }
                             }
-                            else
+
+                            foreach (var item in pickedupItems)
                             {
-                                Game.Instance.AddConsoleMessage("Could not pick up " + item.name + " (" + item.itemLevel + ")");
+                                deadEnemy.PickupLoot(item);
                             }
                         }
-
-                        foreach (var item in pickedupItems)
+                        else
                         {
-                            deadEnemy.PickupLoot(item);
+                            Game.Instance.AddConsoleMessage("No loot");
                         }
                     }
                     return true;
@@ -413,8 +431,17 @@ namespace HackedDesign
 
         private void Animate(Vector2 movement)
         {
-            animator?.SetFloat("Rotation", movement.x);
-            animator?.SetFloat("Speed", movement.y);
+            if (PlayerPreferences.Instance.mechControls)
+            {
+                animator?.SetFloat("Rotation", movement.x);
+                animator?.SetFloat("Speed", movement.y);
+            }
+            else
+            {
+                animator?.SetFloat("Speed", movement.magnitude);
+                animator?.SetFloat("Rotation", 0);
+            }
+
         }
     }
 }

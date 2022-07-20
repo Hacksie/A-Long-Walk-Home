@@ -40,6 +40,11 @@ namespace HackedDesign
             idleTimer += (Random.value * 5.0f);
         }
 
+        public void Pause()
+        {
+            SetIdle();
+        }
+
         public void UpdateBehaviour()
         {
             var playerPosition = Game.Instance.Player.transform.position;

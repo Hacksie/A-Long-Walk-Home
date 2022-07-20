@@ -151,8 +151,10 @@ namespace HackedDesign.UI
         public void UpdateHoverLocation()
         {
             var pos = mousePosAction.ReadValue<Vector2>();
+            var newx = (pos.x / Screen.currentResolution.width) * 1920;
+            var newy = (pos.y / Screen.currentResolution.height) * 1080;
             //transform.localPosition = pos;
-            rect.anchoredPosition = pos;
+            rect.anchoredPosition = new Vector2(newx, newy);
 
         }
 

@@ -30,6 +30,7 @@ namespace HackedDesign
             //shopCamera.gameObject.SetActive(true);
             mainCamera.gameObject.SetActive(false);
             loadoutCamera.gameObject.SetActive(true);
+            AudioManager.Instance.PlayMenuMusic();
             //GameManager.Instance.GameData.heat = 0;
             //GameManager.Instance.GameData.coolant = GameManager.Instance.GameSettings.maxCoolant;
             
@@ -37,6 +38,7 @@ namespace HackedDesign
 
         public void End()
         {
+            AudioManager.Instance.StopMenuMusic();
             Time.timeScale = 1;
             //this.shopPanel.Hide();
             this.invPanel.Hide();

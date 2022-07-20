@@ -25,9 +25,6 @@ namespace HackedDesign
         [SerializeField] public WeaponPosition selectedPrimaryWeapon = 0;
         [SerializeField] public WeaponPosition selectedSecondaryWeapon = 0;
 
-        [SerializeField] public bool linkArms = false;
-        [SerializeField] public bool linkShoulders = false;
-
         private bool overdriven = false;
         private float overdriveTime = 0;
         private float overdriveCooldown = 0;

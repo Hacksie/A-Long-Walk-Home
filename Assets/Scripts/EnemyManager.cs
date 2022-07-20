@@ -195,6 +195,17 @@ namespace HackedDesign
             }
         }
 
+        public void PauseEnemies()
+        {
+            foreach (var enemy in enemyPool)
+            {
+                if (enemy.gameObject.activeInHierarchy)
+                {
+                    enemy.Pause();
+                }
+            }
+        }
+
         private bool IsSafeLocationToCluster(Vector3 position, Settings settings)
         {
             if (position.x <= settings.safeArea.x && position.z <= settings.safeArea.y)

@@ -18,11 +18,8 @@ namespace HackedDesign
         [Header("Music")]
         [SerializeField] private AudioSource menuMusic;
         [SerializeField] private AudioSource introMusic;
-        [SerializeField] private AudioSource incomingMusic;
-        [SerializeField] private AudioSource attackMusic;
-        [SerializeField] private AudioSource intermissionMusic;
+        [SerializeField] private AudioSource loopMusic;
         [SerializeField] private AudioSource deadMusic;
-        [SerializeField] private AudioSource successMusic;
 
         public static AudioManager Instance { get; private set; }
 
@@ -116,68 +113,50 @@ namespace HackedDesign
             introMusic?.Play();
         }
 
+        public bool IntroMusicIsPlaying { get => introMusic.isPlaying; }
+
         public void StopIntroMusic()
         {
             introMusic?.Stop();
         }
 
-        public void PlayIncomingMusic()
+        public void PlayLoopMusic()
         {
-            if (incomingMusic != null && !incomingMusic.isPlaying)
+
+            if (loopMusic != null && !loopMusic.isPlaying && loopMusic.time == 0)
             {
-                incomingMusic?.Play();
+                loopMusic?.Play();
+            }
+            else if (loopMusic != null && !loopMusic.isPlaying && loopMusic.time != 0)
+            {
+                loopMusic?.UnPause();
             }
         }
 
-        public void StopIncomingMusic()
+        public void PauseLoopMusic()
         {
-            incomingMusic?.Stop();
-        }
-
-        public void PlayAttackMusic()
-        {
-            if (attackMusic != null && !attackMusic.isPlaying)
+            if (loopMusic != null && loopMusic.isPlaying)
             {
-                attackMusic?.Play();
+                loopMusic?.Pause();
             }
         }
 
-        public void StopAttackMusic()
+        public void StopLoopMusic()
         {
-            attackMusic?.Stop();
-        }
-
-        public void PlayIntermissionMusic()
-        {
-            if (intermissionMusic != null && !intermissionMusic.isPlaying)
-            {
-                intermissionMusic?.Play();
-            }
-        }
-
-        public void StopIntermissionMusic()
-        {
-            intermissionMusic?.Stop();
+            loopMusic?.Stop();
         }
 
         public void PlayDeadMusic()
         {
-            deadMusic?.Play();
+            if (deadMusic != null && !deadMusic.isPlaying)
+            {
+                deadMusic?.Play();
+            }
         }
 
         public void StopDeadMusic()
         {
             deadMusic?.Stop();
-        }
-
-        public void PlaySuccessMusic()
-        {
-            successMusic?.Play();
-        }
-
-        public void StopSuccessMusic()
-        {
-            successMusic?.Stop();
         }
 
     }

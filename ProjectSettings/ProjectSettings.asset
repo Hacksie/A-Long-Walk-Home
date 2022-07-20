@@ -14,8 +14,8 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: hacked.design
   productName: A Long Walk Home
-  defaultCursor: {fileID: 2800000, guid: 22d486a9be2c77e478e233e7a36c0f46, type: 3}
-  cursorHotspot: {x: 50, y: 50}
+  defaultCursor: {fileID: 2800000, guid: 6ab895daf851711498072e2c7a77f76f, type: 3}
+  cursorHotspot: {x: 16, y: 16}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
@@ -139,8 +139,9 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.0a
+  bundleVersion: 1.0rc2
   preloadedAssets:
+  - {fileID: 0}
   - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0

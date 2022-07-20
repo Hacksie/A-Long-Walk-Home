@@ -61036,10 +61036,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  pause:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7072610085484087011}
+        m_TargetAssemblyTypeName: HackedDesign.Boss, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   envMask:
     serializedVersion: 2
     m_Bits: 64
-  health: 50
+  health: 150
   nose: 0
   leftArm: 0
   rightArm: 0
@@ -61124,8 +61139,6 @@ MonoBehaviour:
     coolant: 100
   selectedPrimaryWeapon: 1
   selectedSecondaryWeapon: 0
-  linkArms: 0
-  linkShoulders: 0
 --- !u!54 &5349860752053088517
 Rigidbody:
   m_ObjectHideFlags: 0

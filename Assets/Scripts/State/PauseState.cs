@@ -14,12 +14,16 @@ namespace HackedDesign
 
         public void Begin()
         {
+            Time.timeScale = 0;
             this.pausePresenter.Show();
             this.pausePresenter.Repaint();
+            AudioManager.Instance.PlayMenuMusic();
         }
 
         public void End()
         {
+            Time.timeScale = 1;
+            AudioManager.Instance.StopMenuMusic();
             this.pausePresenter.Hide();
         }
 
