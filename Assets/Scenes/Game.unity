@@ -645,7 +645,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9571f8098c650a44c8c731748ab32f64,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9571f8098c650a44c8c731748ab32f64,
         type: 3}
@@ -4617,7 +4617,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9571f8098c650a44c8c731748ab32f64,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9571f8098c650a44c8c731748ab32f64,
         type: 3}
@@ -19069,7 +19069,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a4dd4d6387cf0924f96ffde084e022e5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4dd4d6387cf0924f96ffde084e022e5,
         type: 3}
@@ -19115,6 +19115,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: terrain_sideCorner (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a4dd4d6387cf0924f96ffde084e022e5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -21434,7 +21439,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a4dd4d6387cf0924f96ffde084e022e5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4dd4d6387cf0924f96ffde084e022e5,
         type: 3}
@@ -21480,6 +21485,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: terrain_sideCorner
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a4dd4d6387cf0924f96ffde084e022e5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -27874,7 +27884,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9571f8098c650a44c8c731748ab32f64,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9571f8098c650a44c8c731748ab32f64,
         type: 3}
@@ -32804,7 +32814,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9571f8098c650a44c8c731748ab32f64,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9571f8098c650a44c8c731748ab32f64,
         type: 3}
@@ -37727,7 +37737,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a4dd4d6387cf0924f96ffde084e022e5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4dd4d6387cf0924f96ffde084e022e5,
         type: 3}
@@ -37773,6 +37783,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: terrain_sideCorner (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a4dd4d6387cf0924f96ffde084e022e5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -39387,7 +39402,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a4dd4d6387cf0924f96ffde084e022e5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4dd4d6387cf0924f96ffde084e022e5,
         type: 3}
@@ -39433,6 +39448,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: terrain_sideCorner (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a4dd4d6387cf0924f96ffde084e022e5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
